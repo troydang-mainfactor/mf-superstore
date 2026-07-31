@@ -1,0 +1,575 @@
+{% doc %}
+  @prompt
+    generate a block that allows me to add a menu and stylize it. I want it to act like a menu that would be in a header except not in the header., make sure the items are centered. it's super off centered right now.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-nav-menu-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-nav-menu__container-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    align-items: center;
+    gap: {{ block.settings.item_spacing }}px;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: {{ block.settings.desktop_width_percent }}%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-nav-menu__item-{{ ai_gen_id }} {
+    position: relative;
+    list-style: none;
+  }
+
+  .ai-nav-menu__link-{{ ai_gen_id }} {
+    display: inline-block;
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    padding: {{ block.settings.link_padding_vertical }}px {{ block.settings.link_padding_horizontal }}px;
+    border-radius: {{ block.settings.link_border_radius }}px;
+    transition: all 0.3s ease;
+    {% if block.settings.text_transform == 'uppercase' %}
+      text-transform: uppercase;
+    {% elsif block.settings.text_transform == 'capitalize' %}
+      text-transform: capitalize;
+    {% endif %}
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+  }
+
+  .ai-nav-menu__link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+    background-color: {{ block.settings.link_hover_bg }};
+  }
+
+  .ai-nav-menu__item-{{ ai_gen_id }}--has-dropdown > .ai-nav-menu__link-{{ ai_gen_id }}::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 6px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid currentColor;
+    vertical-align: middle;
+  }
+
+  .ai-nav-menu__dropdown-{{ ai_gen_id }} {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: {{ block.settings.dropdown_bg_color }};
+    min-width: 200px;
+    padding: {{ block.settings.dropdown_padding }}px 0;
+    border-radius: {{ block.settings.dropdown_border_radius }}px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    margin-top: 8px;
+    list-style: none;
+    margin-left: 0;
+  }
+
+  .ai-nav-menu__item-{{ ai_gen_id }}:hover .ai-nav-menu__dropdown-{{ ai_gen_id }} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .ai-nav-menu__dropdown-link-{{ ai_gen_id }} {
+    display: block;
+    color: {{ block.settings.dropdown_link_color }};
+    text-decoration: none;
+    padding: {{ block.settings.dropdown_link_padding }}px {{ block.settings.dropdown_padding }}px;
+    font-size: {{ block.settings.dropdown_font_size }}px;
+    transition: all 0.2s ease;
+  }
+
+  .ai-nav-menu__dropdown-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.dropdown_link_hover_color }};
+    background-color: {{ block.settings.dropdown_link_hover_bg }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-nav-menu__container-{{ ai_gen_id }} {
+      {% if block.settings.mobile_layout == 'vertical' %}
+        flex-direction: column;
+        align-items: stretch;
+      {% endif %}
+      gap: {{ block.settings.mobile_item_spacing }}px;
+      max-width: 100%;
+    }
+
+    .ai-nav-menu__link-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_font_size }}px;
+      {% if block.settings.mobile_layout == 'vertical' %}
+        width: 100%;
+        text-align: {{ block.settings.mobile_text_align }};
+      {% endif %}
+    }
+
+    .ai-nav-menu__dropdown-{{ ai_gen_id }} {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      margin-top: 0;
+      padding-left: 20px;
+      background-color: transparent;
+    }
+
+    .ai-nav-menu__item-{{ ai_gen_id }}--has-dropdown > .ai-nav-menu__link-{{ ai_gen_id }}::after {
+      display: none;
+    }
+  }
+{% endstyle %}
+
+<nav-menu-{{ ai_gen_id }} class="ai-nav-menu-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.menu != blank %}
+    <ul class="ai-nav-menu__container-{{ ai_gen_id }}">
+      {% for link in block.settings.menu.links %}
+        {%- comment %}<locksmith:fc18>{% endcomment -%}
+          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: block.settings.menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:fc18>{% endcomment -%}
+        <li class="ai-nav-menu__item-{{ ai_gen_id }} {% if link.links != blank %}ai-nav-menu__item-{{ ai_gen_id }}--has-dropdown{% endif %}">
+          <a href="{{ link.url }}" class="ai-nav-menu__link-{{ ai_gen_id }}">
+            {{ link.title }}
+          </a>
+          
+          {% if link.links != blank %}
+            <ul class="ai-nav-menu__dropdown-{{ ai_gen_id }}">
+              {% for child_link in link.links %}
+                {%- comment %}<locksmith:7456>{% endcomment -%}
+                  {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: child_link, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                {%- comment %}</locksmith:7456>{% endcomment -%}
+                <li>
+                  <a href="{{ child_link.url }}" class="ai-nav-menu__dropdown-link-{{ ai_gen_id }}">
+                    {{ child_link.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div style="padding: 20px; text-align: center; color: #666; font-size: 14px;">
+      Select a menu to display navigation links
+    </div>
+  {% endif %}
+</nav-menu-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class NavMenu{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupMobileDropdowns();
+      }
+
+      setupMobileDropdowns() {
+        if (window.innerWidth <= 749) {
+          const dropdownItems = this.querySelectorAll('.ai-nav-menu__item-{{ ai_gen_id }}--has-dropdown');
+          
+          dropdownItems.forEach((item) => {
+            const link = item.querySelector('.ai-nav-menu__link-{{ ai_gen_id }}');
+            const dropdown = item.querySelector('.ai-nav-menu__dropdown-{{ ai_gen_id }}');
+            
+            if (link && dropdown) {
+              dropdown.style.display = 'none';
+              
+              link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const isVisible = dropdown.style.display === 'block';
+                dropdown.style.display = isVisible ? 'none' : 'block';
+              });
+            }
+          });
+        }
+      }
+    }
+
+    customElements.define('nav-menu-{{ ai_gen_id }}', NavMenu{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Navigation menu",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        },
+        {
+          "value": "space-between",
+          "label": "Space between"
+        },
+        {
+          "value": "space-around",
+          "label": "Space around"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Container style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Item spacing",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Link style"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Hover color",
+      "default": "#de2e2e"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_bg",
+      "label": "Hover background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "link_padding_vertical",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "link_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "link_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Dropdown style"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_link_color",
+      "label": "Link color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_link_hover_color",
+      "label": "Hover color",
+      "default": "#de2e2e"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_link_hover_bg",
+      "label": "Hover background",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "range",
+      "id": "dropdown_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "dropdown_padding",
+      "label": "Padding",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "dropdown_link_padding",
+      "label": "Link padding",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "dropdown_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_spacing",
+      "label": "Item spacing",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Navigation menu"
+    }
+  ]
+}
+{% endschema %}

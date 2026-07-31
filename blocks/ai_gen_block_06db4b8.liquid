@@ -1,0 +1,304 @@
+{% doc %}
+  @prompt
+    make a space where the logo I upload bounces around in a rectangle like a dvd logo, can you make it so that there's two bouncing around, Make it so that there's two different images
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-bouncing-logo-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-bouncing-logo-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: {{ block.settings.container_height }}px;
+    overflow: hidden;
+  }
+
+  .ai-bouncing-logo-image-{{ ai_gen_id }} {
+    position: absolute;
+    width: {{ block.settings.logo_size }}px;
+    height: auto;
+    will-change: transform;
+  }
+
+  .ai-bouncing-logo-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    width: {{ block.settings.logo_size }}px;
+    height: {{ block.settings.logo_size }}px;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    will-change: transform;
+  }
+
+  .ai-bouncing-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+  }
+
+  .ai-bouncing-logo-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-bouncing-logo-container-{{ ai_gen_id }} {
+      height: {{ block.settings.container_height | times: 0.6 }}px;
+    }
+
+    .ai-bouncing-logo-image-{{ ai_gen_id }},
+    .ai-bouncing-logo-placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_size | times: 0.7 }}px;
+    }
+
+    .ai-bouncing-logo-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.logo_size | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<bouncing-logo-{{ ai_gen_id }}
+  class="ai-bouncing-logo-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+  data-speed="{{ block.settings.speed }}"
+>
+  <div class="ai-bouncing-logo-container-{{ ai_gen_id }}">
+    {% if block.settings.logo_1 %}
+      <img
+        src="{{ block.settings.logo_1 | image_url: width: 400 }}"
+        alt="{{ block.settings.logo_1.alt | escape }}"
+        class="ai-bouncing-logo-image-{{ ai_gen_id }} ai-bouncing-logo-1-{{ ai_gen_id }}"
+        loading="lazy"
+      >
+    {% else %}
+      <div class="ai-bouncing-logo-placeholder-{{ ai_gen_id }} ai-bouncing-logo-1-{{ ai_gen_id }}">
+        {{ 'image' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.enable_second_logo %}
+      {% if block.settings.logo_2 %}
+        <img
+          src="{{ block.settings.logo_2 | image_url: width: 400 }}"
+          alt="{{ block.settings.logo_2.alt | escape }}"
+          class="ai-bouncing-logo-image-{{ ai_gen_id }} ai-bouncing-logo-2-{{ ai_gen_id }}"
+          loading="lazy"
+        >
+      {% else %}
+        <div class="ai-bouncing-logo-placeholder-{{ ai_gen_id }} ai-bouncing-logo-2-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if block.settings.logo_1 == blank or block.settings.logo_2 == blank %}
+      <div class="ai-bouncing-logo-empty-state-{{ ai_gen_id }}">
+        Upload logos to see them bounce
+      </div>
+    {% endif %}
+  </div>
+</bouncing-logo-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BouncingLogo{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.logos = [];
+        this.container = null;
+        this.animationId = null;
+      }
+
+      connectedCallback() {
+        this.container = this.querySelector('.ai-bouncing-logo-container-{{ ai_gen_id }}');
+        const logo1 = this.querySelector('.ai-bouncing-logo-1-{{ ai_gen_id }}');
+        const logo2 = this.querySelector('.ai-bouncing-logo-2-{{ ai_gen_id }}');
+
+        if (!this.container) return;
+
+        const speed = parseFloat(this.dataset.speed) || 2;
+
+        if (logo1) {
+          this.logos.push({
+            element: logo1,
+            x: Math.random() * (this.container.offsetWidth - logo1.offsetWidth),
+            y: Math.random() * (this.container.offsetHeight - logo1.offsetHeight),
+            velocityX: speed,
+            velocityY: speed
+          });
+        }
+
+        if (logo2) {
+          this.logos.push({
+            element: logo2,
+            x: Math.random() * (this.container.offsetWidth - logo2.offsetWidth),
+            y: Math.random() * (this.container.offsetHeight - logo2.offsetHeight),
+            velocityX: -speed * 1.2,
+            velocityY: speed * 0.8
+          });
+        }
+
+        this.logos.forEach(logo => this.updatePosition(logo));
+        this.animate();
+      }
+
+      animate() {
+        const containerWidth = this.container.offsetWidth;
+        const containerHeight = this.container.offsetHeight;
+
+        this.logos.forEach(logo => {
+          const logoWidth = logo.element.offsetWidth;
+          const logoHeight = logo.element.offsetHeight;
+
+          logo.x += logo.velocityX;
+          logo.y += logo.velocityY;
+
+          if (logo.x + logoWidth >= containerWidth || logo.x <= 0) {
+            logo.velocityX = -logo.velocityX;
+            logo.x = Math.max(0, Math.min(logo.x, containerWidth - logoWidth));
+          }
+
+          if (logo.y + logoHeight >= containerHeight || logo.y <= 0) {
+            logo.velocityY = -logo.velocityY;
+            logo.y = Math.max(0, Math.min(logo.y, containerHeight - logoHeight));
+          }
+
+          this.updatePosition(logo);
+        });
+
+        this.animationId = requestAnimationFrame(() => this.animate());
+      }
+
+      updatePosition(logo) {
+        logo.element.style.transform = `translate(${logo.x}px, ${logo.y}px)`;
+      }
+
+      disconnectedCallback() {
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+        }
+      }
+    }
+
+    customElements.define('bouncing-logo-{{ ai_gen_id }}', BouncingLogo{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bouncing logo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_1",
+      "label": "Logo 1 image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_second_logo",
+      "label": "Enable second logo",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "Logo 2 image"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "logo_size",
+      "label": "Logo size",
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "container_height",
+      "label": "Container height",
+      "min": 200,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Speed",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bouncing logo"
+    }
+  ]
+}
+{% endschema %}

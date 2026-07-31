@@ -1,0 +1,11 @@
+{% assign sorted_vendors = shop.vendors | sort %}
+<h1>All Artists</h1>
+<ul>
+  {% for vendor in sorted_vendors %}
+    <li>
+      <a href="/collections/vendors?q={{ vendor | url_encode }}">
+        {{ vendor }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

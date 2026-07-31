@@ -1,0 +1,112 @@
+/* ***** ----------------------------------------------- ***** **
+/* ***** Custom Styles
+/* ***** ----------------------------------------------- ***** */
+
+/* ***** Custom Collection Styles
+** ***** ----------------------------------------------- ***** */
+
+.custom-page-header {
+  padding: 7px 0;
+}
+
+@media only screen and (min-width:769px) {
+  .custom-page-header {
+    padding: 20px 0;
+  }
+}
+
+.custom-page-header__main {
+  display: flex;
+  align-items: center;
+  gap: 20px
+}
+
+.custom-page-header__social-block {
+  display: none;
+}
+
+@media only screen and (min-width:769px) {
+  .custom-page-header__social-block {
+    display: block;
+    flex: 1;
+  }
+}
+
+.custom-page-header__social-icons {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.custom-page-header__social-icons li {
+  margin-bottom: 0;
+}
+
+.custom-page-header__social-icons li .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.custom-page-header__logo-block {
+  padding: 10px 0;
+}
+
+.custom-page-header__logo {
+  margin-bottom: 0;
+}
+
+.custom-page-header__logo-link {
+  display: block;
+  position: relative;
+}
+
+.custom-page-header__logo-link img {
+  display: block;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-page-header__icons-block {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.custom-page-header__navigation {
+  display: none;
+}
+
+@media only screen and (min-width:769px) {
+  .custom-page-header__navigation {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+/* ***** PLP
+** ***** ----------------------------------------------- ***** */
+
+.grid-product__meta {
+  padding-top: 20px;
+}
+
+.grid-product__vendor {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+[data-type_product_capitalize=true] .grid-product__title {
+  letter-spacing: 0.1em;
+}
+
+.grid-product__price {
+  margin-top: 8px;
+}
+
+[data-type_product_capitalize=true] .collection-item__title span {
+  letter-spacing: 0.1em;
+}

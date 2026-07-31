@@ -1,0 +1,256 @@
+{% doc %}
+  @prompt
+    logo image that i can align to left center or right and customize sizing, different alignment options on mobile
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-logo-block-{{ ai_gen_id }} {
+    display: flex;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-logo-container-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    align-items: center;
+  }
+
+  .ai-logo-wrapper-{{ ai_gen_id }} {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .ai-logo-image-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .ai-logo-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: {{ block.settings.logo_width | divided_by: 2 }}px;
+    max-width: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 100px;
+  }
+
+  .ai-logo-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-logo-container-{{ ai_gen_id }} {
+      justify-content: {{ block.settings.alignment_mobile }};
+    }
+
+    .ai-logo-image-{{ ai_gen_id }},
+    .ai-logo-placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_width_mobile }}px;
+    }
+
+    .ai-logo-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.logo_width_mobile | divided_by: 2 }}px;
+    }
+
+    .ai-logo-block-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top_mobile }}px 0 {{ block.settings.padding_bottom_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-logo-block-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-logo-container-{{ ai_gen_id }}">
+    <div class="ai-logo-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.logo_image %}
+        {% if block.settings.logo_link %}
+          <a href="{{ block.settings.logo_link }}">
+            <img
+              src="{{ block.settings.logo_image | image_url: width: 800 }}"
+              alt="{{ block.settings.logo_image.alt | default: shop.name | escape }}"
+              class="ai-logo-image-{{ ai_gen_id }}"
+              width="{{ block.settings.logo_image.width }}"
+              height="{{ block.settings.logo_image.height }}"
+              loading="lazy"
+            >
+          </a>
+        {% else %}
+          <img
+            src="{{ block.settings.logo_image | image_url: width: 800 }}"
+            alt="{{ block.settings.logo_image.alt | default: shop.name | escape }}"
+            class="ai-logo-image-{{ ai_gen_id }}"
+            width="{{ block.settings.logo_image.width }}"
+            height="{{ block.settings.logo_image.height }}"
+            loading="lazy"
+          >
+        {% endif %}
+      {% else %}
+        <div class="ai-logo-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-logo-empty-state-{{ ai_gen_id }}">
+            Add your logo image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Logo image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Logo alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment_mobile",
+      "label": "Logo alignment on mobile",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width on mobile",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding on mobile",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding on mobile",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo image"
+    }
+  ]
+}
+{% endschema %}

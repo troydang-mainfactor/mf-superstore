@@ -1,0 +1,112 @@
+{% doc %}
+  @prompt
+    can you create a border? I'd like to use this underneath my header. Black, 2px, and about 75% width.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-border-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    padding: {{ block.settings.vertical_spacing }}px 0;
+  }
+
+  .ai-border-line-{{ ai_gen_id }} {
+    width: {{ block.settings.width }}%;
+    height: {{ block.settings.thickness }}px;
+    background-color: {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+{% endstyle %}
+
+<div class="ai-border-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="ai-border-line-{{ ai_gen_id }}"></div>
+</div>
+
+{% schema %}
+{
+  "name": "Border line",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Border style"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "thickness",
+      "label": "Thickness",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "label": "Width",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "vertical_spacing",
+      "label": "Vertical spacing",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Border line"
+    }
+  ]
+}
+{% endschema %}
