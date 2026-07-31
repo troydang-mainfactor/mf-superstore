@@ -1,12 +1,12 @@
-{%- comment %}<locksmith:e582>{% endcomment -%}
+{%- comment %}<locksmith:b3e6>{% endcomment -%}
   {%- include 'locksmith' -%}
-{%- comment %}</locksmith:e582>{% endcomment -%}
+{%- comment %}</locksmith:b3e6>{% endcomment -%}
 
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
 <head>
+{{ locksmith_initializations }}
 
-  {{ locksmith_initializations }}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -30,10 +30,10 @@
   {%- render 'seo-title' -%}
 
   {%- if page_description -%}
-  {%- comment %}<locksmith:1dde>{% endcomment -%}
+  {%- comment %}<locksmith:88a4>{% endcomment -%}
     {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ page_description | escape }}">{% endif -%}
     {%- comment %}original: <meta name="description" content="{{ page_description | escape }}">{%- endcomment %}
-  {%- comment %}</locksmith:1dde>{% endcomment -%}
+  {%- comment %}</locksmith:88a4>{% endcomment -%}
   {%- endif -%}
 
   {%- render 'social-meta-tags' -%}
@@ -113,6 +113,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Solitreo&display=swap');
 </style>
   
+{% if template contains 'alaska' %}
+  <style>
+    body,
+    body * {
+      text-shadow: 0px 0px 1.1325px #FFFFFF,
+                   0px 0px 6.795px #00FFEA !important;
+    }
+    .drawer { background-color: #032A36; }
+  </style>
+{% endif %}
 </head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}" data-center-text="{{ settings.type_body_align_text }}" data-button_style="{{ settings.button_style }}" data-type_header_capitalize="{{ settings.type_header_capitalize }}" data-type_headers_align_text="{{ settings.type_headers_align_text }}" data-type_product_capitalize="{{ settings.type_product_capitalize }}" data-swatch_style="{{ settings.swatch_style }}" {% if settings.disable_animations %}data-disable-animations="true"{% endif %}>
@@ -191,6 +201,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <!-- PF EDT END -->
+
+<!-- META CHECKOUT START -->
 <script>
 (function() {
   document.addEventListener('DOMContentLoaded', function() {
@@ -219,5 +231,67 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 })();
 </script>
+<!-- META CHECKOUT END -->
+
+<!-- URL REDIRECT START -->
+<script>
+(function() {
+  const host = window.location.hostname;
+  const path = window.location.pathname;
+  const search = window.location.search;
+
+  // TOUR PAGE REDIRECTS
+  if (
+    (host === 'whatmoreeee.com' || host === 'www.whatmoreeee.com') &&
+    path === '/tour'
+  ) {
+    window.location.replace('/collections/whatmore-tour' + search);
+    return;
+  }
+
+  // ROOT DOMAIN REDIRECTS
+  const redirects = {
+    'www.whatmoreeee.com': '/collections/whatmore',
+    'whatmoreeee.com': '/collections/whatmore',
+    'store.boygolden.ca': '/collections/boy-golden',
+    'store.jeffersonairplane.com': '/collections/jefferson-airplane',
+    'ohthatsmizz.com': '/collections/ohthatsmizz',
+    'sturdyyoungin.com': '/collections/sturdyyoungin',
+    'oranjgoodman.shop': '/collections/oranj-goodman',
+    'www.oranjgoodman.shop': '/collections/oranj-goodman',
+    'sharonneedles.shop': '/collections/sharon-needles',
+    'www.sharonneedles.shop': '/collections/sharon-needles',
+    'www.shop.alaskathunderfuck.com': '/collections/alaska-thunderfuck',
+    'shop.alaskathunderfuck.com': '/collections/alaska-thunderfuck',
+    'kellymantlemerch.com': '/collections/kelly-mantle',
+    'www.kellymantlemerch.com': '/collections/kelly-mantle',
+    'shopkyramachida.com': '/collections/kyra',
+    'www.shopkyramachida.com': '/collections/kyra',
+    'shopcharitytheartist.com': '/collections/charity-merch',
+    'shop.estitties.com': '/collections/salina-estitties',
+    'www.shop.estitties.com': '/collections/salina-estitties',
+    'www.shop.monetxchange.com': '/collections/monet-x-change',
+    'shop.monetxchange.com': '/collections/monet-x-change',
+    'shopbebezaharabenet.com': '/collections/bebe-zahara-benet',
+    'www.shopbebezaharabenet.com': '/collections/bebe-zahara-benet',
+    'shop.jinkxmonsoon.com': '/collections/jinkx-monsoon',
+    'www.lance210.com': '/collections/lance-stewart',
+    'lance210.com': '/collections/lance-stewart',
+    'siblingrivalrypodcast.shop': '/collections/sibling-rivalry',
+    'www.siblingrivalrypodcast.shop': '/collections/sibling-rivalry',
+    'thespianstore.com': '/collections/international-thespian-society',
+    'thespianstore.org': '/collections/international-thespian-society',
+    'www.shop.bobthedragqueen.com': '/collections/bob-the-drag-queen',
+    'shop.bobthedragqueen.com': '/collections/bob-the-drag-queen',
+    'www.shop.matteolanecomedy.com': '/collections/matteo-lane',
+    'shop.matteolanecomedy.com': '/collections/matteo-lanea',
+  };
+
+  if (path === '/' && redirects[host]) {
+    window.location.replace(redirects[host] + search);
+  }
+})();
+</script>
+<!-- URL REDIRECT  END -->
 </body>
 </html>
