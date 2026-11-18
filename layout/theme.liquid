@@ -41,14 +41,22 @@
 
   {%- capture artist_handle -%}{%- render 'artist-brand-match' -%}{%- endcapture -%}
   {%- liquid
-    assign artist_handle = artist_handle | strip
+    assign artist_match = artist_handle | strip | split: '|'
+    assign artist_handle = artist_match[0]
     assign artist_title = blank
     assign artist_description = blank
     if artist_handle != blank and request.page_type == 'index'
+      assign artist_brand = shop.metaobjects.artist_brand[artist_match[1]]
       assign artist_collection = collections[artist_handle]
+      assign artist_title = artist_brand.site_title.value
+      assign artist_description = artist_brand.site_description.value | strip_html | truncate: 300
       if artist_collection.id
-        assign artist_title = artist_collection.metafields.global.title_tag.value | default: artist_collection.title
-        assign artist_description = artist_collection.metafields.global.description_tag.value | default: artist_collection.description | strip_html | truncate: 300
+        if artist_title == blank
+          assign artist_title = artist_collection.title
+        endif
+        if artist_description == blank
+          assign artist_description = artist_collection.description | strip_html | truncate: 300
+        endif
       endif
     endif
     assign meta_description = artist_description | default: page_description

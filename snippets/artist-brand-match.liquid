@@ -1,7 +1,7 @@
 {%- comment -%}
-  Outputs the keyword (collection handle) of the Artist Brand whose keyword
-  matches the current domain, ignoring dashes and spaces. Outputs nothing if
-  no brand matches. Example: keyword "dilated-peoples" matches dilatedpeoples.com.
+  Finds the Artist Brand whose keyword matches the current domain, ignoring
+  dashes and spaces (keyword "dilated-peoples" matches dilatedpeoples.com).
+  Outputs "<keyword>|<brand handle>", or nothing if no brand matches.
 {%- endcomment -%}
 {%- liquid
   assign abm_host = request.host | downcase
@@ -15,7 +15,7 @@
       assign abm_keyword = abm_keyword | strip
       assign abm_flat = abm_keyword | remove: '-' | remove: ' '
       if abm_flat != blank and abm_host contains abm_flat
-        echo abm_keyword
+        echo abm_keyword | append: '|' | append: abm_brand.system.handle
         assign abm_found = true
         break
       endif

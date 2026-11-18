@@ -29,6 +29,7 @@
     capture artist_domain_handle
       render 'artist-brand-match'
     endcapture
+    assign artist_domain_handle = artist_domain_handle | split: '|' | first
     assign haystack = haystack | append: ' ' | append: artist_domain_handle
     if collection
       assign haystack = haystack | append: ' ' | append: collection.handle
