@@ -45,7 +45,7 @@
       if entry.favicon == blank
         continue
       endif
-      assign kws = entry.keywords.value | join: ',' | split: ','
+      assign kws = entry.keywords.value | split: ','
       for kw in kws
         assign k = kw | strip | downcase
         if k != blank and haystack contains k
