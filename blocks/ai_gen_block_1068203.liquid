@@ -145,9 +145,6 @@
   {% if block.settings.menu != blank %}
     <ul class="ai-nav-menu__container-{{ ai_gen_id }}">
       {% for link in block.settings.menu.links %}
-        {%- comment %}<locksmith:fc18>{% endcomment -%}
-          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: block.settings.menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-        {%- comment %}</locksmith:fc18>{% endcomment -%}
         <li class="ai-nav-menu__item-{{ ai_gen_id }} {% if link.links != blank %}ai-nav-menu__item-{{ ai_gen_id }}--has-dropdown{% endif %}">
           <a href="{{ link.url }}" class="ai-nav-menu__link-{{ ai_gen_id }}">
             {{ link.title }}
@@ -156,9 +153,6 @@
           {% if link.links != blank %}
             <ul class="ai-nav-menu__dropdown-{{ ai_gen_id }}">
               {% for child_link in link.links %}
-                {%- comment %}<locksmith:7456>{% endcomment -%}
-                  {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: child_link, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-                {%- comment %}</locksmith:7456>{% endcomment -%}
                 <li>
                   <a href="{{ child_link.url }}" class="ai-nav-menu__dropdown-link-{{ ai_gen_id }}">
                     {{ child_link.title }}

@@ -1,0 +1,1020 @@
+{%- liquid
+  assign s = section.settings
+  assign anim = s.animation
+  assign overlay_alpha = s.overlay_opacity | divided_by: 100.0
+  assign form_id = 'HeroSignup-' | append: section.id
+-%}
+
+{%- style -%}
+  #HeroBanner-{{ section.id }} {
+    --hero-height: {{ s.desktop_height }}px;
+    --hero-height-mobile: {{ s.mobile_height }}px;
+    --hero-text: {{ s.text_color }};
+    --hero-overlay: {{ s.overlay_color }};
+    --hero-overlay-opacity: {{ overlay_alpha }};
+    --hero-heading-size: {{ s.heading_size }}px;
+    --hero-heading-size-mobile: {{ s.heading_size_mobile }}px;
+    --hero-sub-size: {{ s.subheading_size }}px;
+    --hero-btn-radius: {{ s.button_radius }}px;
+    --hero-speed: {{ s.animation_speed }}ms;
+    --hero-b1-bg: {{ s.button1_bg }};
+    --hero-b1-text: {{ s.button1_text }};
+    --hero-b2-bg: {{ s.button2_bg }};
+    --hero-b2-text: {{ s.button2_text }};
+    --hero-form-max: {{ s.form_max_width }}px;
+    --hero-form-gap-top: {{ s.form_spacing_top }}px;
+    --hero-form-heading-size: {{ s.form_heading_size }}px;
+    --hero-form-text-size: {{ s.form_text_size }}px;
+    --hero-form-radius: {{ s.form_radius }}px;
+    --hero-form-height: {{ s.form_field_height }}px;
+    --hero-input-bg: {{ s.input_bg }};
+    --hero-input-text: {{ s.input_text }};
+    --hero-input-border: {{ s.input_border }};
+    --hero-form-btn-bg: {{ s.form_button_bg }};
+    --hero-form-btn-text: {{ s.form_button_text }};
+    --hero-form-label: {{ s.form_text_color }};
+  }
+  {%- if s.use_custom_font -%}
+    {{ s.custom_font | font_face: font_display: 'swap' }}
+    #HeroBanner-{{ section.id }} .hero-banner__content,
+    #HeroBanner-{{ section.id }} .hero-banner__content h2,
+    #HeroBanner-{{ section.id }} .hero-banner__content p,
+    #HeroBanner-{{ section.id }} .hero-banner__btn,
+    #HeroBanner-{{ section.id }} .hero-banner__form input,
+    #HeroBanner-{{ section.id }} .hero-banner__form button {
+      font-family: {{ s.custom_font.family }}, {{ s.custom_font.fallback_families }};
+      font-weight: {{ s.custom_font.weight }};
+      font-style: {{ s.custom_font.style }};
+    }
+  {%- endif -%}
+{%- endstyle -%}
+
+<div
+  id="HeroBanner-{{ section.id }}"
+  class="hero-banner hero-banner--anim-{{ anim }} hero-banner--h-{{ s.content_horizontal }} hero-banner--v-{{ s.content_vertical }}"
+>
+  <div class="hero-banner__media">
+    {%- if s.image_desktop != blank or s.image_mobile != blank -%}
+      {%- liquid
+        assign desktop_img = s.image_desktop | default: s.image_mobile
+        assign mobile_img = s.image_mobile | default: s.image_desktop
+      -%}
+      <picture>
+        {%- if s.image_mobile != blank -%}
+          <source
+            media="(max-width: 768px)"
+            srcset="
+              {{ mobile_img | image_url: width: 480 }} 480w,
+              {{ mobile_img | image_url: width: 750 }} 750w,
+              {{ mobile_img | image_url: width: 1100 }} 1100w
+            "
+            sizes="100vw"
+          >
+        {%- endif -%}
+        {{
+          desktop_img
+          | image_url: width: 2400
+          | image_tag:
+            class: 'hero-banner__image',
+            widths: '750, 1100, 1500, 1800, 2400',
+            sizes: '100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: desktop_img.alt
+        }}
+      </picture>
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-banner__image hero-banner__placeholder' }}
+    {%- endif -%}
+    <div class="hero-banner__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero-banner__inner page-width">
+    <div class="hero-banner__content">
+      {%- if s.heading != blank -%}
+        <h2 class="hero-banner__heading h1 hero-banner__item">{{ s.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if s.subheading != blank -%}
+        <div class="hero-banner__subheading rte hero-banner__item">{{ s.subheading }}</div>
+      {%- endif -%}
+      {%- if s.button1_label != blank or s.button2_label != blank -%}
+        <div class="hero-banner__buttons hero-banner__item">
+          {%- if s.button1_label != blank -%}
+            <a
+              {% if s.button1_link != blank %}href="{{ s.button1_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+              class="hero-banner__btn hero-banner__btn--1 hero-banner__btn--{{ s.button1_style }}"
+            >
+              {{- s.button1_label | escape -}}
+            </a>
+          {%- endif -%}
+          {%- if s.button2_label != blank -%}
+            <a
+              {% if s.button2_link != blank %}href="{{ s.button2_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+              class="hero-banner__btn hero-banner__btn--2 hero-banner__btn--{{ s.button2_style }}"
+            >
+              {{- s.button2_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if s.show_form -%}
+        <div class="hero-banner__form-wrap hero-banner__item">
+          {%- form 'customer', id: form_id, class: 'hero-banner__form' -%}
+            {%- liquid
+              assign tags = 'newsletter'
+              if s.customer_tag != blank
+                assign tags = tags | append: ',' | append: s.customer_tag
+              endif
+            -%}
+            <input type="hidden" name="contact[tags]" value="{{ tags | escape }}">
+
+            {%- if form.posted_successfully? -%}
+              <div class="hero-banner__form-success rte" role="status">
+                {{ s.success_message }}
+              </div>
+            {%- else -%}
+              {%- if s.form_heading != blank -%}
+                <p class="hero-banner__form-heading">{{ s.form_heading | escape }}</p>
+              {%- endif -%}
+              {%- if s.form_text != blank -%}
+                <div class="hero-banner__form-text rte">{{ s.form_text }}</div>
+              {%- endif -%}
+
+              <div class="hero-banner__form-row hero-banner__form-row--{{ s.form_layout }}">
+                {%- if s.show_first_name -%}
+                  <label class="hero-banner__sr" for="{{ form_id }}-name">{{ s.name_placeholder | escape }}</label>
+                  <input
+                    id="{{ form_id }}-name"
+                    class="hero-banner__input"
+                    type="text"
+                    name="contact[first_name]"
+                    placeholder="{{ s.name_placeholder | escape }}"
+                    autocomplete="given-name"
+                  >
+                {%- endif -%}
+                <label class="hero-banner__sr" for="{{ form_id }}-email">{{ s.email_placeholder | escape }}</label>
+                <input
+                  id="{{ form_id }}-email"
+                  class="hero-banner__input"
+                  type="email"
+                  name="contact[email]"
+                  placeholder="{{ s.email_placeholder | escape }}"
+                  autocomplete="email"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  required
+                  {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="{{ form_id }}-error"{% endif %}
+                >
+                {%- if s.show_phone -%}
+                  <label class="hero-banner__sr" for="{{ form_id }}-phone">{{ s.phone_placeholder | escape }}</label>
+                  <input
+                    id="{{ form_id }}-phone"
+                    class="hero-banner__input"
+                    type="tel"
+                    name="contact[phone]"
+                    placeholder="{{ s.phone_placeholder | escape }}"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    {% if form.errors contains 'phone' %}aria-invalid="true" aria-describedby="{{ form_id }}-error"{% endif %}
+                  >
+                {%- endif -%}
+                <button type="submit" class="hero-banner__submit">{{ s.form_button_label | escape }}</button>
+              </div>
+
+              {%- if form.errors -%}
+                <p id="{{ form_id }}-error" class="hero-banner__form-error" role="alert">
+                  {%- for field in form.errors -%}
+                    {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}{% unless forloop.last %}<br>{% endunless %}
+                  {%- endfor -%}
+                </p>
+              {%- endif -%}
+
+              {%- if s.form_disclaimer != blank -%}
+                <div class="hero-banner__form-disclaimer rte">{{ s.form_disclaimer }}</div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .hero-banner {
+    --hero-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    display: flex;
+    min-height: var(--hero-height);
+    overflow: hidden;
+    color: var(--hero-text);
+    isolation: isolate;
+  }
+
+  .hero-banner__media,
+  .hero-banner__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-banner__media {
+    z-index: -1;
+  }
+
+  .hero-banner__media picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-banner__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-banner__placeholder {
+    background: #d9d9d9;
+  }
+
+  .hero-banner__overlay {
+    background: var(--hero-overlay);
+    opacity: var(--hero-overlay-opacity);
+  }
+
+  .hero-banner__inner {
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .hero-banner--v-top .hero-banner__inner { align-items: flex-start; }
+  .hero-banner--v-middle .hero-banner__inner { align-items: center; }
+  .hero-banner--v-bottom .hero-banner__inner { align-items: flex-end; }
+  .hero-banner--h-left .hero-banner__inner { justify-content: flex-start; text-align: left; }
+  .hero-banner--h-center .hero-banner__inner { justify-content: center; text-align: center; }
+  .hero-banner--h-right .hero-banner__inner { justify-content: flex-end; text-align: right; }
+
+  .hero-banner__content {
+    max-width: 760px;
+  }
+
+  .hero-banner__heading {
+    margin: 0 0 16px;
+    color: inherit;
+    font-size: var(--hero-heading-size);
+    line-height: 1.05;
+  }
+
+  .hero-banner__subheading,
+  .hero-banner__subheading p {
+    color: inherit;
+    font-size: var(--hero-sub-size);
+  }
+
+  .hero-banner__subheading {
+    margin-bottom: 28px;
+  }
+
+  .hero-banner__subheading p:last-child {
+    margin-bottom: 0;
+  }
+
+  .hero-banner__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-banner--h-center .hero-banner__buttons { justify-content: center; }
+  .hero-banner--h-right .hero-banner__buttons { justify-content: flex-end; }
+
+  .hero-banner__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 28px;
+    border: 2px solid transparent;
+    border-radius: var(--hero-btn-radius);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background-color 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out, transform 0.12s var(--hero-ease), filter 0.15s ease-out;
+  }
+
+  .hero-banner__btn--1.hero-banner__btn--solid {
+    background: var(--hero-b1-bg);
+    border-color: var(--hero-b1-bg);
+    color: var(--hero-b1-text);
+  }
+
+  .hero-banner__btn--1.hero-banner__btn--outline {
+    background: transparent;
+    border-color: var(--hero-b1-bg);
+    color: var(--hero-b1-bg);
+  }
+
+  .hero-banner__btn--2.hero-banner__btn--solid {
+    background: var(--hero-b2-bg);
+    border-color: var(--hero-b2-bg);
+    color: var(--hero-b2-text);
+  }
+
+  .hero-banner__btn--2.hero-banner__btn--outline {
+    background: transparent;
+    border-color: var(--hero-b2-bg);
+    color: var(--hero-b2-bg);
+  }
+
+  .hero-banner__btn:hover {
+    filter: brightness(0.92);
+  }
+
+  .hero-banner__btn--1.hero-banner__btn--outline:hover {
+    background: var(--hero-b1-bg);
+    color: var(--hero-b1-text);
+    filter: none;
+  }
+
+  .hero-banner__btn--2.hero-banner__btn--outline:hover {
+    background: var(--hero-b2-bg);
+    color: var(--hero-b2-text);
+    filter: none;
+  }
+
+  .hero-banner__btn:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  /* ---------- Signup form ---------- */
+  .hero-banner__form-wrap {
+    width: 100%;
+    max-width: var(--hero-form-max);
+    margin-top: var(--hero-form-gap-top);
+  }
+
+  .hero-banner--h-center .hero-banner__form-wrap { margin-left: auto; margin-right: auto; }
+  .hero-banner--h-right .hero-banner__form-wrap { margin-left: auto; }
+
+  .hero-banner__form {
+    color: var(--hero-form-label);
+  }
+
+  .hero-banner__form-heading {
+    margin: 0 0 6px;
+    color: inherit;
+    font-size: var(--hero-form-heading-size);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .hero-banner__form-text,
+  .hero-banner__form-text p,
+  .hero-banner__form-disclaimer,
+  .hero-banner__form-disclaimer p,
+  .hero-banner__form-error {
+    color: inherit;
+    font-size: var(--hero-form-text-size);
+    line-height: 1.4;
+  }
+
+  .hero-banner__form-text { margin-bottom: 10px; }
+  .hero-banner__form-text p,
+  .hero-banner__form-disclaimer p { margin: 0; }
+
+  .hero-banner__form-disclaimer {
+    margin-top: 8px;
+    opacity: 0.8;
+  }
+
+  .hero-banner__form-disclaimer a { color: inherit; }
+
+  .hero-banner__form-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .hero-banner__form-row--inline { flex-wrap: wrap; }
+  .hero-banner__form-row--stacked { flex-direction: column; }
+
+  .hero-banner__input {
+    flex: 1 1 180px;
+    min-width: 0;
+    height: var(--hero-form-height);
+    padding: 0 14px;
+    border: 1px solid var(--hero-input-border);
+    border-radius: var(--hero-form-radius);
+    background: var(--hero-input-bg);
+    color: var(--hero-input-text);
+    font-size: 16px; /* 16px stops iOS zooming in */
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .hero-banner__input::placeholder {
+    color: var(--hero-input-text);
+    opacity: 0.6;
+  }
+
+  .hero-banner__input:focus-visible {
+    outline: 2px solid var(--hero-form-btn-bg);
+    outline-offset: 1px;
+  }
+
+  .hero-banner__input[aria-invalid="true"] {
+    border-color: #e5484d;
+  }
+
+  .hero-banner__submit {
+    flex: 0 0 auto;
+    height: var(--hero-form-height);
+    padding: 0 22px;
+    border: 0;
+    border-radius: var(--hero-form-radius);
+    background: var(--hero-form-btn-bg);
+    color: var(--hero-form-btn-text);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: filter 0.15s ease-out, transform 0.12s var(--hero-ease);
+  }
+
+  .hero-banner__submit:hover { filter: brightness(0.92); }
+
+  .hero-banner__submit:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .hero-banner__form-error {
+    margin: 8px 0 0;
+    font-weight: 600;
+  }
+
+  .hero-banner__form-success,
+  .hero-banner__form-success p {
+    margin: 0;
+    color: inherit;
+    font-size: var(--hero-form-heading-size);
+    line-height: 1.3;
+  }
+
+  .hero-banner__sr {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-banner__btn:active,
+    .hero-banner__submit:active {
+      transform: scale(0.97);
+    }
+
+    .hero-banner__form-success {
+      animation: hero-success-in 0.5s var(--hero-ease) both;
+    }
+
+    @keyframes hero-success-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .hero-banner {
+      min-height: var(--hero-height-mobile);
+    }
+
+    .hero-banner__inner {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .hero-banner__heading {
+      font-size: var(--hero-heading-size-mobile);
+    }
+
+    .hero-banner__buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-banner__btn {
+      width: 100%;
+    }
+
+    .hero-banner__form-row {
+      flex-direction: column;
+    }
+
+    .hero-banner__input,
+    .hero-banner__submit {
+      flex: none;
+      width: 100%;
+    }
+  }
+
+  /* Entrance animations: only for visitors who haven't asked for reduced motion */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-banner--anim-fade .hero-banner__content,
+    .hero-banner--anim-slide-up .hero-banner__content,
+    .hero-banner--anim-slide-side .hero-banner__content,
+    .hero-banner--anim-blur .hero-banner__content,
+    .hero-banner--anim-stagger .hero-banner__item,
+    .hero-banner--anim-zoom .hero-banner__image,
+    .hero-banner--anim-zoom .hero-banner__content {
+      transition: opacity var(--hero-speed) var(--hero-ease), transform var(--hero-speed) var(--hero-ease), filter var(--hero-speed) var(--hero-ease);
+    }
+
+    .hero-banner--anim-zoom .hero-banner__image {
+      transition: transform calc(var(--hero-speed) * 4) var(--hero-ease);
+    }
+
+    @starting-style {
+      .hero-banner--anim-fade .hero-banner__content { opacity: 0; }
+      .hero-banner--anim-slide-up .hero-banner__content { opacity: 0; transform: translateY(40px); }
+      .hero-banner--anim-slide-side .hero-banner__content { opacity: 0; transform: translateX(-60px); }
+      .hero-banner--h-right.hero-banner--anim-slide-side .hero-banner__content { transform: translateX(60px); }
+      .hero-banner--anim-blur .hero-banner__content { opacity: 0; filter: blur(12px); transform: scale(1.03); }
+      .hero-banner--anim-stagger .hero-banner__item { opacity: 0; transform: translateY(24px); }
+      .hero-banner--anim-zoom .hero-banner__image { transform: scale(1.15); }
+      .hero-banner--anim-zoom .hero-banner__content { opacity: 0; }
+    }
+
+    .hero-banner--anim-stagger .hero-banner__item:nth-child(2) { transition-delay: calc(var(--hero-speed) * 0.2); }
+    .hero-banner--anim-stagger .hero-banner__item:nth-child(3) { transition-delay: calc(var(--hero-speed) * 0.4); }
+    .hero-banner--anim-stagger .hero-banner__item:nth-child(4) { transition-delay: calc(var(--hero-speed) * 0.6); }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hero banner",
+  "tag": "section",
+  "class": "hero-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop image",
+      "info": "Wide image, at least 2400 x 1200px recommended."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image",
+      "info": "Tall image, at least 750 x 1100px recommended. Uses the desktop image if empty."
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 650
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "min": 300,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "header",
+      "content": "Overlay tint"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Tint color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Tint strength",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your headline here"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size (desktop)",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Add a short line to support your headline.</p>"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_font",
+      "label": "Use custom font",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "id": "custom_font",
+      "label": "Custom font",
+      "info": "Applies to the heading, subheading, buttons, and signup form.",
+      "default": "poppins_n7"
+    },
+    {
+      "type": "select",
+      "id": "content_horizontal",
+      "label": "Horizontal position",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_vertical",
+      "label": "Vertical position",
+      "default": "middle",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Button 1"
+    },
+    {
+      "type": "text",
+      "id": "button1_label",
+      "label": "Label",
+      "info": "Leave blank to hide this button.",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button1_link",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "button1_style",
+      "label": "Style",
+      "default": "solid",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "button1_bg",
+      "label": "Button color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button1_text",
+      "label": "Button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "text",
+      "id": "button2_label",
+      "label": "Label",
+      "info": "Leave blank to hide this button.",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "button2_style",
+      "label": "Style",
+      "default": "outline",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "button2_bg",
+      "label": "Button color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button2_text",
+      "label": "Button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Signup form"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_form",
+      "label": "Show email signup form",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "customer_tag",
+      "label": "Customer tag",
+      "info": "Added to everyone who signs up here (plus \"newsletter\"). Separate multiple tags with commas.",
+      "default": "hero-signup"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Get first dibs on new drops"
+    },
+    {
+      "type": "richtext",
+      "id": "form_text",
+      "label": "Form text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_first_name",
+      "label": "Ask for first name",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name placeholder",
+      "default": "First name"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Email address"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Ask for phone number (optional field)",
+      "default": false,
+      "info": "Saved to the customer's profile. Shoppers should include their country code, e.g. +1."
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone placeholder",
+      "default": "Phone (optional)"
+    },
+    {
+      "type": "text",
+      "id": "form_button_label",
+      "label": "Submit button label",
+      "default": "Sign up"
+    },
+    {
+      "type": "richtext",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "<p><strong>Thank you!</strong> You're on the list.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "form_disclaimer",
+      "label": "Small print",
+      "info": "Optional. Shows under the form, e.g. a privacy note."
+    },
+    {
+      "type": "select",
+      "id": "form_layout",
+      "label": "Layout (desktop)",
+      "default": "inline",
+      "options": [
+        { "value": "inline", "label": "One row" },
+        { "value": "stacked", "label": "Stacked" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "form_max_width",
+      "label": "Form width",
+      "min": 260,
+      "max": 760,
+      "step": 20,
+      "unit": "px",
+      "default": 480
+    },
+    {
+      "type": "range",
+      "id": "form_spacing_top",
+      "label": "Space above form",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "form_field_height",
+      "label": "Field height",
+      "min": 36,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "form_heading_size",
+      "label": "Form heading size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "form_text_size",
+      "label": "Form text size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "form_radius",
+      "label": "Form corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "form_text_color",
+      "label": "Form text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Field background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_text",
+      "label": "Field text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "input_border",
+      "label": "Field border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "form_button_bg",
+      "label": "Submit button color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "form_button_text",
+      "label": "Submit button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Banner animation",
+      "info": "Plays when the page loads. Visitors who have reduced motion turned on won't see it.",
+      "default": "slide-up",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade", "label": "Fade in" },
+        { "value": "slide-up", "label": "Slide up" },
+        { "value": "slide-side", "label": "Slide in from the side" },
+        { "value": "blur", "label": "Blur in" },
+        { "value": "stagger", "label": "One line at a time" },
+        { "value": "zoom", "label": "Slow image zoom" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "min": 300,
+      "max": 2000,
+      "step": 100,
+      "unit": "ms",
+      "default": 900
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero banner"
+    }
+  ]
+}
+{% endschema %}

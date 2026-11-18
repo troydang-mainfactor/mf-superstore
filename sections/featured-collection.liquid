@@ -49,8 +49,7 @@
                 <div class="grid__item grid-product {{ gridView }}" data-aos="row-of-{{ per_row }}">
                   <div class="grid-product__content">
                     <a href="{{ product.url | within: collection }}" class="grid-product__link">
-                      <div class="grid-product__image-mask">
-                        {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+<div class="grid__image-ratio grid__image-ratio--{{ settings.product_grid_image_size }} primary-image">                        {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
                         <div class="image-wrap">{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}</div>
                       </div>
                       <div class="grid-product__meta">
@@ -124,7 +123,7 @@
       "label": "t:sections.featured-collection.settings.per_row.label",
       "default": 4,
       "min": 1,
-      "max": 5,
+      "max": 10,
       "step": 1
     },
     {
@@ -133,7 +132,7 @@
       "label": "t:sections.featured-collection.settings.rows.label",
       "default": 1,
       "min": 1,
-      "max": 5,
+      "max": 10,
       "step": 1
     },
     {

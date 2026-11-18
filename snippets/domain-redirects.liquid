@@ -1,0 +1,52 @@
+{%- liquid
+  assign domain_redirect_rules = shop.metafields.custom.domain_redirects.value
+-%}
+
+{%- if domain_redirect_rules != blank and request.design_mode == false -%}
+  <script>
+    (function () {
+      var lines = {{ domain_redirect_rules | json }};
+      if (!lines || !lines.length) return;
+
+      var strip = function (value) {
+        return String(value || '')
+          .trim()
+          .toLowerCase()
+          .replace(/^https?:\/\//, '')
+          .replace(/^www\./, '')
+          .replace(/\/+$/, '');
+      };
+
+      var host = strip(window.location.hostname);
+      var path = String(window.location.pathname || '').toLowerCase().replace(/\/+$/, '');
+      var current = host + path;
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = String(lines[i] || '').trim();
+        if (!line || line.charAt(0) === '#') continue;
+
+        var split = line.indexOf('=');
+        if (split === -1) continue;
+
+        var source = strip(line.slice(0, split));
+        var target = line.slice(split + 1).trim();
+
+        if (!source || source !== current) continue;
+
+        /* Same-origin paths only - blocks "//evil.com" and absolute URLs. */
+        if (target.charAt(0) !== '/' || target.charAt(1) === '/') continue;
+
+        /* Never redirect a page to itself. */
+        if (target.split('?')[0].toLowerCase().replace(/\/+$/, '') === path) return;
+
+        var query = '';
+        if (window.location.search) {
+          query = (target.indexOf('?') === -1 ? '?' : '&') + window.location.search.slice(1);
+        }
+
+        window.location.replace(target + query + window.location.hash);
+        return;
+      }
+    })();
+  </script>
+{%- endif -%}

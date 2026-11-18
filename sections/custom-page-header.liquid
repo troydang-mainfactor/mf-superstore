@@ -58,18 +58,30 @@
   }
 
 {%- if section.settings.color_page_background_image != blank -%}
-  body {
-    background-image: url("{{ section.settings.color_page_background_image | image_url: width: 1920 }}");
-    background-attachment: scroll;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  @media only screen and (min-width: 769px) {
     body {
-      background-attachment: fixed;
+      isolation: isolate;
     }
-  }
-{%- endif -%}
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100lvh;
+      z-index: -1;
+      pointer-events: none;
+      background-image: url("{{ section.settings.color_page_background_image | image_url: width: 1200 }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    @media only screen and (min-width: 769px) {
+      body::before {
+        background-image: url("{{ section.settings.color_page_background_image | image_url: width: 1920 }}");
+      }
+    }
+  {%- endif -%}
 
   .custom-page-header__logo-link {
     width: {{ section.settings.mobile_logo_width }}px;
@@ -98,8 +110,48 @@
   .site-footer {
     border-top: none !important;
   }
+
+  /* Inline layout: logo left, menu beside it */
+  .custom-page-header--inline .custom-page-header__main {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .custom-page-header--inline .custom-page-header__logo-block {
+    order: 1;
+    flex: 0 0 auto;
+    text-align: left;
+  }
+  .custom-page-header--inline .custom-page-header__logo,
+  .custom-page-header--inline .custom-page-header__logo-link {
+    margin: 0;
+  }
+  .custom-page-header--inline .custom-page-header__navigation--inline {
+    order: 2;
+    flex: 1 1 auto;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+  }
+  .custom-page-header--inline .custom-page-header__social-block {
+    order: 3;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+  .custom-page-header--inline .custom-page-header__icons-block {
+    order: 4;
+    flex: 0 0 auto;
+  }
+  @media only screen and (max-width: 768px) {
+    .custom-page-header--inline .custom-page-header__social-block {
+      display: none;
+    }
+    .custom-page-header--inline .custom-page-header__icons-block {
+      margin-left: auto;
+    }
+  }
 {%- endstyle -%}
-<div class="custom-page-header" data-section-id="{{ section.id }}" data-section-type="custom-page-header">
+<div class="custom-page-header custom-page-header--{{ section.settings.logo_layout | default: 'stacked' }}" data-section-id="{{ section.id }}" data-section-type="custom-page-header">
   <div class="page-width">
     <div class="custom-page-header__main">
       <div class="custom-page-header__social-block">
@@ -197,7 +249,7 @@
         {%- if section.settings.social_spotify_link != blank -%}
             <li>
           <a target="_blank" rel="noopener" href="{{ section.settings.social_spotify_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Spotify' }}">
-            <img src="https://cdn.shopify.com/s/files/1/0797/5013/6119/files/Spotify_Logo.png?v=1780513733" alt="Apple Music" style="width: 24px; height: 24px; object-fit: contain;">
+            <img src="https://cdn.shopify.com/s/files/1/0797/5013/6119/files/Spotify_Logo.png?v=1780513733" alt="Spotify" style="width: 24px; height: 24px; object-fit: contain;">
             <span class="icon__fallback-text">Spotify</span>
           </a>
         </li>
@@ -237,6 +289,11 @@
           {%- endif -%}
         </div>
       </div>
+      {%- if section.settings.logo_layout == 'inline' and section.settings.main_menu -%}
+        <div class="custom-page-header__navigation custom-page-header__navigation--inline">
+          {%- render 'header-desktop-nav', main_menu: section.settings.main_menu, dropdown_alignment: 'center', hover_menu: true -%}
+        </div>
+      {%- endif -%}
       <div class="custom-page-header__icons-block">
         <button
           type="button"
@@ -266,7 +323,7 @@
       </div>   
     </div>
 
-    {%- if section.settings.main_menu -%}
+    {%- if section.settings.main_menu and section.settings.logo_layout != 'inline' -%}
       <div class="custom-page-header__navigation">
         {%- render 'header-desktop-nav', main_menu: section.settings.main_menu, dropdown_alignment: 'center', hover_menu: true -%}
       </div>
@@ -296,15 +353,9 @@
       </div>
       <div class="drawer__scrollable">
         <ul class="mobile-nav{% if settings.type_navigation_style == 'heading' %} mobile-nav--heading-style{% endif %}" role="navigation" aria-label="Primary">
-          {%- comment %}<locksmith:ef5f>{% endcomment -%}
-            {%- assign locksmith_eb45_forloop__size = 0 %}{%- for link in main_menu.links -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: main_menu, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_eb45_forloop__size = locksmith_eb45_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_eb45_forloop__index = nil -%}
-          {%- comment %}</locksmith:ef5f>{% endcomment -%}
           {%- for link in main_menu.links -%}
-            {%- comment %}<locksmith:7ed0>{% endcomment -%}
-              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: main_menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_eb45_forloop__index == nil %}{% assign locksmith_eb45_forloop__index = 1 %}{% assign locksmith_eb45_forloop__index0 = 0 %}{% else %}{% assign locksmith_eb45_forloop__index = locksmith_eb45_forloop__index | plus: 1 %}{% assign locksmith_eb45_forloop__index0 = locksmith_eb45_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_eb45_forloop__index == 1 %}{% assign locksmith_eb45_forloop__first = true %}{% else %}{% assign locksmith_eb45_forloop__first = false %}{% endif %}{% if locksmith_eb45_forloop__index == locksmith_eb45_forloop__size %}{% assign locksmith_eb45_forloop__last = true %}{% else %}{% assign locksmith_eb45_forloop__last = false %}{% endif %}{% assign locksmith_eb45_forloop__rindex = locksmith_eb45_forloop__size | minus: locksmith_eb45_forloop__index | minus: 1 %}{% assign locksmith_eb45_forloop__rindex0 = locksmith_eb45_forloop__size | minus: locksmith_eb45_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
-            {%- comment %}</locksmith:7ed0>{% endcomment -%}
             {%- assign animation_row = animation_row | plus: 1 -%}
-            {%- assign child_list_handle = link.url | handleize | append: locksmith_eb45_forloop__index -%}
+            {%- assign child_list_handle = link.url | handleize | append: forloop.index -%}
             {%- assign has_dropdown = false -%}
             {%- if link.links != blank -%}
               {%- assign has_dropdown = true -%}
@@ -353,15 +404,9 @@
                   {% if link.active or link.child_active %}style="height: auto;"{% endif %}>
                   <div class="collapsible-content__inner">
                     <ul class="mobile-nav__sublist">
-                      {%- comment %}<locksmith:8624>{% endcomment -%}
-                        {%- assign locksmith_55f9_forloop__size = 0 %}{%- for childlink in link.links -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: childlink, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_55f9_forloop__size = locksmith_55f9_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_55f9_forloop__index = nil -%}
-                      {%- comment %}</locksmith:8624>{% endcomment -%}
                       {%- for childlink in link.links -%}
-                        {%- comment %}<locksmith:7b69>{% endcomment -%}
-                          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: childlink, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_55f9_forloop__index == nil %}{% assign locksmith_55f9_forloop__index = 1 %}{% assign locksmith_55f9_forloop__index0 = 0 %}{% else %}{% assign locksmith_55f9_forloop__index = locksmith_55f9_forloop__index | plus: 1 %}{% assign locksmith_55f9_forloop__index0 = locksmith_55f9_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_55f9_forloop__index == 1 %}{% assign locksmith_55f9_forloop__first = true %}{% else %}{% assign locksmith_55f9_forloop__first = false %}{% endif %}{% if locksmith_55f9_forloop__index == locksmith_55f9_forloop__size %}{% assign locksmith_55f9_forloop__last = true %}{% else %}{% assign locksmith_55f9_forloop__last = false %}{% endif %}{% assign locksmith_55f9_forloop__rindex = locksmith_55f9_forloop__size | minus: locksmith_55f9_forloop__index | minus: 1 %}{% assign locksmith_55f9_forloop__rindex0 = locksmith_55f9_forloop__size | minus: locksmith_55f9_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
-                        {%- comment %}</locksmith:7b69>{% endcomment -%}
                         {%- assign has_sub_dropdown = false -%}
-                        {%- assign grand_child_list_handle = childlink.url | handleize | append: locksmith_55f9_forloop__index -%}
+                        {%- assign grand_child_list_handle = childlink.url | handleize | append: forloop.index -%}
                         {%- if childlink.links != blank -%}
                           {%- assign has_sub_dropdown = true -%}
                         {%- endif -%}
@@ -402,9 +447,6 @@
                               <div class="collapsible-content__inner">
                                 <ul class="mobile-nav__grandchildlist">
                                   {%- for grandchildlink in childlink.links -%}
-                                    {%- comment %}<locksmith:376a>{% endcomment -%}
-                                      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: grandchildlink, subject_parent: childlink, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-                                    {%- comment %}</locksmith:376a>{% endcomment -%}
                                     <li class="mobile-nav__item">
                                       <a href="{{ grandchildlink.url }}" class="mobile-nav__link"{% if grandchildlink.active %} data-active="true"{% endif %}>
                                         {{ grandchildlink.title }}
@@ -501,7 +543,7 @@
           {%- endif -%}
           {%- if section.settings.social_tiktok_link != blank -%}
             <li class="mobile-nav__social-item">
-              <a target="_blank" rel="noopener" href="{{ section.settings.social_tiktok_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'TickTok' }}">
+              <a target="_blank" rel="noopener" href="{{ section.settings.social_tiktok_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'TikTok' }}">
                 <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-tiktok" viewBox="0 0 2859 3333"><path d="M2081 0c55 473 319 755 778 785v532c-266 26-499-61-770-225v995c0 1264-1378 1659-1932 753-356-583-138-1606 1004-1647v561c-87 14-180 36-265 65-254 86-398 247-358 531 77 544 1075 705 992-358V1h551z"/></svg>
                 <span class="icon__fallback-text">TikTok</span>
               </a>
@@ -542,7 +584,7 @@
         {%- if section.settings.social_spotify_link != blank -%}
     <li class="mobile-nav__social-item">
           <a target="_blank" rel="noopener" href="{{ section.settings.social_spotify_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Spotify' }}">
-            <img src="https://cdn.shopify.com/s/files/1/0797/5013/6119/files/Spotify_Logo.png?v=1780513733" alt="Apple Music" style="width: 24px; height: 24px; object-fit: contain;">
+            <img src="https://cdn.shopify.com/s/files/1/0797/5013/6119/files/Spotify_Logo.png?v=1780513733" alt="Spotify" style="width: 24px; height: 24px; object-fit: contain;">
             <span class="icon__fallback-text">Spotify</span>
           </a>
         </li>
@@ -633,50 +675,17 @@
         "label": "Heading letter spacing",
         "default": "25",
         "options": [
-          {
-            "value": "-75",
-            "label": "-75"
-          },
-          {
-            "value": "-50",
-            "label": "-50"
-          },
-          {
-            "value": "-25",
-            "label": "-25"
-          },
-          {
-            "value": "0",
-            "label": "0"
-          },
-          {
-            "value": "25",
-            "label": "25"
-          },
-          {
-            "value": "50",
-            "label": "50"
-          },
-          {
-            "value": "75",
-            "label": "75"
-          },
-          {
-            "value": "100",
-            "label": "100"
-          },
-          {
-            "value": "150",
-            "label": "150"
-          },
-          {
-            "value": "200",
-            "label": "200"
-          },
-          {
-            "value": "250",
-            "label": "250"
-          }
+          { "value": "-75", "label": "-75" },
+          { "value": "-50", "label": "-50" },
+          { "value": "-25", "label": "-25" },
+          { "value": "0", "label": "0" },
+          { "value": "25", "label": "25" },
+          { "value": "50", "label": "50" },
+          { "value": "75", "label": "75" },
+          { "value": "100", "label": "100" },
+          { "value": "150", "label": "150" },
+          { "value": "200", "label": "200" },
+          { "value": "250", "label": "250" }
         ]
       },
       {
@@ -709,50 +718,17 @@
         "label": "Body letter spacing",
         "default": "50",
         "options": [
-          {
-            "value": "-75",
-            "label": "-75"
-          },
-          {
-            "value": "-50",
-            "label": "-50"
-          },
-          {
-            "value": "-25",
-            "label": "-25"
-          },
-          {
-            "value": "0",
-            "label": "0"
-          },
-          {
-            "value": "25",
-            "label": "25"
-          },
-          {
-            "value": "50",
-            "label": "50"
-          },
-          {
-            "value": "75",
-            "label": "75"
-          },
-          {
-            "value": "100",
-            "label": "100"
-          },
-          {
-            "value": "150",
-            "label": "150"
-          },
-          {
-            "value": "200",
-            "label": "200"
-          },
-          {
-            "value": "250",
-            "label": "250"
-          }
+          { "value": "-75", "label": "-75" },
+          { "value": "-50", "label": "-50" },
+          { "value": "-25", "label": "-25" },
+          { "value": "0", "label": "0" },
+          { "value": "25", "label": "25" },
+          { "value": "50", "label": "50" },
+          { "value": "75", "label": "75" },
+          { "value": "100", "label": "100" },
+          { "value": "150", "label": "150" },
+          { "value": "200", "label": "200" },
+          { "value": "250", "label": "250" }
         ]
       },
       {
@@ -800,6 +776,16 @@
         "label": "Logo link"
       },
       {
+        "type": "select",
+        "id": "logo_layout",
+        "label": "Logo layout",
+        "options": [
+          { "value": "stacked", "label": "Logo centered, menu below" },
+          { "value": "inline", "label": "Logo left, menu beside" }
+        ],
+        "default": "stacked"
+      },
+      {
         "type": "link_list",
         "id": "main_menu",
         "label": "Main menu"
@@ -813,109 +799,18 @@
         "id": "show_social_icons",
         "label": "Show social icons"
       },
-      {
-        "type": "text",
-        "id": "social_facebook_link",
-        "label": "Facebook"
-      },
-      {
-        "type": "text",
-        "id": "social_twitter_link",
-        "label": "Twitter"
-      },
-      {
-        "type": "text",
-        "id": "social_pinterest_link",
-        "label": "Pinterest"
-      },
-      {
-        "type": "text",
-        "id": "social_instagram_link",
-        "label": "Instagram"
-      },
-      {
-        "type": "text",
-        "id": "social_snapchat_link",
-        "label": "Snapchat"
-      },
-      {
-        "type": "text",
-        "id": "social_tiktok_link",
-        "label": "TikTok"
-      },
-      {
-        "type": "text",
-        "id": "social_tumblr_link",
-        "label": "Tumblr"
-      },
-      {
-        "type": "text",
-        "id": "social_linkedin_link",
-        "label": "LinkedIn"
-      },
-      {
-        "type": "text",
-        "id": "social_youtube_link",
-        "label": "YouTube"
-      },
-      {
-        "type": "text",
-        "id": "social_vimeo_link",
-        "label": "Vimeo"
-      },
-      {
-        "type": "text",
-        "id": "social_apple_link",
-        "label": "Apple"
-      },
-      {
-        "type": "text",
-        "id": "social_spotify_link",
-        "label": "Spotify"
-      }
+      { "type": "text", "id": "social_facebook_link", "label": "Facebook" },
+      { "type": "text", "id": "social_twitter_link", "label": "Twitter" },
+      { "type": "text", "id": "social_pinterest_link", "label": "Pinterest" },
+      { "type": "text", "id": "social_instagram_link", "label": "Instagram" },
+      { "type": "text", "id": "social_snapchat_link", "label": "Snapchat" },
+      { "type": "text", "id": "social_tiktok_link", "label": "TikTok" },
+      { "type": "text", "id": "social_tumblr_link", "label": "Tumblr" },
+      { "type": "text", "id": "social_linkedin_link", "label": "LinkedIn" },
+      { "type": "text", "id": "social_youtube_link", "label": "YouTube" },
+      { "type": "text", "id": "social_vimeo_link", "label": "Vimeo" },
+      { "type": "text", "id": "social_apple_link", "label": "Apple" },
+      { "type": "text", "id": "social_spotify_link", "label": "Spotify" }
     ]
   }
-{% endschema %}{%- comment -%}
-
-This file has been rewritten to preserve the original behavior.
-
----
-Changes:
-- from: |-
-    {%- render 'image-element',
-                    img: section.settings.logo,
-                    img_width: width,
-                    img_height: height,
-                    img_tag_width: section.settings.desktop_logo_width,
-                    sizes: sizes,
-                    widths: widths,
-                    style: style,
-                    classes: 'small--hide',
-                    loading: 'eager',
-                    alt: section.settings.logo.alt | default: collection.title,
-                    itemprop: 'logo',
-                  -%}
-  to: "{%- render 'image-element', img: section.settings.logo, img_width: width, img_height:
-    height, img_tag_width: section.settings.desktop_logo_width, sizes: sizes, widths:
-    widths, style: style, classes: 'small--hide', loading: 'eager', alt: section.settings.logo.alt,
-    default: collection.title, itemprop: 'logo' -%}"
-  position: 21063..21374
-- from: |-
-    {%- render 'image-element',
-                    img: section.settings.logo,
-                    img_width: mobile_width,
-                    img_height: mobile_height,
-                    img_tag_width: section.settings.mobile_logo_width,
-                    sizes: mobile_sizes,
-                    widths: mobile_widths,
-                    style: mobile_style,
-                    classes: 'medium-up--hide',
-                    loading: 'eager',
-                    alt: section.settings.logo.alt | default: collection.title,
-                  -%}
-  to: "{%- render 'image-element', img: section.settings.logo, img_width: mobile_width,
-    img_height: mobile_height, img_tag_width: section.settings.mobile_logo_width,
-    sizes: mobile_sizes, widths: mobile_widths, style: mobile_style, classes: 'medium-up--hide',
-    loading: 'eager', alt: section.settings.logo.alt, default: collection.title -%}"
-  position: 21389..21720
-{%- endcomment -%}
+{% endschema %}

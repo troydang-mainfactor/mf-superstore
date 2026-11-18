@@ -1,0 +1,183 @@
+{% doc %}
+  @prompt
+    full size hero image that is a clickable link and has a desktop and mobile version. Allow the image to fit fill or cover
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-link-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    text-decoration: none;
+    line-height: 0;
+  }
+
+  .ai-hero-link-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 4px;
+  }
+
+  .ai-hero-link-{{ ai_gen_id }}__media {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-hero-link-{{ ai_gen_id }}__image {
+    display: block;
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    object-fit: {{ block.settings.image_fit }};
+  }
+
+  .ai-hero-link-{{ ai_gen_id }}__placeholder {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #f4f4f4;
+  }
+
+  .ai-hero-link-{{ ai_gen_id }}__placeholder svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-hero-link-{{ ai_gen_id }}__empty-state {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    padding: 8px 12px;
+    background: #ffffff;
+    color: #1c1d1d;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-hero-link-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-hero-link-{{ ai_gen_id }}__image,
+    .ai-hero-link-{{ ai_gen_id }}__placeholder {
+      height: {{ block.settings.mobile_image_height }}px;
+    }
+  }
+{% endstyle %}
+
+{% if block.settings.hero_link != blank %}
+  <a class="ai-hero-link-{{ ai_gen_id }}" href="{{ block.settings.hero_link }}" aria-label="{{ block.settings.link_label | default: 'Open linked page' | escape }}" {{ block.shopify_attributes }}>
+{% else %}
+  <div class="ai-hero-link-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+{% endif %}
+  <span class="ai-hero-link-{{ ai_gen_id }}__media">
+    {% if block.settings.desktop_image != blank or block.settings.mobile_image != blank %}
+      <picture>
+        {% if block.settings.mobile_image != blank %}
+          <source media="(max-width: 749px)" srcset="{{ block.settings.mobile_image | image_url: width: 1200 }}">
+        {% endif %}
+        {% assign hero_image = block.settings.desktop_image | default: block.settings.mobile_image %}
+        <img class="ai-hero-link-{{ ai_gen_id }}__image" src="{{ hero_image | image_url: width: 2400 }}" alt="{{ hero_image.alt | escape }}" loading="lazy" width="{{ hero_image.width }}" height="{{ hero_image.height }}">
+      </picture>
+    {% else %}
+      <span class="ai-hero-link-{{ ai_gen_id }}__placeholder">
+        {{ 'image' | placeholder_svg_tag }}
+        <span class="ai-hero-link-{{ ai_gen_id }}__empty-state">Add a desktop or mobile hero image</span>
+      </span>
+    {% endif %}
+  </span>
+{% if block.settings.hero_link != blank %}
+  </a>
+{% else %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Clickable hero image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Fit" },
+        { "value": "fill", "label": "Fill" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Desktop height",
+      "min": 200,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "label": "Mobile height",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 450
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Link"
+    },
+    {
+      "type": "url",
+      "id": "hero_link",
+      "label": "Image link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Accessible link label",
+      "default": "Shop this collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clickable hero image"
+    }
+  ],
+  "tag": null,
+  "class": "clickable-hero-image"
+}
+{% endschema %}

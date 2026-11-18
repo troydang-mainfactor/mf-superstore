@@ -53,14 +53,14 @@
     <!-- Product Metatags -->
     <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
-    {%- comment %}<locksmith:ca41>{% endcomment -%}
+    {%- comment %}<locksmith:c728>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta property="og:title" content="{{ product.title }}">{% endif -%}
       {%- comment %}original: <meta property="og:title" content="{{ product.title }}">{%- endcomment %}
-    {%- comment %}</locksmith:ca41>{% endcomment -%}
-    {%- comment %}<locksmith:789c>{% endcomment -%}
+    {%- comment %}</locksmith:c728>{% endcomment -%}
+    {%- comment %}<locksmith:9563>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta property="og:image" content="{{ product.featured_image.src | img_url: 'grande' }}">{% endif -%}
       {%- comment %}original: <meta property="og:image" content="{{ product.featured_image.src | img_url: 'grande' }}">{%- endcomment %}
-    {%- comment %}</locksmith:789c>{% endcomment -%}
+    {%- comment %}</locksmith:9563>{% endcomment -%}
     <meta property="og:url" content="{{ shop.url }}{{ product.url }}">
     <!-- Left Column -->
     <div class="single-col col-2_4">

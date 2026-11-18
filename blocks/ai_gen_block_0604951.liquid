@@ -1,0 +1,84 @@
+{% doc %}
+  @prompt
+    Can you create a newsletter form with the ability to change the link color? If I have this set up on a bunch of collection pages I want to be able to change the branding for each specific collection page. I also want to have the ability to tag customers when they submit the form so that I know what collection page they subscribed from., Make it so all content is editable. Buttons, text, font. 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign newsletter_form_id = 'NewsletterForm-' | append: ai_gen_id %}
+
+{% style %}
+  .ai-newsletter-{{ ai_gen_id }} { display: block; width: {{ block.settings.desktop_width_percent }}%; max-width: 100%; padding: {{ block.settings.padding }}px; color: {{ block.settings.text_color }}; background: {{ block.settings.background_color }}; text-align: {{ block.settings.alignment }}; font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }}; font-size: {{ block.settings.body_size }}px; line-height: 1.5; }
+  .ai-newsletter-{{ ai_gen_id }}__content { max-width: 620px; margin: 0 auto; }
+  .ai-newsletter-{{ ai_gen_id }}__heading { margin: 0 0 8px; color: {{ block.settings.heading_color }}; font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }}; font-size: {{ block.settings.heading_size }}px; font-weight: {{ block.settings.heading_font.weight }}; line-height: 1.2; }
+  .ai-newsletter-{{ ai_gen_id }}__description { margin-bottom: 18px; }
+  .ai-newsletter-{{ ai_gen_id }}__description p { margin: 0 0 0.7em; }
+  .ai-newsletter-{{ ai_gen_id }}__description p:last-child { margin-bottom: 0; }
+  .ai-newsletter-{{ ai_gen_id }}__form { display: flex; flex-wrap: wrap; justify-content: {% if block.settings.alignment == 'center' %}center{% elsif block.settings.alignment == 'right' %}flex-end{% else %}flex-start{% endif %}; gap: 10px; }
+  .ai-newsletter-{{ ai_gen_id }}__input { flex: 1 1 220px; min-width: 0; min-height: {{ block.settings.control_height }}px; padding: 12px 14px; border: 1px solid {{ block.settings.input_border_color }}; border-radius: {{ block.settings.corner_radius }}px; background: {{ block.settings.input_background }}; color: {{ block.settings.text_color }}; font: inherit; }
+  .ai-newsletter-{{ ai_gen_id }}__button { min-height: {{ block.settings.control_height }}px; padding: 12px 20px; border: 1px solid {{ block.settings.button_color }}; border-radius: {{ block.settings.corner_radius }}px; background: {{ block.settings.button_color }}; color: {{ block.settings.button_text_color }}; cursor: pointer; font: inherit; font-weight: 600; }
+  .ai-newsletter-{{ ai_gen_id }}__button:hover { background: {{ block.settings.button_hover_color }}; border-color: {{ block.settings.button_hover_color }}; }
+  .ai-newsletter-{{ ai_gen_id }}__links { margin-top: 12px; }
+  .ai-newsletter-{{ ai_gen_id }}__links a { color: {{ block.settings.link_color }}; text-decoration: underline; text-underline-offset: 2px; }
+  .ai-newsletter-{{ ai_gen_id }}__message { margin: 12px 0 0; }
+  .ai-newsletter-{{ ai_gen_id }}__message--error { color: #b42318; }
+  .ai-newsletter-{{ ai_gen_id }}__input:focus-visible, .ai-newsletter-{{ ai_gen_id }}__button:focus-visible, .ai-newsletter-{{ ai_gen_id }}__links a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  @media screen and (max-width: 600px) { .ai-newsletter-{{ ai_gen_id }} { width: 100%; padding: 20px 16px; } .ai-newsletter-{{ ai_gen_id }}__form { flex-direction: column; } .ai-newsletter-{{ ai_gen_id }}__input, .ai-newsletter-{{ ai_gen_id }}__button { width: 100%; } }
+{% endstyle %}
+
+<div class="ai-newsletter-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-newsletter-{{ ai_gen_id }}__content">
+    {% if block.settings.heading != blank %}<h2 class="ai-newsletter-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% endif %}
+    {% if block.settings.description != blank %}<div class="ai-newsletter-{{ ai_gen_id }}__description">{{ block.settings.description }}</div>{% endif %}
+    {% form 'customer', id: newsletter_form_id %}
+      <input type="hidden" name="contact[tags]" value="newsletter, {{ block.settings.source_tag | escape }}">
+      <input type="hidden" name="contact[context]" value="{{ collection.title | default: page.title | escape }}">
+      <div class="ai-newsletter-{{ ai_gen_id }}__form">
+        <label class="visually-hidden" for="NewsletterEmail-{{ ai_gen_id }}">{{ block.settings.email_label | escape }}</label>
+        <input id="NewsletterEmail-{{ ai_gen_id }}" class="ai-newsletter-{{ ai_gen_id }}__input" type="email" name="contact[email]" value="{{ form.email | escape }}" autocorrect="off" autocapitalize="off" autocomplete="email" aria-required="true" placeholder="{{ block.settings.email_placeholder | escape }}" required>
+        <button class="ai-newsletter-{{ ai_gen_id }}__button" type="submit">{{ block.settings.button_label | escape }}</button>
+      </div>
+      {% if form.posted_successfully? %}<p class="ai-newsletter-{{ ai_gen_id }}__message" role="status">{{ block.settings.success_message | escape }}</p>{% endif %}
+      {% if form.errors %}<p class="ai-newsletter-{{ ai_gen_id }}__message ai-newsletter-{{ ai_gen_id }}__message--error" role="alert">{{ form.errors | default_errors }}</p>{% endif %}
+    {% endform %}
+    {% if block.settings.privacy_copy != blank %}<div class="ai-newsletter-{{ ai_gen_id }}__links">{{ block.settings.privacy_copy }}</div>{% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter signup",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stay in the know" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Sign up for updates and exclusive offers.</p>" },
+    { "type": "text", "id": "email_label", "label": "Email field label", "default": "Email address" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Enter your email" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thanks for subscribing!" },
+    { "type": "text", "id": "source_tag", "label": "Subscriber source tag", "default": "collection-dilated-peoples", "info": "Set a distinct tag on each collection page to identify the signup source." },
+    { "type": "richtext", "id": "privacy_copy", "label": "Privacy or terms copy", "default": "<p>By subscribing, you agree to our <a href=\"/policies/privacy-policy\">privacy policy</a>.</p>" },
+    { "type": "header", "content": "Typography" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "jost_n5" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 16, "max": 48, "step": 2, "unit": "px", "default": 26 },
+    { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "archivo_narrow_n4" },
+    { "type": "range", "id": "body_size", "label": "Body size", "min": 12, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "header", "content": "Layout and colors" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "padding", "label": "Padding", "min": 0, "max": 60, "step": 5, "unit": "px", "default": 20 },
+    { "type": "range", "id": "control_height", "label": "Field and button height", "min": 40, "max": 64, "step": 2, "unit": "px", "default": 48 },
+    { "type": "range", "id": "corner_radius", "label": "Corner radius", "min": 0, "max": 20, "step": 2, "unit": "px", "default": 2 },
+    { "type": "select", "id": "alignment", "label": "Alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }], "default": "center" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Body text", "default": "#000000" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#000000" },
+    { "type": "color", "id": "link_color", "label": "Link color", "default": "#000000" },
+    { "type": "color", "id": "input_background", "label": "Field background", "default": "#FFFFFF" },
+    { "type": "color", "id": "input_border_color", "label": "Field border", "default": "#000000" },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#000000" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_color", "label": "Button hover background", "default": "#333333" }
+  ],
+  "presets": [{ "name": "Newsletter signup" }],
+  "tag": null,
+  "class": "newsletter-signup-block"
+}
+{% endschema %}

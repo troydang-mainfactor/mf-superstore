@@ -296,6 +296,29 @@ Arguments
           {%- endif -%}
         </div>
       </a>
+      {%- if template.suffix == 'custom-plp-kathli' -%}
+  {%- form 'product', product, class: 'grid-product__atc' -%}
+    {%- if product.has_only_default_variant -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <select class="grid-product__atc-select" style="visibility: hidden;" aria-hidden="true" tabindex="-1" disabled>
+        <option>&nbsp;</option>
+      </select>
+    {%- else -%}
+      <select name="id" class="grid-product__atc-select">
+        {%- for variant in product.variants -%}
+          <option value="{{ variant.id }}"
+            {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
+            {% unless variant.available %}disabled{% endunless %}>
+            {{ variant.title }}{% unless variant.available %} – Sold out{% endunless %}
+          </option>
+        {%- endfor -%}
+      </select>
+    {%- endif -%}
+    <button type="submit" class="btn btn--full" {% unless product.available %}disabled{% endunless %}>
+      {%- if product.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+    </button>
+  {%- endform -%}
+{%- endif -%}
     </div>
   </div>
   {%- if settings.enable_swatches and type == blank -%}

@@ -1,0 +1,91 @@
+{% doc %}
+  @prompt
+    Add a custom collection section with animated buy buttons that can be customized
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    color: {{ block.settings.text_color }};
+  }
+  .ai-collection-{{ ai_gen_id }}__heading { margin: 0 0 24px; font-size: {{ block.settings.heading_size }}px; color: {{ block.settings.text_color }}; }
+  .ai-collection-{{ ai_gen_id }}__grid { display: grid; grid-template-columns: repeat({{ block.settings.columns_desktop }}, minmax(0, 1fr)); gap: {{ block.settings.gap }}px; }
+  .ai-collection-{{ ai_gen_id }}__card { min-width: 0; }
+  .ai-collection-{{ ai_gen_id }}__image-link { display: block; aspect-ratio: 1 / 1; overflow: hidden; background: #f3f3f3; }
+  .ai-collection-{{ ai_gen_id }}__image-link img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+  .ai-collection-{{ ai_gen_id }}__card:hover .ai-collection-{{ ai_gen_id }}__image-link img { transform: scale(1.025); }
+  .ai-collection-{{ ai_gen_id }}__placeholder { width: 100%; height: 100%; display: grid; place-items: center; }
+  .ai-collection-{{ ai_gen_id }}__placeholder svg { width: 100%; height: 100%; }
+  .ai-collection-{{ ai_gen_id }}__empty { padding: 12px; font-size: 14px; color: #555; }
+  .ai-collection-{{ ai_gen_id }}__details { padding-top: 12px; }
+  .ai-collection-{{ ai_gen_id }}__title { display: block; margin: 0 0 6px; color: {{ block.settings.text_color }}; text-decoration: none; font-weight: 600; }
+  .ai-collection-{{ ai_gen_id }}__price { margin: 0 0 12px; color: {{ block.settings.text_color }}; }
+  .ai-collection-{{ ai_gen_id }}__button { display: inline-flex; width: 100%; min-height: 46px; align-items: center; justify-content: center; padding: 10px 16px; border: 0; border-radius: {{ block.settings.button_radius }}px; background: {{ block.settings.button_color }}; color: {{ block.settings.button_text_color }}; font: inherit; text-decoration: none; cursor: pointer; transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease; }
+  .ai-collection-{{ ai_gen_id }}__button:hover { background: {{ block.settings.button_hover_color }}; color: {{ block.settings.button_text_color }}; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.16); }
+  .ai-collection-{{ ai_gen_id }}__button:focus-visible, .ai-collection-{{ ai_gen_id }}__title:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+  .ai-collection-{{ ai_gen_id }}__button[disabled] { cursor: not-allowed; opacity: .65; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .ai-collection-{{ ai_gen_id }}__image-link img, .ai-collection-{{ ai_gen_id }}__button { transition: none; } .ai-collection-{{ ai_gen_id }}__card:hover .ai-collection-{{ ai_gen_id }}__image-link img, .ai-collection-{{ ai_gen_id }}__button:hover { transform: none; } }
+  @media screen and (max-width: 749px) { .ai-collection-{{ ai_gen_id }} { width: 100%; } .ai-collection-{{ ai_gen_id }}__grid { grid-template-columns: repeat({{ block.settings.columns_mobile }}, minmax(0, 1fr)); } }
+{% endstyle %}
+
+<div class="ai-collection-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.heading != blank %}<h2 class="ai-collection-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% endif %}
+  {% if block.settings.collection != blank %}
+    <div class="ai-collection-{{ ai_gen_id }}__grid">
+      {% for item in block.settings.collection.products limit: block.settings.product_limit %}
+        <article class="ai-collection-{{ ai_gen_id }}__card">
+          <a class="ai-collection-{{ ai_gen_id }}__image-link" href="{{ item.url }}" aria-label="{{ item.title | escape }}">
+            {% if item.featured_image %}<img src="{{ item.featured_image | image_url: width: 900 }}" alt="{{ item.featured_image.alt | default: item.title | escape }}" loading="lazy" width="{{ item.featured_image.width }}" height="{{ item.featured_image.height }}">
+            {% else %}<div class="ai-collection-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}
+          </a>
+          <div class="ai-collection-{{ ai_gen_id }}__details">
+            <a class="ai-collection-{{ ai_gen_id }}__title" href="{{ item.url }}">{{ item.title | escape }}</a>
+            <p class="ai-collection-{{ ai_gen_id }}__price">{% if item.price_varies %}From {% endif %}{{ item.price | money }}</p>
+            {% if item.available and item.has_only_default_variant %}
+              <form action="{{ routes.cart_add_url }}" method="post">
+                <input type="hidden" name="id" value="{{ item.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button class="ai-collection-{{ ai_gen_id }}__button" type="submit">{{ block.settings.button_label | escape }}</button>
+              </form>
+            {% else %}
+              <a class="ai-collection-{{ ai_gen_id }}__button" href="{{ item.url }}">{% if item.available %}{{ block.settings.options_label | escape }}{% else %}{{ block.settings.sold_out_label | escape }}{% endif %}</a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="ai-collection-{{ ai_gen_id }}__empty">Choose a collection in the block settings to display its products.</div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom collection",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Featured collection" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "product_limit", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 4 },
+    { "type": "select", "id": "columns_desktop", "label": "Columns on desktop", "options": [{ "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" }], "default": "4" },
+    { "type": "select", "id": "columns_mobile", "label": "Columns on mobile", "options": [{ "value": "1", "label": "1" }, { "value": "2", "label": "2" }], "default": "2" },
+    { "type": "range", "id": "gap", "label": "Grid gap", "min": 8, "max": 40, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 20, "max": 48, "step": 2, "unit": "px", "default": 32 },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#000000" },
+    { "type": "header", "content": "Buy button" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Buy now" },
+    { "type": "text", "id": "options_label", "label": "Options label", "default": "Choose options" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
+    { "type": "color", "id": "button_color", "label": "Background", "default": "#de2e2e" },
+    { "type": "color", "id": "button_hover_color", "label": "Hover background", "default": "#b92323" },
+    { "type": "color", "id": "button_text_color", "label": "Text color", "default": "#ffffff" },
+    { "type": "range", "id": "button_radius", "label": "Corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 0 }
+  ],
+  "presets": [{ "name": "Custom collection" }],
+  "tag": null,
+  "class": "custom-collection-block"
+}
+{% endschema %}

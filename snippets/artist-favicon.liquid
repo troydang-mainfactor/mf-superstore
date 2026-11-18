@@ -1,0 +1,66 @@
+{%- comment -%}
+  ARTIST FAVICON
+  Priority:
+    1. product.metafields.custom.favicon      (per-product override)
+    2. collection.metafields.custom.favicon   (per-collection override)
+    3. Artist Brand metaobject keyword match  (URL / vendor / collection handles)
+    4. Theme default favicon
+
+  Install: in layout/theme.liquid <head>, replace the old favicon block with:
+    {% render 'artist-favicon' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign favicon_url = blank
+
+  # 1 + 2. Existing per-product / per-collection overrides
+  if product and product.metafields.custom.favicon != blank
+    assign favicon_url = product.metafields.custom.favicon | file_url
+  elsif collection and collection.metafields.custom.favicon != blank
+    assign favicon_url = collection.metafields.custom.favicon | file_url
+  endif
+
+  # 3. Artist Brand metaobject match
+  if favicon_url == blank
+    # CONFIG: metaobject type handle (Settings > Custom data > Metaobjects > Artist Brand)
+    assign brands = shop.metaobjects.artist_brand.values
+
+    assign haystack = request.path | downcase
+    if collection
+      assign haystack = haystack | append: ' ' | append: collection.handle
+    endif
+    if product
+      assign vendor_handle = product.vendor | handleize
+      assign haystack = haystack | append: ' ' | append: vendor_handle
+      for c in product.collections
+        assign haystack = haystack | append: ' ' | append: c.handle
+      endfor
+    endif
+
+    for entry in brands
+      if entry.favicon == blank
+        continue
+      endif
+      assign kws = entry.keywords.value | join: ',' | split: ','
+      for kw in kws
+        assign k = kw | strip | downcase
+        if k != blank and haystack contains k
+          assign favicon_url = entry.favicon.value | image_url: width: 32, height: 32
+          break
+        endif
+      endfor
+      if favicon_url != blank
+        break
+      endif
+    endfor
+  endif
+
+  # 4. Theme default
+  if favicon_url == blank and settings.favicon != blank
+    assign favicon_url = settings.favicon | image_url: width: 32, height: 32
+  endif
+-%}
+
+{%- if favicon_url != blank -%}
+  <link rel="icon" href="{{ favicon_url }}" type="image/png" />
+{%- endif -%}

@@ -1,0 +1,152 @@
+{% doc %}
+  @prompt
+    generate a row of social icons that are able to be styled. add one for facebook, instagram, and twitter
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-social-row-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+  }
+
+  .ai-social-row-{{ ai_gen_id }}__list {
+    display: flex;
+    align-items: center;
+    justify-content: {{ block.settings.alignment }};
+    gap: {{ block.settings.icon_gap }}px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ai-social-row-{{ ai_gen_id }}__link {
+    display: inline-flex;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.icon_color }};
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.corner_radius }}px;
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .ai-social-row-{{ ai_gen_id }}__link:hover {
+    color: {{ block.settings.hover_icon_color }};
+    background-color: {{ block.settings.hover_background_color }};
+  }
+
+  .ai-social-row-{{ ai_gen_id }}__link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .ai-social-row-{{ ai_gen_id }}__link svg {
+    display: block;
+    width: 58%;
+    height: 58%;
+    fill: currentColor;
+  }
+{% endstyle %}
+
+<div class="ai-social-row-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <ul class="ai-social-row-{{ ai_gen_id }}__list" aria-label="Social media">
+    {% if block.settings.facebook_url != blank %}
+      <li>
+        <a class="ai-social-row-{{ ai_gen_id }}__link" href="{{ block.settings.facebook_url | escape }}" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2v-2c0-.9.3-1.5 1.6-1.5h1.7V3.2c-.3 0-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4z"/></svg>
+        </a>
+      </li>
+    {% endif %}
+    {% if block.settings.instagram_url != blank %}
+      <li>
+        <a class="ai-social-row-{{ ai_gen_id }}__link" href="{{ block.settings.instagram_url | escape }}" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.2-3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+        </a>
+      </li>
+    {% endif %}
+    {% if block.settings.twitter_url != blank %}
+      <li>
+        <a class="ai-social-row-{{ ai_gen_id }}__link" href="{{ block.settings.twitter_url | escape }}" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 5.9a8 8 0 0 1-2.4.7 4.2 4.2 0 0 0 1.8-2.3 8.3 8.3 0 0 1-2.7 1 4.2 4.2 0 0 0-7.2 3.8 11.9 11.9 0 0 1-8.6-4.4 4.2 4.2 0 0 0 1.3 5.6 4.1 4.1 0 0 1-1.9-.5v.1a4.2 4.2 0 0 0 3.4 4.1 4.2 4.2 0 0 1-1.9.1 4.2 4.2 0 0 0 3.9 2.9A8.4 8.4 0 0 1 2.5 19a11.8 11.8 0 0 0 6.4 1.9c7.7 0 11.9-6.4 11.9-11.9v-.5A8.5 8.5 0 0 0 22 5.9z"/></svg>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Social icons row",
+  "settings": [
+    { "type": "header", "content": "Social links" },
+    { "type": "url", "id": "facebook_url", "label": "Facebook link" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram link" },
+    { "type": "url", "id": "twitter_url", "label": "Twitter link" },
+    { "type": "header", "content": "Style" },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "icon_gap",
+      "label": "Space between icons",
+      "min": 4,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#000000" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "hover_icon_color", "label": "Hover icon color", "default": "#FFFFFF" },
+    { "type": "color", "id": "hover_background_color", "label": "Hover background", "default": "#000000" }
+  ],
+  "presets": [
+    { "name": "Social icons row" }
+  ],
+  "tag": null,
+  "class": "social-icons-row"
+}
+{% endschema %}
