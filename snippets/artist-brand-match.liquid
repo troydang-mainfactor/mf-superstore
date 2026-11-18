@@ -1,0 +1,24 @@
+{%- comment -%}
+  Outputs the keyword (collection handle) of the Artist Brand whose keyword
+  matches the current domain, ignoring dashes and spaces. Outputs nothing if
+  no brand matches. Example: keyword "dilated-peoples" matches dilatedpeoples.com.
+{%- endcomment -%}
+{%- liquid
+  assign abm_host = request.host | downcase
+  assign abm_found = false
+  for abm_brand in shop.metaobjects.artist_brand.values
+    if abm_found or abm_brand.keywords == blank
+      continue
+    endif
+    assign abm_keywords = abm_brand.keywords.value | downcase | split: ','
+    for abm_keyword in abm_keywords
+      assign abm_keyword = abm_keyword | strip
+      assign abm_flat = abm_keyword | remove: '-' | remove: ' '
+      if abm_flat != blank and abm_host contains abm_flat
+        echo abm_keyword
+        assign abm_found = true
+        break
+      endif
+    endfor
+  endfor
+-%}

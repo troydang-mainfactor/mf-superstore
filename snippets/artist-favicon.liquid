@@ -26,6 +26,10 @@
     assign brands = shop.metaobjects.artist_brand.values
 
     assign haystack = request.path | downcase
+    capture artist_domain_handle
+      render 'artist-brand-match'
+    endcapture
+    assign haystack = haystack | append: ' ' | append: artist_domain_handle
     if collection
       assign haystack = haystack | append: ' ' | append: collection.handle
     endif

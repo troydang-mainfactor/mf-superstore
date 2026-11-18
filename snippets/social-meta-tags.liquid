@@ -3,6 +3,12 @@
   assign og_url = canonical_url
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
+  if artist_title != blank
+    assign og_title = artist_title
+  endif
+  if artist_description != blank
+    assign og_description = artist_description
+  endif
 -%}
 
 {%- comment -%}

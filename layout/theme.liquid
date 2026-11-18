@@ -39,16 +39,35 @@
 
 {% render 'artist-favicon' %}
 
-  {%- render 'seo-title' -%}
+  {%- capture artist_handle -%}{%- render 'artist-brand-match' -%}{%- endcapture -%}
+  {%- liquid
+    assign artist_handle = artist_handle | strip
+    assign artist_title = blank
+    assign artist_description = blank
+    if artist_handle != blank and request.page_type == 'index'
+      assign artist_collection = collections[artist_handle]
+      if artist_collection.id
+        assign artist_title = artist_collection.metafields.global.title_tag.value | default: artist_collection.title
+        assign artist_description = artist_collection.metafields.global.description_tag.value | default: artist_collection.description | strip_html | truncate: 300
+      endif
+    endif
+    assign meta_description = artist_description | default: page_description
+  -%}
 
-  {%- if page_description -%}
+  {%- if artist_title != blank -%}
+    <title>{{ artist_title | escape }}</title>
+  {%- else -%}
+    {%- render 'seo-title' -%}
+  {%- endif -%}
+
+  {%- if meta_description != blank -%}
   {%- comment %}<locksmith:76a7>{% endcomment -%}
-    {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ page_description | escape }}">{% endif -%}
+    {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ meta_description | escape }}">{% endif -%}
     {%- comment %}original: <meta name="description" content="{{ page_description | escape }}">{%- endcomment %}
   {%- comment %}</locksmith:76a7>{% endcomment -%}
   {%- endif -%}
 
-  {%- render 'social-meta-tags' -%}
+  {%- render 'social-meta-tags', artist_title: artist_title, artist_description: artist_description -%}
 
   {%- render 'font-face' -%}
   {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
