@@ -15,14 +15,14 @@
         "ai_gen_block_fe137ac_7krTUf": {
           "type": "ai_gen_block_fe137ac",
           "settings": {
-            "text": "<strong>15% OFF HALLOWEEN FLASH SALE!</strong>",
+            "text": "<strong>UP TO 70% OFF SITEWIDE + FREE PRINT WITH PURCHASE!</strong>",
             "link_text": "",
             "link_url": "",
             "show_icon": false,
             "icon_type": "megaphone",
             "icon_size": 20,
-            "background_color": "#FF328D",
-            "text_color": "#FFFFFF",
+            "background_color": "#ff328d",
+            "text_color": "#ffffff",
             "link_color": "#ffffff",
             "link_hover_color": "#cccccc",
             "font_size": 14,
@@ -110,9 +110,32 @@
       "disabled": true,
       "settings": {}
     },
-    "blocks_amjJnm": {
+    "blocks_mjCtCH": {
       "type": "_blocks",
-      "disabled": true,
+      "blocks": {
+        "ai_gen_block_6f83755_rcLWp3": {
+          "type": "ai_gen_block_6f83755",
+          "settings": {
+            "desktop_image": "shopify://shop_images/SR-BFCM-70_OFF-BANNER_1.png",
+            "mobile_image": "shopify://shop_images/SR-BFCM-70_OFF-EMAIL.png",
+            "link_url": "",
+            "title": "",
+            "subtitle": "",
+            "text_color": "#ffffff",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "title_size": 48,
+            "subtitle_size": 18,
+            "desktop_height": 300,
+            "mobile_height": 400
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_6f83755_rcLWp3"
+      ],
       "name": "Hero image",
       "settings": {}
     },
@@ -233,7 +256,7 @@
     "blocks_RknM7W",
     "custom-page-header",
     "17804274304cbf6da4",
-    "blocks_amjJnm",
+    "blocks_mjCtCH",
     "collection-header",
     "blocks_E3bYga",
     "featured_collection_qdmhh4",
