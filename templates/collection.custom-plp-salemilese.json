@@ -168,14 +168,13 @@
       "blocks": {
         "ai_gen_block_a0b8580_peTyWB": {
           "type": "ai_gen_block_a0b8580",
-          "disabled": true,
           "settings": {
             "heading": "<p>JOIN OUR NEWSLETTER</p>",
             "subtext": "<p>Promotions, new products and sales, directly to your inbox. By subscribing you agree to our <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy</a> and <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Service</a>.</p>",
             "email_placeholder": "Enter your email",
             "button_label": "Subscribe",
             "success_message": "Thanks for subscribing!",
-            "subscriber_tag": "EMELIE",
+            "subscriber_tag": "SALEM",
             "desktop_width_percent": 100,
             "padding": 40,
             "text_alignment": "center",
@@ -207,28 +206,6 @@
       ],
       "name": "Newsletter signup",
       "settings": {}
-    },
-    "advanced_content_FrWY7M": {
-      "type": "advanced-content",
-      "blocks": {
-        "liquid_JeBXMV": {
-          "type": "liquid",
-          "settings": {
-            "code": "<script src=\"https://embed.laylo.com/laylo-sdk.js\"></script> <iframe id=\"laylo-drop-4GxMK\" frameborder=\"0\" scrolling=\"no\" allow=\"web-share\" allowtransparency=\"true\" style=\"width: 1px; min-width: 100%; max-width: 1000px\" src= \"https://embed.laylo.com?dropId=4GxMK&color=cfcfcf&minimal=false&theme=light\"> </iframe>",
-            "width": "100%",
-            "alignment": "center"
-          }
-        }
-      },
-      "block_order": [
-        "liquid_JeBXMV"
-      ],
-      "name": "t:sections.advanced-content.presets.custom_content.name",
-      "settings": {
-        "full_width": false,
-        "space_around": true,
-        "lazyload_images": true
-      }
     }
   },
   "order": [
@@ -238,7 +215,6 @@
     "featured_collection_aHXPK6",
     "6210a1a8-a042-4133-9722-4a118aba0aca",
     "hero_video_VxFXRi",
-    "blocks_QaJp8j",
-    "advanced_content_FrWY7M"
+    "blocks_QaJp8j"
   ]
 }
