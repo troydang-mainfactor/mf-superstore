@@ -15,9 +15,9 @@
         "ai_gen_block_fe137ac_7krTUf": {
           "type": "ai_gen_block_fe137ac",
           "settings": {
-            "text": "We’re moving our Warehouse! Orders placed today may experience slight delays in fulfillment.",
+            "text": "Shop our Holiday Sale Now! Up to 70% off Sitewide!",
             "link_text": "",
-            "link_url": "",
+            "link_url": "shopify://collections/ginger-minj",
             "show_icon": false,
             "icon_type": "megaphone",
             "icon_size": 20,
@@ -34,7 +34,6 @@
       "block_order": [
         "ai_gen_block_fe137ac_7krTUf"
       ],
-      "disabled": true,
       "name": "Announcement bar",
       "settings": {}
     },
