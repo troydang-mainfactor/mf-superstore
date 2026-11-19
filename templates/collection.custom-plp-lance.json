@@ -34,6 +34,7 @@
         "desktop_logo_width": 250,
         "mobile_logo_width": 120,
         "logo_link": "shopify://collections/lance-stewart",
+        "logo_layout": "stacked",
         "main_menu": "lance-stewart-menu",
         "show_social_icons": true,
         "social_facebook_link": "",
@@ -55,9 +56,8 @@
       "blocks": {
         "ai_gen_block_fe137ac_M7YCEp": {
           "type": "ai_gen_block_fe137ac",
-          "disabled": true,
           "settings": {
-            "text": "NEW COLLECTION OUT NOW",
+            "text": "UP TO 80% OFF SITEWIDE + FREE BEANIE WITH PURCHASE",
             "link_text": "",
             "link_url": "",
             "show_icon": false,
