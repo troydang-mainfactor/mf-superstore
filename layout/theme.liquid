@@ -1,6 +1,6 @@
-{%- comment %}<locksmith:2c0e>{% endcomment -%}
+{%- comment %}<locksmith:c92b>{% endcomment -%}
   {%- include 'locksmith' -%}
-{%- comment %}</locksmith:2c0e>{% endcomment -%}
+{%- comment %}</locksmith:c92b>{% endcomment -%}
 
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
@@ -69,10 +69,10 @@
   {%- endif -%}
 
   {%- if meta_description != blank -%}
-  {%- comment %}<locksmith:76a7>{% endcomment -%}
-    {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ meta_description | escape }}">{% endif -%}
+  {%- comment %}<locksmith:c3fa>{% endcomment -%}
+    {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ page_description | escape }}">{% endif -%}
     {%- comment %}original: <meta name="description" content="{{ page_description | escape }}">{%- endcomment %}
-  {%- comment %}</locksmith:76a7>{% endcomment -%}
+  {%- comment %}</locksmith:c3fa>{% endcomment -%}
   {%- endif -%}
 
   {%- render 'social-meta-tags', artist_title: artist_title, artist_description: artist_description -%}

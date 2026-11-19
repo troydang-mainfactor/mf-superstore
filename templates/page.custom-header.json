@@ -1,1 +1,181 @@
-{"sections":{"custom-page-header":{"type":"custom-page-header","settings":{"color_page_background":"#d271a5","color_page_text":"#000000","color_button_background":"#fbae24","color_button_text":"#ffffff","color_product_tag_background":"#de2e2e","color_product_tag_text":"#ffffff","color_cart_dot":"#fbae24","type_heading_font_family":"sans_serif_n4","type_heading_base_size":22,"type_heading_spacing":"0","type_heading_line_height":1.2,"type_body_font_family":"sans_serif_n4","type_body_base_size":15,"type_body_spacing":"25","type_body_line_height":1.4,"logo":"shopify:\/\/shop_images\/UC-title-logo.png","desktop_logo_width":330,"mobile_logo_width":160,"logo_link":"","main_menu":"under-construction-menu","show_social_icons":false,"social_facebook_link":"","social_twitter_link":"","social_pinterest_link":"","social_instagram_link":"","social_snapchat_link":"","social_tiktok_link":"","social_tumblr_link":"","social_linkedin_link":"","social_youtube_link":"","social_vimeo_link":"","social_apple_link":"","social_spotify_link":""}},"main":{"type":"main-page","disabled":true,"settings":{}},"17882842623ba62b33":{"type":"_blocks","blocks":{"ai_gen_block_0d4f823_N8CyUz":{"type":"ai_gen_block_0d4f823","settings":{"html_content":"<script src=\"https:\/\/embed.laylo.com\/laylo-sdk.js\"><\/script>\n<iframe id=\"laylo-drop-ba7b6abd-6ef7-41e9-bd1b-2f4db17e1890\" frameborder=\"0\" scrolling=\"no\" allow=\"web-share\" allowtransparency=\"true\" style=\"width: 1px; min-width: 100%; max-width: 1000px\" src=\"https:\/\/embed.laylo.com?dropId=ba7b6abd-6ef7-41e9-bd1b-2f4db17e1890&amp;color=4b4c4b&amp;minimal=false&amp;theme=light\">\n<\/iframe>","desktop_width_percent":55,"mobile_width_percent":100,"min_height":0,"padding_top":40,"padding_bottom":40,"padding_horizontal":20,"mobile_padding_top":20,"mobile_padding_bottom":20,"mobile_padding_horizontal":15,"background_color":"#d271a5"},"blocks":{}}},"block_order":["ai_gen_block_0d4f823_N8CyUz"],"settings":{}},"blocks_FKWk4H":{"type":"_blocks","blocks":{"ai_gen_block_a0b8580_nM9fJx":{"type":"ai_gen_block_a0b8580","settings":{"heading":"","subtext":"","email_placeholder":"Enter your email","button_label":"Subscribe","success_message":"Thanks for subscribing!","subscriber_tag":"under-construction","desktop_width_percent":100,"padding":40,"text_alignment":"center","background_color":"#d271a5","text_color":"#000000","link_color":"#de2e2e","button_color":"#fbae24","button_text_color":"#ffffff","button_hover_color":"#000000","input_background_color":"#ffffff","input_text_color":"#000000","input_border_color":"#cccccc","success_color":"#008060","error_color":"#d82c0d","heading_size":28,"text_size":16,"border_radius":40,"input_border_radius":40,"button_border_radius":40},"blocks":{}}},"block_order":["ai_gen_block_a0b8580_nM9fJx"],"disabled":true,"name":"Newsletter signup","settings":{}},"blocks_Q8fKnq":{"type":"_blocks","blocks":{"ai_gen_block_71fb966_DFwMAc":{"type":"ai_gen_block_71fb966","settings":{"logo_image":"shopify:\/\/shop_images\/lineup-poster.png","logo_link":"","alignment":"center","logo_width":500,"padding_top":20,"padding_bottom":20,"alignment_mobile":"center","logo_width_mobile":300,"padding_top_mobile":15,"padding_bottom_mobile":15},"blocks":{}}},"block_order":["ai_gen_block_71fb966_DFwMAc"],"name":"Logo image","settings":{}},"advanced_content_aF8ja4":{"type":"advanced-content","blocks":{"image_HJyXTk":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/Untitled_2400_x_900_px_2400_x_800_px_2400_x_750_px_2400_x_650_px.webp","link":"","width":"100%","alignment":"center"}}},"block_order":["image_HJyXTk"],"name":"t:sections.advanced-content.presets.custom_content.name","settings":{"full_width":false,"space_around":false,"lazyload_images":true}}},"order":["custom-page-header","main","17882842623ba62b33","blocks_FKWk4H","blocks_Q8fKnq","advanced_content_aF8ja4"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom-page-header": {
+      "type": "custom-page-header",
+      "settings": {
+        "color_page_background": "#d271a5",
+        "color_page_text": "#000000",
+        "color_button_background": "#fbae24",
+        "color_button_text": "#ffffff",
+        "color_product_tag_background": "#de2e2e",
+        "color_product_tag_text": "#ffffff",
+        "color_cart_dot": "#fbae24",
+        "type_heading_font_family": "sans_serif_n4",
+        "type_heading_base_size": 22,
+        "type_heading_spacing": "0",
+        "type_heading_line_height": 1.2,
+        "type_body_font_family": "sans_serif_n4",
+        "type_body_base_size": 15,
+        "type_body_spacing": "25",
+        "type_body_line_height": 1.4,
+        "logo": "shopify://shop_images/UC-title-logo.png",
+        "desktop_logo_width": 330,
+        "mobile_logo_width": 160,
+        "logo_link": "",
+        "main_menu": "under-construction-menu",
+        "show_social_icons": false,
+        "social_facebook_link": "",
+        "social_twitter_link": "",
+        "social_pinterest_link": "",
+        "social_instagram_link": "",
+        "social_snapchat_link": "",
+        "social_tiktok_link": "",
+        "social_tumblr_link": "",
+        "social_linkedin_link": "",
+        "social_youtube_link": "",
+        "social_vimeo_link": "",
+        "social_apple_link": "",
+        "social_spotify_link": ""
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "17882842623ba62b33": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_0d4f823_N8CyUz": {
+          "type": "ai_gen_block_0d4f823",
+          "settings": {
+            "html_content": "<script src=\"https://embed.laylo.com/laylo-sdk.js\"></script>\n<iframe id=\"laylo-drop-ba7b6abd-6ef7-41e9-bd1b-2f4db17e1890\" frameborder=\"0\" scrolling=\"no\" allow=\"web-share\" allowtransparency=\"true\" style=\"width: 1px; min-width: 100%; max-width: 1000px\" src=\"https://embed.laylo.com?dropId=ba7b6abd-6ef7-41e9-bd1b-2f4db17e1890&amp;color=4b4c4b&amp;minimal=false&amp;theme=light\">\n</iframe>",
+            "desktop_width_percent": 55,
+            "mobile_width_percent": 100,
+            "min_height": 0,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "padding_horizontal": 20,
+            "mobile_padding_top": 20,
+            "mobile_padding_bottom": 20,
+            "mobile_padding_horizontal": 15,
+            "background_color": "#d271a5"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_0d4f823_N8CyUz"
+      ],
+      "settings": {}
+    },
+    "blocks_FKWk4H": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a0b8580_nM9fJx": {
+          "type": "ai_gen_block_a0b8580",
+          "settings": {
+            "heading": "",
+            "subtext": "",
+            "email_placeholder": "Enter your email",
+            "button_label": "Subscribe",
+            "success_message": "Thanks for subscribing!",
+            "subscriber_tag": "under-construction",
+            "desktop_width_percent": 100,
+            "padding": 40,
+            "text_alignment": "center",
+            "background_color": "#d271a5",
+            "text_color": "#000000",
+            "link_color": "#de2e2e",
+            "button_color": "#fbae24",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#000000",
+            "input_background_color": "#ffffff",
+            "input_text_color": "#000000",
+            "input_border_color": "#cccccc",
+            "success_color": "#008060",
+            "error_color": "#d82c0d",
+            "heading_size": 28,
+            "text_size": 16,
+            "border_radius": 40,
+            "input_border_radius": 40,
+            "button_border_radius": 40
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a0b8580_nM9fJx"
+      ],
+      "disabled": true,
+      "name": "Newsletter signup",
+      "settings": {}
+    },
+    "blocks_Q8fKnq": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_71fb966_DFwMAc": {
+          "type": "ai_gen_block_71fb966",
+          "settings": {
+            "logo_image": "shopify://shop_images/lineup-poster.png",
+            "logo_link": "",
+            "alignment": "center",
+            "logo_width": 500,
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "alignment_mobile": "center",
+            "logo_width_mobile": 300,
+            "padding_top_mobile": 15,
+            "padding_bottom_mobile": 15
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_71fb966_DFwMAc"
+      ],
+      "name": "Logo image",
+      "settings": {}
+    },
+    "advanced_content_aF8ja4": {
+      "type": "advanced-content",
+      "blocks": {
+        "image_HJyXTk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_2400_x_900_px_2400_x_800_px_2400_x_750_px_2400_x_650_px.webp",
+            "link": "",
+            "width": "100%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "image_HJyXTk"
+      ],
+      "name": "t:sections.advanced-content.presets.custom_content.name",
+      "settings": {
+        "full_width": false,
+        "space_around": false,
+        "lazyload_images": true
+      }
+    }
+  },
+  "order": [
+    "custom-page-header",
+    "main",
+    "17882842623ba62b33",
+    "blocks_FKWk4H",
+    "blocks_Q8fKnq",
+    "advanced_content_aF8ja4"
+  ]
+}

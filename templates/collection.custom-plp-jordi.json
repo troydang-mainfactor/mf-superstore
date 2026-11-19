@@ -1,1 +1,192 @@
-{"sections":{"custom-page-header":{"type":"custom-page-header","custom_css":[],"settings":{"color_page_background":"#f7f7f7","color_page_text":"#000000","color_button_background":"#000000","color_button_text":"#000000","color_product_tag_background":"#de2e2e","color_product_tag_text":"#000000","color_cart_dot":"#de2e2e","type_heading_font_family":"dm_sans_n4","type_heading_base_size":22,"type_heading_spacing":"0","type_heading_line_height":1.2,"type_body_font_family":"dm_sans_n7","type_body_base_size":20,"type_body_spacing":"25","type_body_line_height":1.4,"logo":"shopify:\/\/shop_images\/Untitled_design_-_2026-11-05T153014.264.png","desktop_logo_width":250,"mobile_logo_width":160,"logo_link":"","logo_layout":"stacked","main_menu":"","show_social_icons":true,"social_facebook_link":"","social_twitter_link":"","social_pinterest_link":"","social_instagram_link":"https:\/\/www.instagram.com\/iamjordiofficial\/?hl=en","social_snapchat_link":"","social_tiktok_link":"https:\/\/www.tiktok.com\/@iamjordiofficial?lang=en","social_tumblr_link":"","social_linkedin_link":"","social_youtube_link":"https:\/\/www.youtube.com\/@iAmJordi","social_vimeo_link":"","social_apple_link":"","social_spotify_link":""}},"collection-header":{"type":"collection-header","disabled":true,"settings":{"enable":false,"collection_image_enable":false,"parallax":false,"parallax_direction":"top"}},"featured_collection_qdmhh4":{"type":"featured-collection","disabled":true,"custom_css":[],"settings":{"title":"","home_featured_products":"iamjordi-merch","per_row":4,"rows":1,"mobile_scrollable":true,"view_all":false,"divider":false}},"main-collection":{"type":"main-collection","blocks":{"product_grid_kD9H8H":{"type":"product_grid","settings":{"enable_collection_count":false,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_kD9H8H"],"settings":{"enable_sidebar":false,"collapsed":false,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":false}},"blocks_TgWU46":{"type":"_blocks","blocks":{"ai_gen_block_4b838eb_XByii7":{"type":"ai_gen_block_4b838eb","settings":{"desktop_width_percent":100,"spacer_height":170,"padding_vertical":0,"padding_horizontal":0},"blocks":{}}},"block_order":["ai_gen_block_4b838eb_XByii7"],"name":"Spacer","settings":{}},"blocks_aC8Jwx":{"type":"_blocks","blocks":{"ai_gen_block_2ba40b3_9kGhM9":{"type":"ai_gen_block_2ba40b3","settings":{"heading":"SUBSCRIBE FOR UPDATES","description":"<p>New products, promotions and sales, directly to your inbox. By subscribing you agree to our<a href=\"https:\/\/mainfactor-merch-store.myshopify.com\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"> Privacy Policy<\/a> and <a href=\"https:\/\/mainfactor-merch-store.myshopify.com\/policies\/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Service.<\/a><\/p>","email_label":"Email address","placeholder":"Enter your email","button_label":"Subscribe","success_message":"Thanks for subscribing!","extra_tag":"collection-newsletter","font_choice":"dm_sans_n4","format_style":"inline","desktop_width_percent":100,"desktop_max_width":1050,"center_desktop":true,"desktop_height":200,"mobile_height":200,"padding":20,"mobile_padding":15,"heading_size":28,"background_color":"rgba(0,0,0,0)","text_color":"#1c1d1d","link_color":"#000000","input_background":"#ffffff","input_text_color":"#1c1d1d","input_border_color":"#1c1d1d","button_background":"#ffb4ce","button_text_color":"#ffffff","corner_radius":0},"blocks":{}}},"block_order":["ai_gen_block_2ba40b3_9kGhM9"],"name":"Collection newsletter","settings":{}},"blocks_QPpiVn":{"type":"_blocks","blocks":{"ai_gen_block_4b838eb_nUUyt8":{"type":"ai_gen_block_4b838eb","settings":{"desktop_width_percent":100,"spacer_height":200,"padding_vertical":0,"padding_horizontal":0},"blocks":{}}},"block_order":["ai_gen_block_4b838eb_nUUyt8"],"name":"Spacer","settings":{}}},"order":["custom-page-header","collection-header","featured_collection_qdmhh4","main-collection","blocks_TgWU46","blocks_aC8Jwx","blocks_QPpiVn"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom-page-header": {
+      "type": "custom-page-header",
+      "custom_css": [],
+      "settings": {
+        "color_page_background": "#f7f7f7",
+        "color_page_text": "#000000",
+        "color_button_background": "#000000",
+        "color_button_text": "#000000",
+        "color_product_tag_background": "#de2e2e",
+        "color_product_tag_text": "#000000",
+        "color_cart_dot": "#de2e2e",
+        "type_heading_font_family": "dm_sans_n4",
+        "type_heading_base_size": 22,
+        "type_heading_spacing": "0",
+        "type_heading_line_height": 1.2,
+        "type_body_font_family": "dm_sans_n7",
+        "type_body_base_size": 20,
+        "type_body_spacing": "25",
+        "type_body_line_height": 1.4,
+        "logo": "shopify://shop_images/Untitled_design_-_2026-11-05T153014.264.png",
+        "desktop_logo_width": 250,
+        "mobile_logo_width": 160,
+        "logo_link": "",
+        "logo_layout": "stacked",
+        "main_menu": "",
+        "show_social_icons": true,
+        "social_facebook_link": "",
+        "social_twitter_link": "",
+        "social_pinterest_link": "",
+        "social_instagram_link": "https://www.instagram.com/iamjordiofficial/?hl=en",
+        "social_snapchat_link": "",
+        "social_tiktok_link": "https://www.tiktok.com/@iamjordiofficial?lang=en",
+        "social_tumblr_link": "",
+        "social_linkedin_link": "",
+        "social_youtube_link": "https://www.youtube.com/@iAmJordi",
+        "social_vimeo_link": "",
+        "social_apple_link": "",
+        "social_spotify_link": ""
+      }
+    },
+    "collection-header": {
+      "type": "collection-header",
+      "disabled": true,
+      "settings": {
+        "enable": false,
+        "collection_image_enable": false,
+        "parallax": false,
+        "parallax_direction": "top"
+      }
+    },
+    "featured_collection_qdmhh4": {
+      "type": "featured-collection",
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "title": "",
+        "home_featured_products": "iamjordi-merch",
+        "per_row": 4,
+        "rows": 1,
+        "mobile_scrollable": true,
+        "view_all": false,
+        "divider": false
+      }
+    },
+    "main-collection": {
+      "type": "main-collection",
+      "blocks": {
+        "product_grid_kD9H8H": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": false,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_kD9H8H"
+      ],
+      "settings": {
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": false
+      }
+    },
+    "blocks_TgWU46": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_4b838eb_XByii7": {
+          "type": "ai_gen_block_4b838eb",
+          "settings": {
+            "desktop_width_percent": 100,
+            "spacer_height": 170,
+            "padding_vertical": 0,
+            "padding_horizontal": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4b838eb_XByii7"
+      ],
+      "name": "Spacer",
+      "settings": {}
+    },
+    "blocks_aC8Jwx": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2ba40b3_9kGhM9": {
+          "type": "ai_gen_block_2ba40b3",
+          "settings": {
+            "heading": "SUBSCRIBE FOR UPDATES",
+            "description": "<p>New products, promotions and sales, directly to your inbox. By subscribing you agree to our<a href=\"https://mainfactor-merch-store.myshopify.com/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"> Privacy Policy</a> and <a href=\"https://mainfactor-merch-store.myshopify.com/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Service.</a></p>",
+            "email_label": "Email address",
+            "placeholder": "Enter your email",
+            "button_label": "Subscribe",
+            "success_message": "Thanks for subscribing!",
+            "extra_tag": "collection-newsletter",
+            "font_choice": "dm_sans_n4",
+            "format_style": "inline",
+            "desktop_width_percent": 100,
+            "desktop_max_width": 1050,
+            "center_desktop": true,
+            "desktop_height": 200,
+            "mobile_height": 200,
+            "padding": 20,
+            "mobile_padding": 15,
+            "heading_size": 28,
+            "background_color": "rgba(0,0,0,0)",
+            "text_color": "#1c1d1d",
+            "link_color": "#000000",
+            "input_background": "#ffffff",
+            "input_text_color": "#1c1d1d",
+            "input_border_color": "#1c1d1d",
+            "button_background": "#ffb4ce",
+            "button_text_color": "#ffffff",
+            "corner_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2ba40b3_9kGhM9"
+      ],
+      "name": "Collection newsletter",
+      "settings": {}
+    },
+    "blocks_QPpiVn": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_4b838eb_nUUyt8": {
+          "type": "ai_gen_block_4b838eb",
+          "settings": {
+            "desktop_width_percent": 100,
+            "spacer_height": 200,
+            "padding_vertical": 0,
+            "padding_horizontal": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4b838eb_nUUyt8"
+      ],
+      "name": "Spacer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "custom-page-header",
+    "collection-header",
+    "featured_collection_qdmhh4",
+    "main-collection",
+    "blocks_TgWU46",
+    "blocks_aC8Jwx",
+    "blocks_QPpiVn"
+  ]
+}
