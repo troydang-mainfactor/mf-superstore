@@ -15,14 +15,14 @@
         "ai_gen_block_fe137ac_7krTUf": {
           "type": "ai_gen_block_fe137ac",
           "settings": {
-            "text": "We’re moving our Warehouse! Orders placed today may experience slight delays in fulfillment.",
+            "text": "Sitewide Sale up to 80% off!",
             "link_text": "",
             "link_url": "",
             "show_icon": false,
             "icon_type": "megaphone",
             "icon_size": 20,
-            "background_color": "#ee3691",
-            "text_color": "#ffffff",
+            "background_color": "#CED0D4",
+            "text_color": "#000000",
             "link_color": "#ffffff",
             "link_hover_color": "#cccccc",
             "font_size": 14,
@@ -34,7 +34,6 @@
       "block_order": [
         "ai_gen_block_fe137ac_7krTUf"
       ],
-      "disabled": true,
       "name": "Announcement bar",
       "settings": {}
     },
@@ -60,6 +59,7 @@
         "desktop_logo_width": 250,
         "mobile_logo_width": 200,
         "logo_link": "shopify://collections/matteo-lane",
+        "logo_layout": "stacked",
         "main_menu": "matteo-lane-menu",
         "show_social_icons": true,
         "social_facebook_link": "",
