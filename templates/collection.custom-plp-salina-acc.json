@@ -9,6 +9,34 @@
  */
 {
   "sections": {
+    "blocks_wNnmpA": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe137ac_3KyzWc": {
+          "type": "ai_gen_block_fe137ac",
+          "settings": {
+            "text": "<strong>UP TO 60% OFF SITEWIDE!</strong>",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": false,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#e010c9",
+            "text_color": "#f7f7f7",
+            "link_color": "#f7f7f7",
+            "link_hover_color": "#000000",
+            "font_size": 14,
+            "padding": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe137ac_3KyzWc"
+      ],
+      "name": "Announcement bar",
+      "settings": {}
+    },
     "custom-page-header": {
       "type": "custom-page-header",
       "settings": {
@@ -48,34 +76,6 @@
         "social_spotify_link": ""
       }
     },
-    "blocks_wNnmpA": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_fe137ac_3KyzWc": {
-          "type": "ai_gen_block_fe137ac",
-          "settings": {
-            "text": "<strong>UP TO 60% OFF SITEWIDE!</strong>",
-            "link_text": "",
-            "link_url": "",
-            "show_icon": false,
-            "icon_type": "megaphone",
-            "icon_size": 20,
-            "background_color": "#e010c9",
-            "text_color": "#f7f7f7",
-            "link_color": "#f7f7f7",
-            "link_hover_color": "#000000",
-            "font_size": 14,
-            "padding": 12
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_fe137ac_3KyzWc"
-      ],
-      "name": "Announcement bar",
-      "settings": {}
-    },
     "collection-header": {
       "type": "collection-header",
       "disabled": true,
@@ -92,7 +92,7 @@
         "title": "",
         "home_featured_products": "salina-estitties-accessories",
         "per_row": 4,
-        "rows": 5,
+        "rows": 10,
         "mobile_scrollable": false,
         "view_all": false,
         "divider": false
