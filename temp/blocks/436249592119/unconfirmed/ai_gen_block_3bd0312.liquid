@@ -1,0 +1,115 @@
+{% doc %}
+  @prompt
+    full size hero image that is a clickable link and has a desktop and mobile version. allow me to schedule between two banners PST
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% liquid
+  assign current_time = 'now' | date: '%s'
+  assign start_time = block.settings.start_at | date: '%s'
+  assign end_time = block.settings.end_at | date: '%s'
+  assign banner_two_active = false
+  if block.settings.start_at != blank and block.settings.end_at != blank and current_time >= start_time and current_time < end_time
+    assign banner_two_active = true
+  endif
+%}
+
+{% style %}
+  .ai-scheduled-hero-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+  }
+
+  .ai-scheduled-hero-{{ ai_gen_id }}__link {
+    display: block;
+    width: 100%;
+    line-height: 0;
+  }
+
+  .ai-scheduled-hero-{{ ai_gen_id }}__media {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: {{ block.settings.placeholder_color }};
+  }
+
+  .ai-scheduled-hero-{{ ai_gen_id }}__media img,
+  .ai-scheduled-hero-{{ ai_gen_id }}__placeholder svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .ai-scheduled-hero-{{ ai_gen_id }}__placeholder {
+    display: block;
+    width: 100%;
+    line-height: 0;
+  }
+
+  .ai-scheduled-hero-{{ ai_gen_id }}__placeholder svg {
+    aspect-ratio: 16 / 6;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-scheduled-hero-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-scheduled-hero-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if banner_two_active %}
+    {% assign desktop_image = block.settings.banner_two_desktop %}
+    {% assign mobile_image = block.settings.banner_two_mobile %}
+    {% assign banner_link = block.settings.banner_two_link %}
+    {% assign image_alt = block.settings.banner_two_alt %}
+  {% else %}
+    {% assign desktop_image = block.settings.banner_one_desktop %}
+    {% assign mobile_image = block.settings.banner_one_mobile %}
+    {% assign banner_link = block.settings.banner_one_link %}
+    {% assign image_alt = block.settings.banner_one_alt %}
+  {% endif %}
+
+  {% if banner_link != blank %}<a class="ai-scheduled-hero-{{ ai_gen_id }}__link" href="{{ banner_link }}" aria-label="{{ image_alt | default: 'View featured banner' | escape }}">{% endif %}
+    <picture class="ai-scheduled-hero-{{ ai_gen_id }}__media">
+      {% if mobile_image != blank %}
+        <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 1200 }}">
+      {% endif %}
+      {% if desktop_image != blank %}
+        <img src="{{ desktop_image | image_url: width: 2400 }}" alt="{{ image_alt | default: desktop_image.alt | escape }}" loading="lazy" width="{{ desktop_image.width }}" height="{{ desktop_image.height }}">
+      {% elsif mobile_image != blank %}
+        <img src="{{ mobile_image | image_url: width: 1200 }}" alt="{{ image_alt | default: mobile_image.alt | escape }}" loading="lazy" width="{{ mobile_image.width }}" height="{{ mobile_image.height }}">
+      {% else %}
+        <span class="ai-scheduled-hero-{{ ai_gen_id }}__placeholder">{{ 'hero-apparel-1' | placeholder_svg_tag }}</span>
+      {% endif %}
+    </picture>
+  {% if banner_link != blank %}</a>{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Scheduled hero banners",
+  "settings": [
+    { "type": "header", "content": "Banner one" },
+    { "type": "image_picker", "id": "banner_one_desktop", "label": "Desktop image" },
+    { "type": "image_picker", "id": "banner_one_mobile", "label": "Mobile image" },
+    { "type": "text", "id": "banner_one_alt", "label": "Image description", "default": "Featured banner" },
+    { "type": "url", "id": "banner_one_link", "label": "Banner link" },
+    { "type": "header", "content": "Banner two" },
+    { "type": "image_picker", "id": "banner_two_desktop", "label": "Desktop image" },
+    { "type": "image_picker", "id": "banner_two_mobile", "label": "Mobile image" },
+    { "type": "text", "id": "banner_two_alt", "label": "Image description", "default": "Alternate featured banner" },
+    { "type": "url", "id": "banner_two_link", "label": "Banner link" },
+    { "type": "text", "id": "start_at", "label": "Show banner two from (PST)", "info": "Enter date and time as YYYY-MM-DD HH:MM, using Pacific time. The storefront timezone is used for scheduling." },
+    { "type": "text", "id": "end_at", "label": "Switch back at (PST)", "info": "Enter date and time as YYYY-MM-DD HH:MM, using Pacific time. The storefront timezone is used for scheduling." },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "placeholder_color", "label": "Placeholder background", "default": "#f4f4f4" }
+  ],
+  "presets": [{ "name": "Scheduled hero banners" }],
+  "tag": null,
+  "class": "scheduled-hero-banner"
+}
+{% endschema %}
