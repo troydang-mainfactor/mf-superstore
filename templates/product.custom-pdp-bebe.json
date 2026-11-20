@@ -31,6 +31,7 @@
         "desktop_logo_width": 100,
         "mobile_logo_width": 60,
         "logo_link": "shopify://collections/bebe-zahara-benet",
+        "logo_layout": "stacked",
         "main_menu": "bebe-zahara-benet-menu",
         "show_social_icons": true,
         "social_facebook_link": "https://www.facebook.com/BebeZaharaBenet/",
@@ -46,6 +47,34 @@
         "social_apple_link": "",
         "social_spotify_link": ""
       }
+    },
+    "blocks_6DByBr": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe137ac_aNXNKJ": {
+          "type": "ai_gen_block_fe137ac",
+          "settings": {
+            "text": "<strong>60% OFF SITEWIDE!</strong>",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": false,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#EF4B2E",
+            "text_color": "#ffffff",
+            "link_color": "#ffffff",
+            "link_hover_color": "#cccccc",
+            "font_size": 14,
+            "padding": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe137ac_aNXNKJ"
+      ],
+      "name": "Announcement bar",
+      "settings": {}
     },
     "main": {
       "type": "main-product",
@@ -172,6 +201,7 @@
     }
   },
   "order": [
+    "blocks_6DByBr",
     "custom-page-header",
     "main",
     "sub",

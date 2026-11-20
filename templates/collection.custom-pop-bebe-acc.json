@@ -108,6 +108,47 @@
         "enable_color_swatches": false,
         "enable_sort": false
       }
+    },
+    "blocks_GPPRyC": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a0b8580_8763CY": {
+          "type": "ai_gen_block_a0b8580",
+          "settings": {
+            "heading": "<p>SUBSCRIBE FOR UPDATES</p>",
+            "subtext": "<p>NEW PRODUCTS, PROMOTIONS AND SALES, DIRECTLY TO YOUR INBOX. BY SUBSCRIBING YOU AGREE TO OUR <a href=\"https://mainfactor-merch-store.myshopify.com/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">PRIVACY POLICY </a>AND <a href=\"https://mainfactor-merch-store.myshopify.com/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">TERMS OF SERVICE</a>.</p>",
+            "email_placeholder": "EMAIL",
+            "button_label": "SUBSCRIBE",
+            "success_message": "THANKS FOR SUBSCRIBING",
+            "subscriber_tag": "Bebe Zahara Benet",
+            "desktop_width_percent": 100,
+            "padding": 40,
+            "text_alignment": "center",
+            "background_color": "#f7f7f7",
+            "text_color": "#000000",
+            "link_color": "#ef4b2e",
+            "button_color": "#000000",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#ef4b2e",
+            "input_background_color": "#ffffff",
+            "input_text_color": "#000000",
+            "input_border_color": "#cccccc",
+            "success_color": "#008060",
+            "error_color": "#d82c0d",
+            "heading_size": 22,
+            "text_size": 16,
+            "border_radius": 8,
+            "input_border_radius": 4,
+            "button_border_radius": 4
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a0b8580_8763CY"
+      ],
+      "name": "Newsletter signup",
+      "settings": {}
     }
   },
   "order": [
@@ -115,6 +156,7 @@
     "custom-page-header",
     "collection-header",
     "featured_collection_qdmhh4",
-    "main-collection"
+    "main-collection",
+    "blocks_GPPRyC"
   ]
 }
