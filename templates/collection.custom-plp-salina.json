@@ -15,7 +15,7 @@
         "ai_gen_block_fe137ac_TmcVE3": {
           "type": "ai_gen_block_fe137ac",
           "settings": {
-            "text": "We’re moving our Warehouse! Orders placed today may experience slight delays in fulfillment.",
+            "text": "<strong>UP TO 60% OFF SITEWIDE!</strong>",
             "link_text": "",
             "link_url": "",
             "show_icon": false,
@@ -34,7 +34,6 @@
       "block_order": [
         "ai_gen_block_fe137ac_TmcVE3"
       ],
-      "disabled": true,
       "name": "Announcement bar",
       "settings": {}
     },
