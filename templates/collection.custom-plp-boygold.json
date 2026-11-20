@@ -53,6 +53,7 @@
       "blocks": {
         "ai_gen_block_3bd0312_wxU9Pk": {
           "type": "ai_gen_block_3bd0312",
+          "disabled": true,
           "settings": {
             "banner_one_desktop": "shopify://shop_images/Banner_BOOPLOutNow_6d713e34-dc0e-4772-adb4-f6428a9cf1ea.png",
             "banner_one_mobile": "shopify://shop_images/1x1_BOOPLVinyl_Restock.png",
@@ -73,6 +74,7 @@
       "block_order": [
         "ai_gen_block_3bd0312_wxU9Pk"
       ],
+      "disabled": true,
       "settings": {}
     },
     "slideshow_FXxryp": {
@@ -91,8 +93,8 @@
             "link_text_2": "",
             "color_accent": "rgba(0,0,0,0)",
             "text_align": "vertical-center horizontal-center",
-            "image": "shopify://shop_images/Banner_3.png",
-            "image_mobile": "shopify://shop_images/1x1_HolidayGiftGuide.png",
+            "image": "shopify://shop_images/Banner_10.png",
+            "image_mobile": "shopify://shop_images/1x1_GiftGuide_2.png",
             "parallax_direction": "top",
             "overlay_opacity": 0
           }
@@ -101,7 +103,6 @@
       "block_order": [
         "image_4P9ttP"
       ],
-      "disabled": true,
       "name": "t:sections.slideshow.presets.hero_optional_slideshow.name",
       "settings": {
         "section_height": "natural",
