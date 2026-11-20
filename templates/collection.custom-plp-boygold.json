@@ -31,6 +31,7 @@
         "desktop_logo_width": 390,
         "mobile_logo_width": 200,
         "logo_link": "shopify://collections/boy-golden",
+        "logo_layout": "stacked",
         "main_menu": "",
         "show_social_icons": true,
         "social_facebook_link": "https://www.facebook.com/boygolden",
@@ -46,6 +47,33 @@
         "social_apple_link": "",
         "social_spotify_link": ""
       }
+    },
+    "17951520786ef85e40": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_3bd0312_wxU9Pk": {
+          "type": "ai_gen_block_3bd0312",
+          "settings": {
+            "banner_one_desktop": "shopify://shop_images/Banner_BOOPLOutNow_6d713e34-dc0e-4772-adb4-f6428a9cf1ea.png",
+            "banner_one_mobile": "shopify://shop_images/1x1_BOOPLVinyl_Restock.png",
+            "banner_one_alt": "",
+            "banner_one_link": "",
+            "banner_two_desktop": "shopify://shop_images/Banner_10.png",
+            "banner_two_mobile": "shopify://shop_images/1x1_GiftGuide_2.png",
+            "banner_two_alt": "Alternate featured banner",
+            "banner_two_link": "",
+            "start_at": "",
+            "end_at": "",
+            "desktop_width_percent": 100,
+            "placeholder_color": "#f4f4f4"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_3bd0312_wxU9Pk"
+      ],
+      "settings": {}
     },
     "slideshow_FXxryp": {
       "type": "slideshow",
@@ -127,31 +155,11 @@
             "mobile_height": 400
           },
           "blocks": {}
-        },
-        "ai_gen_block_6f83755_R4JdKt": {
-          "type": "ai_gen_block_6f83755",
-          "settings": {
-            "desktop_image": "shopify://shop_images/Banner_BOOPLOutNow_6d713e34-dc0e-4772-adb4-f6428a9cf1ea.png",
-            "mobile_image": "shopify://shop_images/1x1_BOOPL_aabbe5a2-c285-44c7-8622-3d8d51e7bb24.png",
-            "link_url": "",
-            "title": "",
-            "subtitle": "",
-            "text_color": "#ffffff",
-            "show_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 30,
-            "title_size": 48,
-            "subtitle_size": 18,
-            "desktop_height": 480,
-            "mobile_height": 400
-          },
-          "blocks": {}
         }
       },
       "block_order": [
         "ai_gen_block_6f83755_QrA9Hr",
-        "ai_gen_block_6f83755_tqwjUj",
-        "ai_gen_block_6f83755_R4JdKt"
+        "ai_gen_block_6f83755_tqwjUj"
       ],
       "settings": {}
     },
@@ -267,6 +275,7 @@
   },
   "order": [
     "custom-page-header",
+    "17951520786ef85e40",
     "slideshow_FXxryp",
     "17586693425605704b",
     "collection-header",
