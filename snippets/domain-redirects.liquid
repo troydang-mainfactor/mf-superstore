@@ -33,15 +33,11 @@
 
         if (!source || source !== current) continue;
 
-        /* Targets: a same-origin path ("/collections/x") or a full https:// URL.
-           Rules come from the admin-only shop metafield, so external URLs are allowed;
-           "//host" stays blocked. */
-        var absolute = /^https:\/\//i.test(target);
-        if (!absolute && (target.charAt(0) !== '/' || target.charAt(1) === '/')) continue;
+        /* Same-origin paths only - blocks "//evil.com" and absolute URLs. */
+        if (target.charAt(0) !== '/' || target.charAt(1) === '/') continue;
 
         /* Never redirect a page to itself. */
-        var dest = target.split('?')[0];
-        if (strip(absolute ? dest : host + dest) === current) return;
+        if (target.split('?')[0].toLowerCase().replace(/\/+$/, '') === path) return;
 
         var query = '';
         if (window.location.search) {
