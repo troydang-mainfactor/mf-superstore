@@ -31,6 +31,7 @@
         "desktop_logo_width": 400,
         "mobile_logo_width": 160,
         "logo_link": "shopify://collections/sapphira-cristal",
+        "logo_layout": "stacked",
         "main_menu": "sapphira-crist-l-menu-1",
         "show_social_icons": true,
         "social_facebook_link": "https://www.facebook.com/p/Sapphira-Cristál-100063138673522/",
@@ -46,6 +47,34 @@
         "social_apple_link": "",
         "social_spotify_link": ""
       }
+    },
+    "blocks_L7BrYB": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe137ac_MpAUqh": {
+          "type": "ai_gen_block_fe137ac",
+          "settings": {
+            "text": "<strong>UP TO 60% OFF SITEWIDE!</strong>",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": false,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#7495AC",
+            "text_color": "#040A40",
+            "link_color": "#040A40",
+            "link_hover_color": "#cccccc",
+            "font_size": 14,
+            "padding": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe137ac_MpAUqh"
+      ],
+      "name": "Announcement bar",
+      "settings": {}
     },
     "collection-header": {
       "type": "collection-header",
@@ -63,7 +92,7 @@
         "title": "",
         "home_featured_products": "sapphira-cristal-apparel",
         "per_row": 3,
-        "rows": 5,
+        "rows": 10,
         "mobile_scrollable": false,
         "view_all": false,
         "divider": false
@@ -123,6 +152,7 @@
     }
   },
   "order": [
+    "blocks_L7BrYB",
     "custom-page-header",
     "collection-header",
     "featured_collection_qdmhh4",
