@@ -31,6 +31,7 @@
         "desktop_logo_width": 280,
         "mobile_logo_width": 160,
         "logo_link": "shopify://collections/gemma-laurence",
+        "logo_layout": "stacked",
         "main_menu": "gemma-laurence-menu",
         "show_social_icons": true,
         "social_facebook_link": "https://www.facebook.com/gemmalaurencemusic",
@@ -53,7 +54,7 @@
         "ai_gen_block_fe137ac_wVx9iE": {
           "type": "ai_gen_block_fe137ac",
           "settings": {
-            "text": "SURPRISE... 10% OFF VINYL!",
+            "text": "<strong>20% OFF APPAREL!</strong>",
             "link_text": "",
             "link_url": "shopify://products/we-were-bodies-underwater-vinyl",
             "show_icon": false,
@@ -72,7 +73,6 @@
       "block_order": [
         "ai_gen_block_fe137ac_wVx9iE"
       ],
-      "disabled": true,
       "name": "Announcement bar",
       "settings": {}
     },
@@ -219,8 +219,8 @@
     }
   },
   "order": [
-    "custom-page-header",
     "blocks_jXgEam",
+    "custom-page-header",
     "slideshow_qtFiU8",
     "collection-header",
     "featured_collection_qdmhh4",
