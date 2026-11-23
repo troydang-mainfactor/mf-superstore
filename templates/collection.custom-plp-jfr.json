@@ -34,6 +34,7 @@
         "desktop_logo_width": 360,
         "mobile_logo_width": 180,
         "logo_link": "shopify://collections/jared-freid",
+        "logo_layout": "stacked",
         "main_menu": "jfr-menu",
         "show_social_icons": true,
         "social_facebook_link": "https://www.facebook.com/jaredfreid/",
@@ -49,6 +50,34 @@
         "social_apple_link": "",
         "social_spotify_link": ""
       }
+    },
+    "blocks_XUU7r9": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe137ac_YBwXAz": {
+          "type": "ai_gen_block_fe137ac",
+          "settings": {
+            "text": "<strong>20% OFF SITEWIDE!</strong>",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": true,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#A8D0ED",
+            "text_color": "#25292B",
+            "link_color": "#25292B",
+            "link_hover_color": "#cccccc",
+            "font_size": 14,
+            "padding": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe137ac_YBwXAz"
+      ],
+      "name": "Announcement bar",
+      "settings": {}
     },
     "featured_product_6bgEYG": {
       "type": "featured-product",
@@ -271,6 +300,7 @@
   },
   "order": [
     "custom-page-header",
+    "blocks_XUU7r9",
     "featured_product_6bgEYG",
     "collection-header",
     "featured_collections_i9Ab8p",
