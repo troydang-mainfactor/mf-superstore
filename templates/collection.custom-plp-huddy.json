@@ -9,6 +9,54 @@
  */
 {
   "sections": {
+    "blocks_VJy7Hy": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe137ac_XU8E46": {
+          "type": "ai_gen_block_fe137ac",
+          "settings": {
+            "text": "FREE STATUE TEE WITH ALL PURCHASES",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": false,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#AE3333",
+            "text_color": "#ffffff",
+            "link_color": "#ffffff",
+            "link_hover_color": "#cccccc",
+            "font_size": 14,
+            "padding": 12
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_fe137ac_RWFGiL": {
+          "type": "ai_gen_block_fe137ac",
+          "name": "Announcement bar",
+          "settings": {
+            "text": "Up to 50% OFF sitewide!",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": false,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#FFFFFF",
+            "text_color": "#AE3333",
+            "link_color": "#AE3333",
+            "link_hover_color": "#cccccc",
+            "font_size": 14,
+            "padding": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe137ac_XU8E46",
+        "ai_gen_block_fe137ac_RWFGiL"
+      ],
+      "name": "Announcement bar",
+      "settings": {}
+    },
     "custom-page-header": {
       "type": "custom-page-header",
       "settings": {
@@ -31,6 +79,7 @@
         "desktop_logo_width": 100,
         "mobile_logo_width": 60,
         "logo_link": "shopify://collections/huddy-merch",
+        "logo_layout": "stacked",
         "main_menu": "huddy-menu",
         "show_social_icons": true,
         "social_facebook_link": "https://www.facebook.com/huddy",
@@ -174,6 +223,7 @@
     }
   },
   "order": [
+    "blocks_VJy7Hy",
     "custom-page-header",
     "1764076877cd4852cf",
     "background_image_text_DrznyK",
