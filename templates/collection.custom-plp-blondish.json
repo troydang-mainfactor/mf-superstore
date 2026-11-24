@@ -19,7 +19,7 @@
         "color_product_tag_background": "#de2e2e",
         "color_product_tag_text": "#000000",
         "color_cart_dot": "#de2e2e",
-        "type_heading_font_family": "sans_serif_n4",
+        "type_heading_font_family": "inconsolata_n4",
         "type_heading_base_size": 22,
         "type_heading_spacing": "0",
         "type_heading_line_height": 1.2,
