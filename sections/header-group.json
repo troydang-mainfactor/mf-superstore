@@ -1,1 +1,127 @@
-{"type":"header","name":"t:sections.header-group.name","sections":{"header":{"type":"header","blocks":{"header-0":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/big-mainfactor_logo_c2b7eff9-70c1-4adf-85de-963f978d28bd.png","desktop_logo_width":100,"mobile_logo_width":60}}},"block_order":["header-0"],"custom_css":[],"settings":{"main_menu_link_list":"main-menu","hover_menu":false,"mega_menu_images":false,"main_menu_alignment":"center-left","header_style":"sticky","sticky_index":false,"sticky_collection":false,"toolbar_menu":"","toolbar_social":false,"show_locale_selector":true,"show_currency_selector":true,"show_currency_flags":true}},"blocks_prkFze":{"type":"_blocks","blocks":{"ai_gen_block_71fb966_hQYYQA":{"type":"ai_gen_block_71fb966","disabled":true,"settings":{"logo_link":"","alignment":"center","logo_width":200,"padding_top":20,"padding_bottom":20,"alignment_mobile":"center","logo_width_mobile":150,"padding_top_mobile":15,"padding_bottom_mobile":15},"blocks":{}}},"block_order":["ai_gen_block_71fb966_hQYYQA"],"name":"Logo image","settings":{}},"announcement":{"type":"announcement","blocks":{"d6645668-a9ff-413f-ad81-fdc95d136519":{"type":"announcement","settings":{"text":"Welcome to the Mainfactor Merch Store","link_text":"","link":""}}},"block_order":["d6645668-a9ff-413f-ad81-fdc95d136519"],"disabled":true,"settings":{"announcement_compact":true}}},"order":["header","blocks_prkFze","announcement"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:sections.header-group.name",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "header-0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/big-mainfactor_logo_c2b7eff9-70c1-4adf-85de-963f978d28bd.png",
+            "desktop_logo_width": 100,
+            "mobile_logo_width": 60
+          }
+        }
+      },
+      "block_order": [
+        "header-0"
+      ],
+      "custom_css": [],
+      "settings": {
+        "main_menu_link_list": "main-menu",
+        "hover_menu": false,
+        "mega_menu_images": false,
+        "main_menu_alignment": "center-left",
+        "header_style": "sticky",
+        "sticky_index": false,
+        "sticky_collection": false,
+        "toolbar_menu": "",
+        "toolbar_social": false,
+        "show_locale_selector": true,
+        "show_currency_selector": true,
+        "show_currency_flags": true
+      }
+    },
+    "blocks_prkFze": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_71fb966_hQYYQA": {
+          "type": "ai_gen_block_71fb966",
+          "disabled": true,
+          "settings": {
+            "logo_link": "",
+            "alignment": "center",
+            "logo_width": 200,
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "alignment_mobile": "center",
+            "logo_width_mobile": 150,
+            "padding_top_mobile": 15,
+            "padding_bottom_mobile": 15
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_71fb966_hQYYQA"
+      ],
+      "name": "Logo image",
+      "settings": {}
+    },
+    "announcement": {
+      "type": "announcement",
+      "blocks": {
+        "d6645668-a9ff-413f-ad81-fdc95d136519": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to the Mainfactor Merch Store",
+            "link_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "d6645668-a9ff-413f-ad81-fdc95d136519"
+      ],
+      "disabled": true,
+      "settings": {
+        "announcement_compact": true
+      }
+    },
+    "rich_text_4R3Laq": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_BgFPPT": {
+          "type": "heading",
+          "settings": {
+            "title": "Rich text"
+          }
+        },
+        "text_3aqUiD": {
+          "type": "text",
+          "settings": {
+            "enlarge_text": true,
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BgFPPT",
+        "text_3aqUiD"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.rich_text.name",
+      "settings": {
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false
+      }
+    }
+  },
+  "order": [
+    "header",
+    "blocks_prkFze",
+    "announcement",
+    "rich_text_4R3Laq"
+  ]
+}

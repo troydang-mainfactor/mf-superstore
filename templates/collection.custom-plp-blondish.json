@@ -48,6 +48,35 @@
         "social_spotify_link": "https://open.spotify.com/artist/6zsJjoCtL1WByG0VsuFWzR"
       }
     },
+    "rich_text_WXJfxw": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_P973Ve": {
+          "type": "heading",
+          "settings": {
+            "title": "Official BLOND:ISH & Abracadabra Merch"
+          }
+        },
+        "text_HmkMVH": {
+          "type": "text",
+          "settings": {
+            "enlarge_text": true,
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_P973Ve",
+        "text_HmkMVH"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.rich_text.name",
+      "settings": {
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false
+      }
+    },
     "collection-header": {
       "type": "collection-header",
       "disabled": true,
@@ -84,6 +113,7 @@
   },
   "order": [
     "custom-page-header",
+    "rich_text_WXJfxw",
     "collection-header",
     "featured_collection_qdmhh4",
     "main-collection"
