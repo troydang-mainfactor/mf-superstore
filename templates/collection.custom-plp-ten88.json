@@ -192,13 +192,14 @@
       "blocks": {
         "ai_gen_block_a0b8580_peTyWB": {
           "type": "ai_gen_block_a0b8580",
+          "disabled": true,
           "settings": {
             "heading": "<p>Join our newsletter</p>",
             "subtext": "<p>Promotions, new products and sales, directly to your inbox. By subscribing you agree to our <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy</a> and <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Service</a>.</p>",
             "email_placeholder": "Enter your email",
             "button_label": "Subscribe",
             "success_message": "Thanks for subscribing!",
-            "subscriber_tag": "TROYBOI",
+            "subscriber_tag": "TEN88",
             "desktop_width_percent": 100,
             "padding": 40,
             "text_alignment": "center",
