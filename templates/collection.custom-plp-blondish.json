@@ -33,19 +33,19 @@
         "logo_link": "",
         "logo_layout": "inline",
         "main_menu": "",
-        "show_social_icons": false,
-        "social_facebook_link": "https://www.google.com/",
-        "social_twitter_link": "https://www.google.com/",
+        "show_social_icons": true,
+        "social_facebook_link": "https://www.facebook.com/Blondish/",
+        "social_twitter_link": "",
         "social_pinterest_link": "",
-        "social_instagram_link": "https://www.google.com/",
+        "social_instagram_link": "https://www.instagram.com/blondish/",
         "social_snapchat_link": "",
-        "social_tiktok_link": "https://www.google.com/",
+        "social_tiktok_link": "https://www.tiktok.com/@blondish",
         "social_tumblr_link": "",
         "social_linkedin_link": "",
-        "social_youtube_link": "https://www.google.com/",
+        "social_youtube_link": "https://www.youtube.com/@BLONDISH",
         "social_vimeo_link": "",
         "social_apple_link": "",
-        "social_spotify_link": ""
+        "social_spotify_link": "https://open.spotify.com/artist/6zsJjoCtL1WByG0VsuFWzR"
       }
     },
     "collection-header": {
