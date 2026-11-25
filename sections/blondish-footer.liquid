@@ -1,0 +1,52 @@
+{%- comment -%}
+  BLOND:ISH footer. Used only by the BLOND:ISH collection + product templates.
+{%- endcomment -%}
+<footer class="blondish blondish-footer" data-section-id="{{ section.id }}">
+  {%- if section.blocks.size > 0 -%}
+    <ul class="blondish-footer__links">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}><a href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a></li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+  <ul class="blondish-footer__social">
+    {%- assign socials = 'instagram,spotify,youtube,tiktok,facebook' | split: ',' -%}
+    {%- for name in socials -%}
+      {%- assign key = 'social_' | append: name -%}
+      {%- if section.settings[key] != blank -%}
+        <li>
+          <a href="{{ section.settings[key] }}" target="_blank" rel="noopener" aria-label="BLOND:ISH on {{ name | capitalize }}">
+            {%- render 'blondish-social-icon', name: name -%}
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+
+  <p class="blondish-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright }}</p>
+</footer>
+
+{% schema %}
+{
+  "name": "BLOND:ISH footer",
+  "settings": [
+    { "type": "text", "id": "copyright", "label": "Copyright name", "default": "BLOND:ISH" },
+    { "type": "text", "id": "social_instagram", "label": "Instagram", "default": "https://www.instagram.com/blondish/" },
+    { "type": "text", "id": "social_spotify", "label": "Spotify", "default": "https://open.spotify.com/artist/6zsJjoCtL1WByG0VsuFWzR" },
+    { "type": "text", "id": "social_youtube", "label": "YouTube", "default": "https://www.youtube.com/@BLONDISH" },
+    { "type": "text", "id": "social_tiktok", "label": "TikTok", "default": "https://www.tiktok.com/@blondish" },
+    { "type": "text", "id": "social_facebook", "label": "Facebook", "default": "https://www.facebook.com/Blondish/" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Tour" },
+        { "type": "text", "id": "url", "label": "URL", "default": "https://blondish.world/tour/" }
+      ]
+    }
+  ]
+}
+{% endschema %}

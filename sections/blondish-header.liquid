@@ -1,0 +1,138 @@
+{%- comment -%}
+  BLOND:ISH store header. Used only by:
+    templates/collection.custom-plp-blondish.json
+    templates/product.custom-pdp-blondish.json
+  Loads the BLOND:ISH-only CSS/JS/font and themes the cart drawer to match.
+{%- endcomment -%}
+{%- assign body_font = section.settings.body_font -%}
+{%- assign body_font_bold = body_font | font_modify: 'weight', '600' -%}
+
+{{ 'blondish-store.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'blondish-store.js' | asset_url }}" defer></script>
+
+{%- style -%}
+  @font-face {
+    font-family: "VCR OSD Mono";
+    src: url("{{ 'blondish-vcr-osd-mono.ttf' | asset_url }}") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  {{ body_font | font_face: font_display: 'swap' }}
+  {{ body_font_bold | font_face: font_display: 'swap' }}
+
+  :root {
+    --typeHeaderPrimary: "VCR OSD Mono";
+    --typeHeaderFallback: ui-monospace, monospace;
+    --typeHeaderSize: 22px;
+    --typeHeaderWeight: 400;
+    --typeHeaderSpacing: 0.04em;
+    --typeHeaderLineHeight: 1.2;
+
+    --typeBasePrimary: {{ body_font.family }};
+    --typeBaseFallback: {{ body_font.fallback_families }};
+    --typeBaseSize: 15px;
+    --typeBaseWeight: {{ body_font.weight }};
+    --typeBaseSpacing: 0;
+    --typeBaseLineHeight: 1.6;
+    --typeBaselineHeightMinus01: 1.5;
+
+    --colorBody: #000000;
+    --colorTextBody: #f5f5f7;
+    --colorBtnPrimary: #eaff2b;
+    --colorBtnPrimaryText: #000000;
+    --colorNavText: #f5f5f7;
+    --colorPrice: #f5f5f7;
+    --colorProductTagBackground: #e11d2a;
+    --colorProductTagText: #ffffff;
+    --colorSaleTag: #e11d2a;
+    --colorSaleTagText: #ffffff;
+    --colorCartDot: #eaff2b;
+    --colorFooter: #000000;
+    --colorFooterText: #999999;
+    --colorBorder: rgba(245, 245, 247, 0.12);
+
+    --colorDrawers: #111111;
+    --colorDrawersDim: #0a0a0a;
+    --colorDrawerBorder: rgba(245, 245, 247, 0.12);
+    --colorDrawerText: #f5f5f7;
+    --colorDrawerTextDark: #cccccc;
+    --colorDrawerButton: #eaff2b;
+    --colorDrawerButtonText: #000000;
+
+    --bl-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+  }
+
+  body { font-family: var(--bl-body); }
+
+  /* Hide the shared superstore chrome on BLOND:ISH pages only. */
+  .toolbar,
+  .header-sticky-wrapper,
+  .announcement-bar,
+  .footer__social {
+    display: none;
+  }
+  .site-footer { border-top: none !important; }
+
+  .blondish-header__logo img { width: {{ section.settings.mobile_logo_width }}px; }
+  @media only screen and (min-width: 769px) {
+    .blondish-header__logo img { width: {{ section.settings.desktop_logo_width }}px; }
+  }
+{%- endstyle -%}
+
+<header class="blondish blondish-header" data-section-id="{{ section.id }}">
+  <div class="blondish-header__inner">
+    <a href="{{ section.settings.logo_link | default: 'https://blondish.world' }}" class="blondish-header__logo" aria-label="BLOND:ISH — Home">
+      {%- if section.settings.logo != blank -%}
+        {{
+          section.settings.logo
+          | image_url: width: 660
+          | image_tag: alt: 'BLOND:ISH', loading: 'eager', widths: '330, 660'
+        }}
+      {%- else -%}
+        <span class="blondish-header__link">BLOND:ISH</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="blondish-header__right" aria-label="BLOND:ISH">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.label != blank -%}
+          <a href="{{ block.settings.url | default: '#' }}" class="blondish-header__link" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <a href="{{ routes.cart_url }}" class="blondish-header__cart site-nav__link site-nav__link--icon js-drawer-open-cart" aria-controls="CartDrawer" data-icon="{{ settings.cart_icon }}">
+        <span class="cart-link">
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-bag" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3"><path d="M25 26c0-15.79 3.57-20 8-20s8 4.21 8 20"/><path d="M14.74 18h36.51l3.59 36.73h-43.7z"/></g></svg>
+          <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+          <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
+        </span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "BLOND:ISH header",
+  "class": "blondish-header-section",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "logo_link", "label": "Logo link", "default": "https://blondish.world" },
+    { "type": "range", "id": "desktop_logo_width", "label": "Desktop logo width", "min": 80, "max": 400, "step": 10, "unit": "px", "default": 160 },
+    { "type": "range", "id": "mobile_logo_width", "label": "Mobile logo width", "min": 60, "max": 250, "step": 10, "unit": "px", "default": 120 },
+    { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "inter_n4" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Nav link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Tour" },
+        { "type": "text", "id": "url", "label": "URL", "default": "https://blondish.world/tour/" }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}
