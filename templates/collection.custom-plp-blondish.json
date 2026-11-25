@@ -13,7 +13,7 @@
       "type": "custom-page-header",
       "settings": {
         "color_page_background": "#000000",
-        "color_page_text": "#FFFFFF",
+        "color_page_text": "#ffffff",
         "color_button_background": "#000000",
         "color_button_text": "#000000",
         "color_product_tag_background": "#de2e2e",
@@ -91,8 +91,8 @@
       "type": "featured-collection",
       "settings": {
         "title": "",
-        "home_featured_products": "",
-        "per_row": 4,
+        "home_featured_products": "blond-ish",
+        "per_row": 3,
         "rows": 1,
         "mobile_scrollable": true,
         "view_all": false,
