@@ -19,8 +19,8 @@
 </style>
 {% endif %}
 <head>
-{{ locksmith_initializations }}
 {% comment %}ElHeadStart{% endcomment %}{% unless request.design_mode %}{% comment %}EasylockdownHeadBegin{% endcomment %}{% capture elhRender %}{% render 'easylockdown_head', easylockdownRender: true, easylockdownOnlySpecialPriceSelector: easylockdownOnlySpecialPriceSelector, easylockdownCustomPriceSelector: easylockdownCustomPriceSelector %}{% endcapture %}{% assign elhRender = elhRender | split: '--elhResults--'%}{{ elhRender[0] }}{% comment %}EasylockdownHeadEnd{% endcomment %}{% endunless %}{% comment %}ElHeadEnd{% endcomment %}
+{{ locksmith_initializations }}
   <!-- URL REDIRECT START -->
 {% render 'domain-redirects' %}
 <!-- URL REDIRECT  END -->
