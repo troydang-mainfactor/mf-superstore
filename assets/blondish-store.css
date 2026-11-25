@@ -23,6 +23,24 @@ body {
   color: var(--bl-white);
 }
 
+/* Highlight colour: text selection + hover */
+::selection { background: var(--bl-accent); color: #000; }
+::-moz-selection { background: var(--bl-accent); color: #000; }
+
+.blondish-header__link:hover,
+.blondish-header__cart:hover,
+.blondish-footer__links a:hover,
+.blondish-footer__social a:hover,
+.blondish-product__back:hover,
+.blondish-faq summary:hover,
+.blondish-card:hover .blondish-card__title,
+.blondish-card:hover .blondish-card__price {
+  color: var(--bl-accent) !important;
+  opacity: 1;
+}
+.blondish-buy__value:hover { border-color: var(--bl-accent); color: var(--bl-accent); }
+.blondish-gallery__thumb:hover { border-color: var(--bl-accent); }
+
 .blondish *,
 .blondish *::before,
 .blondish *::after { box-sizing: border-box; }
@@ -68,7 +86,6 @@ body {
   color: var(--bl-white);
   transition: opacity 0.2s ease;
 }
-.blondish-header__link:hover { opacity: 0.7; }
 .blondish-header__cart {
   position: relative;
   display: inline-flex;
@@ -130,7 +147,7 @@ body {
   transition: opacity 0.2s ease;
   cursor: pointer;
 }
-.blondish-card:hover { opacity: 0.8; }
+.blondish-card:hover .blondish-card__media img { opacity: 0.8; }
 .blondish-card__media {
   position: relative;
   display: block;
@@ -257,7 +274,6 @@ body {
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
-.blondish-buy__value:hover { border-color: rgba(255, 255, 255, 0.5); color: #fff; }
 .blondish-buy__value.is-active { border-color: var(--bl-accent); color: var(--bl-accent); }
 .blondish-buy__value.is-unavailable { text-decoration: line-through; opacity: 0.5; }
 .blondish-buy__submit {
@@ -411,7 +427,6 @@ html.blondish-scroll-lock, html.blondish-scroll-lock body { overflow: hidden; }
   letter-spacing: 0.08em;
   color: var(--bl-muted) !important;
 }
-.blondish-product__back:hover { color: var(--bl-white) !important; }
 .blondish-product__layout {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -469,8 +484,6 @@ html.blondish-scroll-lock, html.blondish-scroll-lock body { overflow: hidden; }
   color: #999;
   transition: color 0.2s ease;
 }
-.blondish-footer__links a:hover { color: var(--bl-white); }
 .blondish-footer__social a { color: var(--bl-white); display: inline-flex; transition: opacity 0.2s ease; }
-.blondish-footer__social a:hover { opacity: 0.7; }
 .blondish-footer__social .icon { width: 18px; height: 18px; fill: currentColor; }
 .blondish-footer__copy { font-family: var(--bl-mono); font-size: 0.75rem; color: #999; margin: 0; }
