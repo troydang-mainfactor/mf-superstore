@@ -38,6 +38,34 @@
       "name": "Announcement bar",
       "settings": {}
     },
+    "blocks_d8r3dA": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe137ac_GwimTy": {
+          "type": "ai_gen_block_fe137ac",
+          "settings": {
+            "text": "UP TO 50% OFF STOREWIDE",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": false,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#00303D",
+            "text_color": "#ffffff",
+            "link_color": "#ffffff",
+            "link_hover_color": "#cccccc",
+            "font_size": 14,
+            "padding": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe137ac_GwimTy"
+      ],
+      "name": "Announcement bar",
+      "settings": {}
+    },
     "custom-page-header": {
       "type": "custom-page-header",
       "custom_css": [],
@@ -169,6 +197,7 @@
   },
   "order": [
     "blocks_drezL6",
+    "blocks_d8r3dA",
     "custom-page-header",
     "collection-header",
     "featured_collection_qdmhh4",
