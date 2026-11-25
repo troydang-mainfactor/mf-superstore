@@ -20,7 +20,6 @@
 {% endif %}
 <head>
 {{ locksmith_initializations }}
-{% comment %}ElHeadStart{% endcomment %}{% unless request.design_mode %}{% comment %}EasylockdownHeadBegin{% endcomment %}{% capture elhRender %}{% render 'easylockdown_head', easylockdownRender: true, easylockdownOnlySpecialPriceSelector: easylockdownOnlySpecialPriceSelector, easylockdownCustomPriceSelector: easylockdownCustomPriceSelector %}{% endcapture %}{% assign elhRender = elhRender | split: '--elhResults--'%}{{ elhRender[0] }}{% comment %}EasylockdownHeadEnd{% endcomment %}{% endunless %}{% comment %}ElHeadEnd{% endcomment %}
   <!-- URL REDIRECT START -->
 {% render 'domain-redirects' %}
 <!-- URL REDIRECT  END -->
@@ -183,7 +182,7 @@
     {%- sections 'popup-group' -%}
 
       <main class="main-content" id="MainContent">
-        {% comment %}ElBodyStart{% endcomment %}{% unless request.design_mode %}{% comment %}{{ content_for_layout }}{% endcomment %}{% render 'easylockdown_body', content_for_layout: content_for_layout, elhDefines: elhRender[1] %}{% else %} {{ content_for_layout }} {% endunless %}{% comment %}ElBodyEnd{% endcomment %}
+        {{ content_for_layout }}
       </main>
 
 
