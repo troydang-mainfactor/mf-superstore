@@ -94,7 +94,7 @@
         "home_featured_products": "blond-ish",
         "per_row": 3,
         "rows": 1,
-        "mobile_scrollable": true,
+        "mobile_scrollable": false,
         "view_all": false,
         "divider": false
       }
