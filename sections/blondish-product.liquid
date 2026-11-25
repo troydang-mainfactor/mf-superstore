@@ -1,0 +1,113 @@
+{%- comment -%}
+  BLOND:ISH product page. Used only by templates/product.custom-pdp-blondish.json.
+  Requires sections/blondish-header.liquid on the same template (loads CSS/JS).
+{%- endcomment -%}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign main_image = current_variant.featured_image | default: product.featured_image
+  if collection
+    assign back_url = collection.url
+  else
+    assign back_url = section.settings.back_url | default: routes.root_url
+  endif
+-%}
+
+<div class="blondish blondish-main" data-section-id="{{ section.id }}">
+  <a href="{{ back_url }}" class="blondish-product__back">&larr; {{ section.settings.back_label }}</a>
+
+  <div class="blondish-product__layout" data-bl-product-page data-bl-variant="{{ current_variant.id }}">
+    <script type="application/json" data-bl-product-json>
+      {%- render 'blondish-product-json', product: product -%}
+    </script>
+
+    <div class="blondish-gallery" data-bl-gallery>
+      <div class="blondish-gallery__main" data-bl-gallery-main>
+        {%- if main_image -%}
+          {%- assign img_alt = main_image.alt | default: product.title -%}
+          {{
+            main_image
+            | image_url: width: 1200
+            | image_tag: loading: 'eager', widths: '600, 900, 1200', sizes: '(min-width: 769px) 55vw, 100vw', alt: img_alt
+          }}
+        {%- endif -%}
+        <span class="blondish-gallery__hint">Click to zoom</span>
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="blondish-gallery__thumbs">
+          {%- for image in product.images limit: 10 -%}
+            {%- assign src = image | image_url: width: 1200 -%}
+            <button type="button" class="blondish-gallery__thumb{% if image.src == main_image.src %} is-active{% endif %}" data-bl-thumb="{{ src }}" aria-label="Show image {{ forloop.index }}">
+              {{ image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="blondish-product__info">
+      <h1 class="blondish-buy__title">{{ product.title }}</h1>
+      <div class="blondish-buy__price" data-bl-price>
+        {{ current_variant.price | money }}
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          <s>{{ current_variant.compare_at_price | money }}</s>
+        {%- endif -%}
+      </div>
+
+      {%- form 'product', product, class: 'blondish-product__form', data-bl-form: 'true', novalidate: 'novalidate' -%}
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              {%- assign option_index = forloop.index0 -%}
+              <fieldset class="blondish-buy__option">
+                <legend class="blondish-buy__label">{{ option.name }}</legend>
+                <div class="blondish-buy__values">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="blondish-buy__value{% if option.selected_value == value %} is-active{% endif %}"
+                      data-bl-value="{{ value | escape }}"
+                      data-bl-index="{{ option_index }}"
+                      aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                    >{{ value }}</button>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          {%- if section.settings.show_quantity -%}
+            <div class="blondish-buy__option">
+              <span class="blondish-buy__label">Quantity</span>
+              <div class="blondish-qty">
+                <button type="button" data-bl-qty-step="-1" aria-label="Decrease quantity">&minus;</button>
+                <input type="number" name="quantity" value="1" min="1" data-bl-qty aria-label="Quantity">
+                <button type="button" data-bl-qty-step="1" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+          {%- endif -%}
+
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-bl-variant-id>
+          <button type="submit" class="blondish-buy__submit" data-bl-submit {% unless current_variant.available %}disabled{% endunless %}>
+            {%- if current_variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+          </button>
+          <p class="blondish-buy__error" data-bl-error role="alert"></p>
+        </div>
+      {%- endform -%}
+
+      {%- if product.description != blank -%}
+        <div class="blondish-buy__desc">{{ product.description }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BLOND:ISH product",
+  "settings": [
+    { "type": "text", "id": "back_label", "label": "Back link label", "default": "Back to shop" },
+    { "type": "text", "id": "back_url", "label": "Back link URL (fallback)", "info": "Used when the product isn't opened from the BLOND:ISH collection." },
+    { "type": "checkbox", "id": "show_quantity", "label": "Show quantity selector", "default": true }
+  ]
+}
+{% endschema %}

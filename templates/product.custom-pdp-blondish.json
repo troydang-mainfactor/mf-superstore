@@ -1,0 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "blondish-header": {
+      "type": "blondish-header",
+      "blocks": {
+        "tour": {
+          "type": "link",
+          "settings": {
+            "label": "Tour",
+            "url": "https://blondish.world/tour/"
+          }
+        }
+      },
+      "block_order": [
+        "tour"
+      ],
+      "settings": {
+        "logo": "shopify://shop_images/BLONDISHWHITE.png",
+        "logo_link": "https://blondish.world",
+        "desktop_logo_width": 160,
+        "mobile_logo_width": 120,
+        "body_font": "inter_n4"
+      }
+    },
+    "main": {
+      "type": "blondish-product",
+      "settings": {
+        "back_label": "Back to shop",
+        "back_url": "",
+        "show_quantity": true
+      }
+    },
+    "blondish-footer": {
+      "type": "blondish-footer",
+      "blocks": {
+        "tour": {
+          "type": "link",
+          "settings": {
+            "label": "Tour",
+            "url": "https://blondish.world/tour/"
+          }
+        },
+        "store": {
+          "type": "link",
+          "settings": {
+            "label": "Store",
+            "url": "https://blondish.world/store/"
+          }
+        },
+        "blog": {
+          "type": "link",
+          "settings": {
+            "label": "Blog",
+            "url": "https://blondish.world/blog/"
+          }
+        },
+        "about": {
+          "type": "link",
+          "settings": {
+            "label": "About",
+            "url": "https://blondish.world/about/"
+          }
+        }
+      },
+      "block_order": [
+        "tour",
+        "store",
+        "blog",
+        "about"
+      ],
+      "settings": {
+        "copyright": "BLOND:ISH",
+        "social_instagram": "https://www.instagram.com/blondish/",
+        "social_spotify": "https://open.spotify.com/artist/6zsJjoCtL1WByG0VsuFWzR",
+        "social_youtube": "https://www.youtube.com/@BLONDISH",
+        "social_tiktok": "https://www.tiktok.com/@blondish",
+        "social_facebook": "https://www.facebook.com/Blondish/"
+      }
+    }
+  },
+  "order": [
+    "blondish-header",
+    "main",
+    "blondish-footer"
+  ]
+}

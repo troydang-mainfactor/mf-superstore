@@ -1,0 +1,137 @@
+{%- comment -%}
+  BLOND:ISH collection page: title, product grid with quick-buy popout, FAQ.
+  Used only by templates/collection.custom-plp-blondish.json.
+  Requires sections/blondish-header.liquid on the same template (loads CSS/JS).
+{%- endcomment -%}
+{%- assign hidden_tag = section.settings.hidden_tag | strip -%}
+{%- assign pdp_view = section.settings.product_template | strip -%}
+
+<div class="blondish blondish-main" data-section-id="{{ section.id }}">
+  <h1 class="blondish-title">{{ section.settings.title | default: collection.title }}</h1>
+  {%- if section.settings.subtitle != blank -%}
+    <p class="blondish-subtitle">{{ section.settings.subtitle }}</p>
+  {%- endif -%}
+
+  {%- paginate collection.products by section.settings.per_page -%}
+    {%- if collection.products_count > 0 -%}
+      <div class="blondish-grid" style="--bl-cols: {{ section.settings.columns }};">
+        {%- for product in collection.products -%}
+          {%- if hidden_tag != blank and product.tags contains hidden_tag -%}{%- continue -%}{%- endif -%}
+
+          {%- liquid
+            assign product_url = product.url | within: collection
+            assign details_url = product_url
+            if pdp_view != blank and product.template_suffix != pdp_view
+              assign details_url = product_url | append: '?view=' | append: pdp_view
+            endif
+            assign json_id = 'BlondishProduct-' | append: section.id | append: '-' | append: product.id
+          -%}
+
+          <a
+            href="{{ details_url }}"
+            class="blondish-card{% unless product.available %} is-sold-out{% endunless %}"
+            data-bl-quick="{{ json_id }}"
+            aria-haspopup="dialog"
+          >
+            <span class="blondish-card__media">
+              {%- if product.featured_media -%}
+                {%- assign img_alt = product.featured_media.alt | default: product.title -%}
+                {{
+                  product.featured_media
+                  | image_url: width: 900
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '300, 450, 600, 900',
+                    sizes: '(min-width: 901px) 33vw, (min-width: 601px) 33vw, 50vw',
+                    alt: img_alt
+                }}
+              {%- endif -%}
+              {%- unless product.available -%}
+                <span class="blondish-badge">SOLD OUT</span>
+              {%- endunless -%}
+            </span>
+            <span class="blondish-card__title">{{ product.title }}</span>
+            <span class="blondish-card__price">
+              {%- if product.price_varies -%}From {% endif -%}{{ product.price_min | money }}
+            </span>
+          </a>
+          <script type="application/json" id="{{ json_id }}">
+            {%- render 'blondish-product-json', product: product, details_url: details_url -%}
+          </script>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="blondish-pagination" aria-label="Pagination">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr; Prev</a>{%- endif -%}
+          <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next &rarr;</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- else -%}
+      <p class="blondish-empty">New drops coming soon.</p>
+    {%- endif -%}
+  {%- endpaginate -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="blondish-faq">
+      {%- if section.settings.faq_title != blank -%}
+        <h2 class="blondish-faq__title">{{ section.settings.faq_title }}</h2>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="blondish-faq__answer">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{%- comment -%} SEO: product list structured data {%- endcomment -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": {{ section.settings.title | default: collection.title | json }},
+    "itemListElement": [
+      {%- assign bl_sep = '' -%}
+      {%- assign bl_pos = 0 -%}
+      {%- for product in collection.products limit: 50 -%}
+        {%- if hidden_tag != blank and product.tags contains hidden_tag -%}{%- continue -%}{%- endif -%}
+        {%- assign bl_pos = bl_pos | plus: 1 -%}
+        {{ bl_sep }}{
+          "@type": "ListItem",
+          "position": {{ bl_pos }},
+          "url": {{ request.origin | append: product.url | json }}
+        }
+        {%- assign bl_sep = ',' -%}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "BLOND:ISH collection",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Official BLOND:ISH & Abracadabra Merch", "info": "Leave blank to use the collection title" },
+    { "type": "text", "id": "subtitle", "label": "Subheading", "default": "Official BLOND:ISH merch — apparel, limited editions. Ships worldwide." },
+    { "type": "range", "id": "columns", "label": "Columns (desktop)", "min": 2, "max": 5, "step": 1, "default": 3 },
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 12, "max": 48, "step": 4, "default": 48 },
+    { "type": "text", "id": "hidden_tag", "label": "Hide products with tag", "default": "blondish-hidden" },
+    { "type": "text", "id": "product_template", "label": "Product page template suffix", "default": "custom-pdp-blondish", "info": "\"View full details\" opens products with this template." },
+    { "type": "text", "id": "faq_title", "label": "FAQ heading", "default": "FAQ" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" }
+      ]
+    }
+  ]
+}
+{% endschema %}

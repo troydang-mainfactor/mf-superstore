@@ -9,113 +9,132 @@
  */
 {
   "sections": {
-    "custom-page-header": {
-      "type": "custom-page-header",
-      "settings": {
-        "color_page_background": "#000000",
-        "color_page_text": "#ffffff",
-        "color_button_background": "#000000",
-        "color_button_text": "#000000",
-        "color_product_tag_background": "#de2e2e",
-        "color_product_tag_text": "#000000",
-        "color_cart_dot": "#de2e2e",
-        "type_heading_font_family": "inconsolata_n4",
-        "type_heading_base_size": 22,
-        "type_heading_spacing": "0",
-        "type_heading_line_height": 1.2,
-        "type_body_font_family": "inconsolata_n4",
-        "type_body_base_size": 15,
-        "type_body_spacing": "25",
-        "type_body_line_height": 1.4,
-        "logo": "shopify://shop_images/BLONDISHWHITE.png",
-        "desktop_logo_width": 330,
-        "mobile_logo_width": 160,
-        "logo_link": "",
-        "logo_layout": "inline",
-        "main_menu": "",
-        "show_social_icons": true,
-        "social_facebook_link": "https://www.facebook.com/Blondish/",
-        "social_twitter_link": "",
-        "social_pinterest_link": "",
-        "social_instagram_link": "https://www.instagram.com/blondish/",
-        "social_snapchat_link": "",
-        "social_tiktok_link": "https://www.tiktok.com/@blondish",
-        "social_tumblr_link": "",
-        "social_linkedin_link": "",
-        "social_youtube_link": "https://www.youtube.com/@BLONDISH",
-        "social_vimeo_link": "",
-        "social_apple_link": "",
-        "social_spotify_link": "https://open.spotify.com/artist/6zsJjoCtL1WByG0VsuFWzR"
-      }
-    },
-    "rich_text_WXJfxw": {
-      "type": "rich-text",
+    "blondish-header": {
+      "type": "blondish-header",
       "blocks": {
-        "heading_P973Ve": {
-          "type": "heading",
+        "tour": {
+          "type": "link",
           "settings": {
-            "title": "Official BLOND:ISH & Abracadabra Merch"
-          }
-        },
-        "text_HmkMVH": {
-          "type": "text",
-          "settings": {
-            "enlarge_text": true,
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+            "label": "Tour",
+            "url": "https://blondish.world/tour/"
           }
         }
       },
       "block_order": [
-        "heading_P973Ve",
-        "text_HmkMVH"
+        "tour"
       ],
-      "disabled": true,
-      "name": "t:sections.rich-text.presets.rich_text.name",
       "settings": {
-        "align_text": "center",
-        "narrow_column": true,
-        "divider": false
+        "logo": "shopify://shop_images/BLONDISHWHITE.png",
+        "logo_link": "https://blondish.world",
+        "desktop_logo_width": 160,
+        "mobile_logo_width": 120,
+        "body_font": "inter_n4"
       }
     },
-    "collection-header": {
-      "type": "collection-header",
-      "disabled": true,
+    "main": {
+      "type": "blondish-collection",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this official BLOND:ISH merchandise?",
+            "answer": "<p>Yes. This is the only official BLOND:ISH merch store. All designs are created by Vivie-Ann Bakos.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Where do you ship?",
+            "answer": "<p>Worldwide. Orders ship within 3-5 business days. International delivery takes 7-14 days.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "How does sizing run?",
+            "answer": "<p>Most items run true to size. Oversized fits are noted in the product description. When in doubt, size up.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "disabled": true,
+          "settings": {
+            "question": "Can I return or exchange?",
+            "answer": "<p>Returns and exchanges accepted within 30 days of delivery. Items must be unworn with tags attached.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
       "settings": {
-        "enable": false,
-        "collection_image_enable": false,
-        "parallax": false,
-        "parallax_direction": "top"
+        "title": "Official BLOND:ISH & Abracadabra Merch",
+        "subtitle": "Official BLOND:ISH merch — apparel, limited editions. Ships worldwide.",
+        "columns": 3,
+        "per_page": 48,
+        "hidden_tag": "blondish-hidden",
+        "product_template": "custom-pdp-blondish",
+        "faq_title": "FAQ"
       }
     },
-    "featured_collection_qdmhh4": {
-      "type": "featured-collection",
+    "blondish-footer": {
+      "type": "blondish-footer",
+      "blocks": {
+        "tour": {
+          "type": "link",
+          "disabled": true,
+          "settings": {
+            "label": "Tour",
+            "url": "https://blondish.world/tour/"
+          }
+        },
+        "store": {
+          "type": "link",
+          "disabled": true,
+          "settings": {
+            "label": "Store",
+            "url": "https://blondish.world/store/"
+          }
+        },
+        "blog": {
+          "type": "link",
+          "disabled": true,
+          "settings": {
+            "label": "Blog",
+            "url": "https://blondish.world/blog/"
+          }
+        },
+        "about": {
+          "type": "link",
+          "disabled": true,
+          "settings": {
+            "label": "About",
+            "url": "https://blondish.world/about/"
+          }
+        }
+      },
+      "block_order": [
+        "tour",
+        "store",
+        "blog",
+        "about"
+      ],
       "settings": {
-        "title": "",
-        "home_featured_products": "blond-ish",
-        "per_row": 3,
-        "rows": 1,
-        "mobile_scrollable": false,
-        "view_all": false,
-        "divider": false
-      }
-    },
-    "main-collection": {
-      "type": "main-collection",
-      "disabled": true,
-      "settings": {
-        "enable_sidebar": false,
-        "collapsed": false,
-        "filter_style": "sidebar",
-        "enable_color_swatches": false,
-        "enable_sort": false
+        "copyright": "BLOND:ISH",
+        "social_instagram": "https://www.instagram.com/blondish/",
+        "social_spotify": "https://open.spotify.com/artist/6zsJjoCtL1WByG0VsuFWzR",
+        "social_youtube": "https://www.youtube.com/@BLONDISH",
+        "social_tiktok": "https://www.tiktok.com/@blondish",
+        "social_facebook": "https://www.facebook.com/Blondish/"
       }
     }
   },
   "order": [
-    "custom-page-header",
-    "rich_text_WXJfxw",
-    "collection-header",
-    "featured_collection_qdmhh4",
-    "main-collection"
+    "blondish-header",
+    "main",
+    "blondish-footer"
   ]
 }
