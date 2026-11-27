@@ -48,12 +48,39 @@
         "social_spotify_link": ""
       }
     },
+    "blocks_UMUwHP": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe137ac_mxUB4k": {
+          "type": "ai_gen_block_fe137ac",
+          "settings": {
+            "text": "Black Friday Sale: 20% off storewide, no code.Excludes: music",
+            "link_text": "",
+            "link_url": "",
+            "show_icon": false,
+            "icon_type": "megaphone",
+            "icon_size": 20,
+            "background_color": "#000000",
+            "text_color": "#ffffff",
+            "link_color": "#ffffff",
+            "link_hover_color": "#cccccc",
+            "font_size": 17,
+            "padding": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe137ac_mxUB4k"
+      ],
+      "name": "Announcement bar",
+      "settings": {}
+    },
     "17951520786ef85e40": {
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_3bd0312_wxU9Pk": {
           "type": "ai_gen_block_3bd0312",
-          "disabled": true,
           "settings": {
             "banner_one_desktop": "shopify://shop_images/Banner_BOOPLOutNow_6d713e34-dc0e-4772-adb4-f6428a9cf1ea.png",
             "banner_one_mobile": "shopify://shop_images/1x1_BOOPLVinyl_Restock.png",
@@ -276,6 +303,7 @@
   },
   "order": [
     "custom-page-header",
+    "blocks_UMUwHP",
     "17951520786ef85e40",
     "slideshow_FXxryp",
     "17586693425605704b",
