@@ -7,6 +7,19 @@
     assign current_items = ''
 
     for link in linklists.main-menu.links
+      comment
+        <locksmith:559b> Code added automatically by the Locksmith app. Do not modify or remove.
+      endcomment
+      capture var
+        render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: linklists.main-menu, variable: 'transparent'
+      endcapture
+      if var == "true"
+      else
+        continue
+      endif
+      comment
+        </locksmith:559b> End Locksmith code block.
+      endcomment
       if link.active and link.levels > 0 and link.child_active == false
         unless current_items contains link.title
           render 'sub-collections', per_row: per_row, sub_collection_links: link.links
@@ -14,6 +27,19 @@
         endunless
       endif
       for sub_link in link.links
+        comment
+          <locksmith:f463> Code added automatically by the Locksmith app. Do not modify or remove.
+        endcomment
+        capture var
+          render 'locksmith-variables', scope: 'subject', subject: sub_link, subject_parent: link, variable: 'transparent'
+        endcapture
+        if var == "true"
+        else
+          continue
+        endif
+        comment
+          </locksmith:f463> End Locksmith code block.
+        endcomment
         if sub_link.active and sub_link.levels > 0 and sub_link.child_active == false
           unless current_items contains sub_link.title
             render 'sub-collections', per_row: per_row, sub_collection_links: sub_link.links
@@ -21,6 +47,19 @@
           endunless
         endif
         for sub_sub_link in sub_link.links
+          comment
+            <locksmith:c88e> Code added automatically by the Locksmith app. Do not modify or remove.
+          endcomment
+          capture var
+            render 'locksmith-variables', scope: 'subject', subject: sub_sub_link, subject_parent: sub_link, variable: 'transparent'
+          endcapture
+          if var == "true"
+          else
+            continue
+          endif
+          comment
+            </locksmith:c88e> End Locksmith code block.
+          endcomment
           if sub_sub_link.active and sub_sub_link.url == sub_link.url
             unless current_items contains sub_sub_link.title
               render 'sub-collections', per_row: per_row, parent_url: sub_link.url, sub_collection_links: sub_link.links

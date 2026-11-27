@@ -23,6 +23,9 @@
         <div class="toolbar__item toolbar__item--menu">
           <ul class="inline-list toolbar__menu">
           {%- for link in toolbar_menu.links -%}
+            {%- comment %}<locksmith:cc8f>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: toolbar_menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:cc8f>{% endcomment -%}
             <li>
               <a href="{{ link.url }}">{{ link.title }}</a>
             </li>

@@ -16,6 +16,9 @@
       <div class="footer__collapsible{% unless block.settings.show_footer_title %} footer_collapsible--disabled{% endunless %}">
         <ul class="no-bullets site-footer__linklist">
           {%- for link in linklists[block.settings.menu].links -%}
+            {%- comment %}<locksmith:137d>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: linklists[block.settings.menu], variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:137d>{% endcomment -%}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
           {%- endfor -%}
            <li><a class="footer__accessibility" data-acsb="trigger" data-di-id="#gen_AccessibilityAdjustments">Accessibility Adjustments</a></li>
