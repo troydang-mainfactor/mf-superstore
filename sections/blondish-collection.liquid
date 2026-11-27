@@ -53,7 +53,7 @@
             <span class="blondish-card__title">{{ product.title }}</span>
             <span class="blondish-card__price">
               {%- if product.price_varies -%}From {% endif -%}{{ product.price_min | money }}
-      </div>
+      
             </span>
           </a>
           <script type="application/json" id="{{ json_id }}">
