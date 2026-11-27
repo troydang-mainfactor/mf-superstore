@@ -25,6 +25,9 @@
 <section class="single-grid-item single-collection">
   {% paginate collections.all.products by 1000 %}
     {% for product in collections.all.products %}
+      {%- comment %}<locksmith:9739>{% endcomment -%}
+        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collections.all, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+      {%- comment %}</locksmith:9739>{% endcomment -%}
       {% for variant in product.variants %}
         {% if variant.metafields.single_livestream.livestream_id contains livestream_id %}
           <div class="single-collection-product single-col col-1_3">

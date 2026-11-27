@@ -33,6 +33,9 @@
     </div>
   {% endif %}
   {% for product in collections[collection_handle].products %}
+    {%- comment %}<locksmith:07e5>{% endcomment -%}
+      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collections[collection_handle], variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+    {%- comment %}</locksmith:07e5>{% endcomment -%}
     <div class="single-collection-product single-col col-1_{{ column_count }}">
       <a class="single-collection-product-link" href="{{ product.url }}" target="{% if separate_tab == 'true' %}_blank{% else %}_self{% endif %}">
         <div class="single-collection-product-img-wrap">

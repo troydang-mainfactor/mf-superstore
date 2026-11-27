@@ -53,14 +53,14 @@
     <!-- Product Metatags -->
     <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
-    {%- comment %}<locksmith:c728>{% endcomment -%}
+    {%- comment %}<locksmith:b951>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta property="og:title" content="{{ product.title }}">{% endif -%}
       {%- comment %}original: <meta property="og:title" content="{{ product.title }}">{%- endcomment %}
-    {%- comment %}</locksmith:c728>{% endcomment -%}
-    {%- comment %}<locksmith:9563>{% endcomment -%}
+    {%- comment %}</locksmith:b951>{% endcomment -%}
+    {%- comment %}<locksmith:51c7>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta property="og:image" content="{{ product.featured_image.src | img_url: 'grande' }}">{% endif -%}
       {%- comment %}original: <meta property="og:image" content="{{ product.featured_image.src | img_url: 'grande' }}">{%- endcomment %}
-    {%- comment %}</locksmith:9563>{% endcomment -%}
+    {%- comment %}</locksmith:51c7>{% endcomment -%}
     <meta property="og:url" content="{{ shop.url }}{{ product.url }}">
     <!-- Left Column -->
     <div class="single-col col-2_4">
@@ -231,6 +231,9 @@
           class="single-tracklist"
         >
           {% for track in products %}
+            {%- comment %}<locksmith:8093>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: track, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:8093>{% endcomment -%}
             {% include 'single-music-track' with track %}
           {% endfor %}
         </div>
@@ -278,6 +281,9 @@
 
 <!-- Footer Player -->
 {% for track in products %}
+  {%- comment %}<locksmith:cc7b>{% endcomment -%}
+    {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: track, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+  {%- comment %}</locksmith:cc7b>{% endcomment -%}
   {% capture trackReleaseDateString %}{{ track.metafields.track.release_date }}{% endcapture %}
   {% assign trackDateParts = trackReleaseDateString | split: '/' %}
   {% capture trackReleaseDateFormatted -%}
