@@ -42,7 +42,14 @@
 
 <div class="promo-grid{% if section.settings.space_above %} promo-grid--space-top{% endif %}{% if section.settings.space_below %} promo-grid--space-bottom{% endif %}">
   <div class="flex-grid flex-grid--gutters flex-grid--{{ section.id }}">
+    {%- comment %}<locksmith:c354>{% endcomment -%}
+      {%- assign locksmith_e0cc_forloop__size = 0 %}{%- for block in section.blocks -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.product, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_e0cc_forloop__size = locksmith_e0cc_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_e0cc_forloop__index = nil -%}
+    {%- comment %}</locksmith:c354>{% endcomment -%}
     {%- for block in section.blocks -%}
+
+      {%- comment %}<locksmith:418c>{% endcomment -%}
+        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.product, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_e0cc_forloop__index == nil %}{% assign locksmith_e0cc_forloop__index = 1 %}{% assign locksmith_e0cc_forloop__index0 = 0 %}{% else %}{% assign locksmith_e0cc_forloop__index = locksmith_e0cc_forloop__index | plus: 1 %}{% assign locksmith_e0cc_forloop__index0 = locksmith_e0cc_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_e0cc_forloop__index == 1 %}{% assign locksmith_e0cc_forloop__first = true %}{% else %}{% assign locksmith_e0cc_forloop__first = false %}{% endif %}{% if locksmith_e0cc_forloop__index == locksmith_e0cc_forloop__size %}{% assign locksmith_e0cc_forloop__last = true %}{% else %}{% assign locksmith_e0cc_forloop__last = false %}{% endif %}{% assign locksmith_e0cc_forloop__rindex = locksmith_e0cc_forloop__size | minus: locksmith_e0cc_forloop__index | minus: 1 %}{% assign locksmith_e0cc_forloop__rindex0 = locksmith_e0cc_forloop__size | minus: locksmith_e0cc_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+      {%- comment %}</locksmith:418c>{% endcomment -%}
 
       {%- if collection_page -%}
         {%- if block.settings.promo_collection != blank -%}
@@ -139,7 +146,7 @@
 
       {%- liquid
         assign blockWidth = block.settings.width | times: 1
-        if forloop.index == 1 and blockWidth >= 50
+        if locksmith_e0cc_forloop__index == 1 and blockWidth >= 50
           assign loading = section.settings.lazyload_images
         else
           assign loading = true
