@@ -158,6 +158,9 @@
     {% if block.settings.collection != blank %}
       <div class="ai-featured-collection__products-{{ ai_gen_id }}">
         {% for product in block.settings.collection.products limit: block.settings.product_limit %}
+          {%- comment %}<locksmith:8112>{% endcomment -%}
+            {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: block.settings.collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+          {%- comment %}</locksmith:8112>{% endcomment -%}
           <div class="ai-featured-collection__product-{{ ai_gen_id }}">
             <a
               href="{{ product.url }}"

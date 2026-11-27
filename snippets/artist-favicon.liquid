@@ -38,6 +38,19 @@
       assign vendor_handle = product.vendor | handleize
       assign haystack = haystack | append: ' ' | append: vendor_handle
       for c in product.collections
+        comment
+          <locksmith:e6fb> Code added automatically by the Locksmith app. Do not modify or remove.
+        endcomment
+        capture var
+          render 'locksmith-variables', scope: 'subject', subject: c, subject_parent: product, variable: 'transparent'
+        endcapture
+        if var == "true"
+        else
+          continue
+        endif
+        comment
+          </locksmith:e6fb> End Locksmith code block.
+        endcomment
         assign haystack = haystack | append: ' ' | append: c.handle
       endfor
     endif

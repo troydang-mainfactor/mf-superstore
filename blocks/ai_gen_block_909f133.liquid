@@ -36,6 +36,9 @@
   {% if block.settings.collection != blank %}
     <div class="ai-collection-{{ ai_gen_id }}__grid">
       {% for item in block.settings.collection.products limit: block.settings.product_limit %}
+        {%- comment %}<locksmith:6eaa>{% endcomment -%}
+          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: item, subject_parent: block.settings.collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:6eaa>{% endcomment -%}
         <article class="ai-collection-{{ ai_gen_id }}__card">
           <a class="ai-collection-{{ ai_gen_id }}__image-link" href="{{ item.url }}" aria-label="{{ item.title | escape }}">
             {% if item.featured_image %}<img src="{{ item.featured_image | image_url: width: 900 }}" alt="{{ item.featured_image.alt | default: item.title | escape }}" loading="lazy" width="{{ item.featured_image.width }}" height="{{ item.featured_image.height }}">

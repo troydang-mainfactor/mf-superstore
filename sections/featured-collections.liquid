@@ -16,6 +16,9 @@
     -%}
 
     {%- for block in section.blocks -%}
+      {%- comment %}<locksmith:1fa7>{% endcomment -%}
+        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+      {%- comment %}</locksmith:1fa7>{% endcomment -%}
       {%- liquid
         assign collection = collections[block.settings.collection]
         assign background_position = block.settings.focal_point

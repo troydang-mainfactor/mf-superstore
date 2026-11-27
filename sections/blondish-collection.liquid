@@ -16,6 +16,9 @@
     {%- if collection.products_count > 0 -%}
       <div class="blondish-grid" style="--bl-cols: {{ section.settings.columns }};">
         {%- for product in collection.products -%}
+          {%- comment %}<locksmith:6181>{% endcomment -%}
+            {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+          {%- comment %}</locksmith:6181>{% endcomment -%}
           {%- if hidden_tag != blank and product.tags contains hidden_tag -%}{%- continue -%}{%- endif -%}
 
           {%- liquid
@@ -104,6 +107,9 @@
       {%- assign bl_sep = '' -%}
       {%- assign bl_pos = 0 -%}
       {%- for product in collection.products limit: 50 -%}
+        {%- comment %}<locksmith:cdc2>{% endcomment -%}
+          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:cdc2>{% endcomment -%}
         {%- if hidden_tag != blank and product.tags contains hidden_tag -%}{%- continue -%}{%- endif -%}
         {%- assign bl_pos = bl_pos | plus: 1 -%}
         {{ bl_sep }}{

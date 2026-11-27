@@ -174,6 +174,9 @@
       {% if collection.products.size > 0 %}
         <div class="ai-featured-collection__grid-{{ ai_gen_id }}">
           {% for product in collection.products limit: products_to_show %}
+            {%- comment %}<locksmith:3c5c>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:3c5c>{% endcomment -%}
             <a
               href="{{ product.url }}"
               class="ai-featured-collection__product-{{ ai_gen_id }}"
