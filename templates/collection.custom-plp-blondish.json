@@ -70,7 +70,10 @@
         "faq_3",
         "faq_4"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "h1 {background: url(\"https://cdn.shopify.com/s/files/1/0797/5013/6119/files/BLONDISH-certified-energy-boost-stamp.png?v=1795803986\") no-repeat; background-size: 130px; background-position: calc(50% + 190px) 100%; padding-bottom: 80px;}",
+        "@media (max-width: 749px) {h1 {background-size: 80px; background-position: right 4% bottom; padding-bottom: 40px; }}"
+      ],
       "settings": {
         "title": "Official BLOND:ISH & Abracadabra Merch",
         "subtitle": "",
