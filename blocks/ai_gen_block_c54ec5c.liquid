@@ -247,9 +247,6 @@
         {% if block.settings.menu != blank %}
           <ul class="ai-footer-menu-{{ ai_gen_id }}">
             {% for link in block.settings.menu.links %}
-              {%- comment %}<locksmith:7ba3>{% endcomment -%}
-                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: block.settings.menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-              {%- comment %}</locksmith:7ba3>{% endcomment -%}
               <li class="ai-footer-menu-item-{{ ai_gen_id }}">
                 <a href="{{ link.url }}" class="ai-footer-menu-link-{{ ai_gen_id }}">
                   {{ link.title }}

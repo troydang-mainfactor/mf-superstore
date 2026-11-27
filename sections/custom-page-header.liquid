@@ -353,15 +353,9 @@
       </div>
       <div class="drawer__scrollable">
         <ul class="mobile-nav{% if settings.type_navigation_style == 'heading' %} mobile-nav--heading-style{% endif %}" role="navigation" aria-label="Primary">
-          {%- comment %}<locksmith:c45b>{% endcomment -%}
-            {%- assign locksmith_4ffa_forloop__size = 0 %}{%- for link in main_menu.links -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: main_menu, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_4ffa_forloop__size = locksmith_4ffa_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_4ffa_forloop__index = nil -%}
-          {%- comment %}</locksmith:c45b>{% endcomment -%}
           {%- for link in main_menu.links -%}
-            {%- comment %}<locksmith:c5b7>{% endcomment -%}
-              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: main_menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_4ffa_forloop__index == nil %}{% assign locksmith_4ffa_forloop__index = 1 %}{% assign locksmith_4ffa_forloop__index0 = 0 %}{% else %}{% assign locksmith_4ffa_forloop__index = locksmith_4ffa_forloop__index | plus: 1 %}{% assign locksmith_4ffa_forloop__index0 = locksmith_4ffa_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_4ffa_forloop__index == 1 %}{% assign locksmith_4ffa_forloop__first = true %}{% else %}{% assign locksmith_4ffa_forloop__first = false %}{% endif %}{% if locksmith_4ffa_forloop__index == locksmith_4ffa_forloop__size %}{% assign locksmith_4ffa_forloop__last = true %}{% else %}{% assign locksmith_4ffa_forloop__last = false %}{% endif %}{% assign locksmith_4ffa_forloop__rindex = locksmith_4ffa_forloop__size | minus: locksmith_4ffa_forloop__index | minus: 1 %}{% assign locksmith_4ffa_forloop__rindex0 = locksmith_4ffa_forloop__size | minus: locksmith_4ffa_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
-            {%- comment %}</locksmith:c5b7>{% endcomment -%}
             {%- assign animation_row = animation_row | plus: 1 -%}
-            {%- assign child_list_handle = link.url | handleize | append: locksmith_4ffa_forloop__index -%}
+            {%- assign child_list_handle = link.url | handleize | append: forloop.index -%}
             {%- assign has_dropdown = false -%}
             {%- if link.links != blank -%}
               {%- assign has_dropdown = true -%}
@@ -410,15 +404,9 @@
                   {% if link.active or link.child_active %}style="height: auto;"{% endif %}>
                   <div class="collapsible-content__inner">
                     <ul class="mobile-nav__sublist">
-                      {%- comment %}<locksmith:1d9c>{% endcomment -%}
-                        {%- assign locksmith_98f3_forloop__size = 0 %}{%- for childlink in link.links -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: childlink, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_98f3_forloop__size = locksmith_98f3_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_98f3_forloop__index = nil -%}
-                      {%- comment %}</locksmith:1d9c>{% endcomment -%}
                       {%- for childlink in link.links -%}
-                        {%- comment %}<locksmith:dc84>{% endcomment -%}
-                          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: childlink, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_98f3_forloop__index == nil %}{% assign locksmith_98f3_forloop__index = 1 %}{% assign locksmith_98f3_forloop__index0 = 0 %}{% else %}{% assign locksmith_98f3_forloop__index = locksmith_98f3_forloop__index | plus: 1 %}{% assign locksmith_98f3_forloop__index0 = locksmith_98f3_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_98f3_forloop__index == 1 %}{% assign locksmith_98f3_forloop__first = true %}{% else %}{% assign locksmith_98f3_forloop__first = false %}{% endif %}{% if locksmith_98f3_forloop__index == locksmith_98f3_forloop__size %}{% assign locksmith_98f3_forloop__last = true %}{% else %}{% assign locksmith_98f3_forloop__last = false %}{% endif %}{% assign locksmith_98f3_forloop__rindex = locksmith_98f3_forloop__size | minus: locksmith_98f3_forloop__index | minus: 1 %}{% assign locksmith_98f3_forloop__rindex0 = locksmith_98f3_forloop__size | minus: locksmith_98f3_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
-                        {%- comment %}</locksmith:dc84>{% endcomment -%}
                         {%- assign has_sub_dropdown = false -%}
-                        {%- assign grand_child_list_handle = childlink.url | handleize | append: locksmith_98f3_forloop__index -%}
+                        {%- assign grand_child_list_handle = childlink.url | handleize | append: forloop.index -%}
                         {%- if childlink.links != blank -%}
                           {%- assign has_sub_dropdown = true -%}
                         {%- endif -%}
@@ -459,9 +447,6 @@
                               <div class="collapsible-content__inner">
                                 <ul class="mobile-nav__grandchildlist">
                                   {%- for grandchildlink in childlink.links -%}
-                                    {%- comment %}<locksmith:9e81>{% endcomment -%}
-                                      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: grandchildlink, subject_parent: childlink, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-                                    {%- comment %}</locksmith:9e81>{% endcomment -%}
                                     <li class="mobile-nav__item">
                                       <a href="{{ grandchildlink.url }}" class="mobile-nav__link"{% if grandchildlink.active %} data-active="true"{% endif %}>
                                         {{ grandchildlink.title }}
