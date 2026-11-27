@@ -15,13 +15,13 @@
         "ai_gen_block_fe137ac_WiNATX": {
           "type": "ai_gen_block_fe137ac",
           "settings": {
-            "text": "<strong>15% OFF HALLOWEEN FLASH SALE!</strong>",
+            "text": "<strong>UP TO 70% OFF SITEWIDE + FREE PRINT WITH PURCHASE!</strong>",
             "link_text": "",
             "link_url": "",
             "show_icon": false,
             "icon_type": "megaphone",
             "icon_size": 20,
-            "background_color": "#FF328D",
+            "background_color": "#ff328d",
             "text_color": "#ffffff",
             "link_color": "#ffffff",
             "link_hover_color": "#cccccc",
