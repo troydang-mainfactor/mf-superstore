@@ -53,9 +53,6 @@
             <span class="blondish-card__title">{{ product.title }}</span>
             <span class="blondish-card__price">
               {%- if product.price_varies -%}From {% endif -%}{{ product.price_min | money }}
-              {%- if current_variant.compare_at_price > current_variant.price -%}
-          <s>{{ current_variant.compare_at_price | money }}</s>
-        {%- endif -%}
       </div>
             </span>
           </a>
