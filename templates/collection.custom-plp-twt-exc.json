@@ -95,7 +95,7 @@
       ],
       "settings": {
         "title": "",
-        "home_featured_products": "the-wild-things",
+        "home_featured_products": "the-wild-things-exclusive-tee",
         "per_row": 3,
         "rows": 2,
         "mobile_scrollable": false,
@@ -203,7 +203,7 @@
         "ai_gen_block_a0b8580_peTyWB"
       ],
       "custom_css": [
-        "p, input, input::placeholder, button {font-family: 'Nowduke-Regular', sans-serif !important;}"
+        "p,input,input::placeholder,button {font-family: \"Nowduke-Regular\", sans-serif !important;}"
       ],
       "name": "Newsletter signup",
       "settings": {}
