@@ -52,8 +52,14 @@
             </span>
             <span class="blondish-card__title">{{ product.title }}</span>
             <span class="blondish-card__price">
-              {%- if product.price_varies -%}From {% endif -%}{{ product.price_min | money }}
-            </span>
+  {%- if product.price_varies -%}From {% endif -%}
+  {%- if product.compare_at_price > product.price -%}
+    <s class="blondish-card__compare">{{ product.compare_at_price | money }}</s>
+    <span class="blondish-card__sale">{{ product.price_min | money }}</span>
+  {%- else -%}
+    {{ product.price_min | money }}
+  {%- endif -%}
+</span>
           </a>
           <script type="application/json" id="{{ json_id }}">
             {%- render 'blondish-product-json', product: product, details_url: details_url -%}
